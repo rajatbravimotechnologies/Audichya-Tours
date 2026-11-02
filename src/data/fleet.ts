@@ -70,7 +70,7 @@ export const fleetData: FleetItem[] = [
       "Smooth ride comfort",
       "Dedicated professional driver"
     ],
-    image: "/images/Aura.webp",
+    image: "/images/Aura.avif",
     objectPosition: "center"
   },
   {
@@ -89,7 +89,7 @@ export const fleetData: FleetItem[] = [
       "Economical family group travel",
       "Courteous local chauffeur"
     ],
-    image: "/images/Ertiga.webp",
+    image: "/images/Ertiga.avif",
     objectPosition: "center"
   },
   {
@@ -108,7 +108,7 @@ export const fleetData: FleetItem[] = [
       "Advanced safety & smooth highway suspension",
       "Experienced highway chauffeur"
     ],
-    image: "/images/Ertiga.webp",
+    image: "/images/Kia Carens.avif",
     objectPosition: "center"
   },
   {
