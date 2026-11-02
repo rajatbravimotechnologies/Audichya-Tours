@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 400" fill="none" class="w-full h-full">
+  <defs>
+    <filter id="crisp" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- U Element -->
+  <path d="M 68 85 L 68 280 C 68 335 110 375 165 375 C 220 375 258 335 258 280 L 258 245 C 258 135 348 70 455 70 C 535 70 598 115 628 178" 
+        stroke="#007FF0" 
+        stroke-width="28" 
+        stroke-linecap="square" 
+        stroke-linejoin="round" 
+        fill="none" />
+
+  <!-- Outer Wheel Arch Extension (Dark Navy overlay) -->
+  <path d="M 570 120 C 585 145 595 175 598 210 L 598 290" 
+        stroke="#002247" 
+        stroke-width="26" 
+        stroke-linecap="round" 
+        fill="none" />
+
+  <!-- The Wheel: Outer Ring -->
+  <circle cx="435" cy="275" r="132" stroke="#002247" stroke-width="24" fill="none" />
+
+  <!-- Wheel Spokes (10 radiating spokes) -->
+  <!-- 0 deg -->
+  <line x1="435" y1="165" x2="435" y2="235" stroke="#002247" stroke-width="16" stroke-linecap="round" />
+  <line x1="435" y1="315" x2="435" y2="385" stroke="#002247" stroke-width="16" stroke-linecap="round" />
+  <!-- 36 deg -->
+  <line x1="500" y1="186" x2="458" y2="244" stroke="#002247" stroke-width="16" stroke-linecap="round" />
+  <line x1="370" y1="364" x2="412" y2="306" stroke="#002247" stroke-width="16" stroke-linecap="round" />
+  <!-- 72 deg -->
+  <line x1="539" y1="241" x2="473" y2="261" stroke="#002247" stroke-width="16" stroke-linecap="round" />
+  <line x1="331" y1="309" x2="397" y2="289" stroke="#002247" stroke-width="16" stroke-linecap="round" />
+  <!-- 108 deg -->
+  <line x1="539" y1="309" x2="473" y2="289" stroke="#002247" stroke-width="16" stroke-linecap="round" />
+  <line x1="331" y1="241" x2="397" y2="261" stroke="#002247" stroke-width="16" stroke-linecap="round" />
+  <!-- 144 deg -->
+  <line x1="500" y1="364" x2="458" y2="306" stroke="#002247" stroke-width="16" stroke-linecap="round" />
+  <line x1="370" y1="186" x2="412" y2="244" stroke="#002247" stroke-width="16" stroke-linecap="round" />
+
+  <!-- Center Hub White Isolator -->
+  <circle cx="435" cy="275" r="42" fill="#FFFFFF" />
+
+  <!-- Center Wheel Hub (Premium Gold #C2A03E) -->
+  <circle cx="435" cy="275" r="28" fill="#C2A03E" />
+
+  <!-- W Letter with aerodynamic horizontal speed fins in #007FF0 -->
+  <g fill="#007FF0">
+    <!-- Left diagonal stem of W -->
+    <polygon points="560,345 588,215 622,215 588,382 556,382 534,300 550,296" />
+    <!-- Center diagonal going up -->
+    <polygon points="582,382 660,220 688,220 618,382" />
+    <!-- Center to right diagonal going down -->
+    <polygon points="660,220 688,220 726,382 694,382" />
+    <!-- Wing streak 1 (top) -->
+    <polygon points="706,238 780,238 880,248 760,268 718,268" />
+    <!-- Wing streak 2 (upper mid) -->
+    <polygon points="720,290 810,290 850,300 750,318 722,318" />
+    <!-- Wing streak 3 (lower mid) -->
+    <polygon points="718,340 790,340 820,348 740,364 712,364" />
+    <!-- Wing streak 4 (bottom tail) -->
+    <polygon points="694,382 726,382 780,392 730,404 688,404" />
+  </g>
+</svg>

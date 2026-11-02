@@ -1,0 +1,5 @@
+# https://audichyatours.com/robots.txt
+User-agent: *
+Allow: /
+
+Sitemap: https://audichyatours.com/sitemap.xml

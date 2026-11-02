@@ -1,0 +1,6 @@
+{
+  "name": "Udaipur on Wheels – Premium Cab & Taxi Service",
+  "description": "Premium cab and taxi service in Udaipur, Rajasthan. Airport transfers, local city tours, outstation rides, and royal wedding transportation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
