@@ -20,8 +20,8 @@ export interface SiteConfig {
   contact: {
     phone1: string;
     rawPhone1: string;
-    phone2: string;
-    rawPhone2: string;
+    phone2?: string;
+    rawPhone2?: string;
     displayPhone: string;
     rawPhone: string; // primary tel: link
     whatsappNumber: string; // International phone number without + or special chars
@@ -68,12 +68,10 @@ export const siteConfig: SiteConfig = {
   contact: {
     phone1: "+91 97727 71118",
     rawPhone1: "919772771118",
-    phone2: "+91 90016 93314",
-    rawPhone2: "919001693314",
     displayPhone: "+91 97727 71118",
     rawPhone: "919772771118",
-    whatsappNumber: "919785557805",
-    whatsappDisplay: "+91 97855 57805",
+    whatsappNumber: "919772771118",
+    whatsappDisplay: "+91 97727 71118",
     email: "Audichyatours@gmail.com",
     address: "50, Jai Shree Vihar, Udaipur, Rajasthan, India, 313001",
     workingHours: "24/7 Taxi Services & Tour Assistance",
@@ -85,11 +83,10 @@ export const siteConfig: SiteConfig = {
   },
   navigation: [
     { label: "Home", href: "/" },
-    { label: "Services", href: "/services" },
+    { label: "Taxi Services", href: "/taxi-services" },
+    { label: "Tour Packages", href: "/tour-packages" },
     { label: "Fleet", href: "/fleet" },
-    { label: "Tour Packages", href: "/explore" },
-    { label: "Airport Transfers", href: "/airport-transfers" },
-    { label: "Weddings", href: "/wedding-transportation" },
+    { label: "Gallery", href: "/gallery" },
     { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },
   ],
@@ -133,7 +130,7 @@ export const siteConfig: SiteConfig = {
 /**
  * Builds a standardized WhatsApp click-to-chat URL with pre-filled travel details.
  */
-export function buildWhatsAppBookingUrl(params: {
+export function buildWhatsAppBookingUrl(params?: {
   serviceType?: string;
   pickup?: string;
   drop?: string;
@@ -158,19 +155,30 @@ export function buildWhatsAppBookingUrl(params: {
     packageType,
     weddingVenue,
     customNotes,
-  } = params;
+  } = params || {};
 
-  const textLines = [
+  const textLines: string[] = [
     `*Namaste AUDICHYA TOURS!*`,
-    `I would like to inquire about a ${serviceType ? `*${serviceType}*` : "booking"}:`,
-    ``,
-    `📍 *Pickup Location:* ${pickup || "To be confirmed"}`,
-    `🏁 *Destination:* ${drop || "To be confirmed"}`,
-    `📅 *Travel Date:* ${date || "Flexible"}`,
-    `⏰ *Travel Time:* ${time || "Flexible"}`,
-    `👥 *Passengers:* ${passengers || "1-4"}`,
-    `🚗 *Vehicle Type:* ${vehicleType || "Sedan / SUV"}`,
+    `I would like to inquire about ${serviceType ? `*${serviceType}*` : "booking a taxi"}:`,
   ];
+
+  if (pickup || drop) {
+    textLines.push(``);
+    if (pickup) textLines.push(`📍 *Pickup Location:* ${pickup}`);
+    if (drop) textLines.push(`🏁 *Destination:* ${drop}`);
+  }
+
+  if (date || time) {
+    textLines.push(`📅 *Travel Date:* ${date || "Flexible"}${time ? ` (${time})` : ""}`);
+  }
+
+  if (passengers) {
+    textLines.push(`👥 *Passengers:* ${passengers}`);
+  }
+
+  if (vehicleType) {
+    textLines.push(`🚗 *Vehicle Preference:* ${vehicleType}`);
+  }
 
   if (flightOrTrainNo) {
     textLines.push(`🚆✈️ *Flight/Train No:* ${flightOrTrainNo}`);

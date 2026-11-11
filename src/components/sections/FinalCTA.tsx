@@ -44,7 +44,7 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({ onOpenBooking }) => {
         {/* 3 Buttons: BOOK YOUR TAXI, WHATSAPP US, CALL NOW */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-xl mx-auto mb-10">
           <button
-            onClick={onOpenBooking}
+            onClick={handleWhatsAppClick}
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl text-xs font-bold uppercase tracking-wider text-[#102A43] bg-[#D4AF37] hover:bg-[#C2A03E] active:scale-[0.98] transition-all shadow-lg cursor-pointer"
           >
             <span>BOOK YOUR TAXI</span>

@@ -37,25 +37,10 @@ export const ContactPage: React.FC = () => {
                 </div>
                 <div>
                   <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#64748B] block">
-                    Phone 1 (Direct Booking)
+                    Phone (Direct Call & Booking)
                   </span>
                   <a href={`tel:${siteConfig.contact.rawPhone1}`} className="text-base font-bold text-[#0F2D5B] hover:text-[#D4AF37]">
                     {siteConfig.contact.phone1}
-                  </a>
-                </div>
-              </div>
-
-              {/* Phone 2 */}
-              <div className="flex items-start gap-4">
-                <div className="w-11 h-11 rounded-2xl bg-[#FFF9F0] text-[#0F2D5B] border border-[#0F2D5B]/10 flex items-center justify-center shrink-0">
-                  <Phone className="w-5 h-5 text-[#0F2D5B]" />
-                </div>
-                <div>
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#64748B] block">
-                    Phone 2 (Support & Inquiries)
-                  </span>
-                  <a href={`tel:${siteConfig.contact.rawPhone2}`} className="text-base font-bold text-[#0F2D5B] hover:text-[#D4AF37]">
-                    {siteConfig.contact.phone2}
                   </a>
                 </div>
               </div>

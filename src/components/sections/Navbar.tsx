@@ -8,12 +8,11 @@ import {
   ArrowRight,
   PhoneCall,
   Home,
-  LayoutGrid,
+  CarTaxiFront,
   Car,
   MapPin,
   Compass,
-  Plane,
-  Heart,
+  Film,
   Info,
 } from "lucide-react";
 import { motion, useScroll } from "motion/react";
@@ -24,12 +23,10 @@ interface NavbarProps {
 
 const navIconMap: Record<string, React.FC<{ className?: string }>> = {
   Home: Home,
-  Services: LayoutGrid,
-  Fleet: Car,
+  "Taxi Services": CarTaxiFront,
   "Tour Packages": Compass,
-  "Explore Udaipur": MapPin,
-  "Airport Transfers": Plane,
-  Weddings: Heart,
+  Fleet: Car,
+  Gallery: Film,
   About: Info,
   Contact: PhoneCall,
 };
@@ -77,7 +74,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
 
             {/* Zone 2: Inline Navigation Links */}
             <nav
-              className="hidden xl:flex items-center gap-1 xl:gap-2 2xl:gap-3 text-[13.5px] font-bold text-[#102A43] min-w-0"
+              className="hidden xl:flex items-center gap-1 xl:gap-1.5 2xl:gap-2.5 text-[13px] 2xl:text-[13.5px] font-bold text-[#102A43] min-w-0"
               aria-label="Main Navigation"
             >
               {siteConfig.navigation.map((item) => {
@@ -87,7 +84,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
                     key={item.label}
                     to={item.href}
                     className={({ isActive }) =>
-                      `relative px-2.5 py-1.5 xl:px-3 xl:py-2 rounded-xl flex items-center gap-1.5 transition-all duration-200 whitespace-nowrap group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4AF37] ${
+                      `relative px-2 py-1.5 xl:px-2.5 xl:py-2 2xl:px-3 rounded-xl flex items-center gap-1.5 transition-all duration-200 whitespace-nowrap group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4AF37] ${
                         isActive
                           ? "bg-[#FFF9F0] text-[#0F2D5B] font-extrabold shadow-xs"
                           : "text-[#102A43] hover:text-[#0F2D5B] hover:bg-[#FFF9F0]/60"
@@ -148,7 +145,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
 
       {/* Mobile Drawer Navigation */}
       <div
-        className={`fixed inset-0 z-50 lg:hidden transition-all duration-300 ${
+        className={`fixed inset-0 z-50 xl:hidden transition-all duration-300 ${
           isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       >

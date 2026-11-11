@@ -18,11 +18,9 @@ export const FleetPage: React.FC<FleetPageProps> = ({ onOpenBooking }) => {
         />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <div className="inline-flex items-center gap-2 mb-3 text-xs font-bold uppercase tracking-widest text-[#D4AF37] bg-[#0F2D5B]/90 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-[#D4AF37]/30 shadow-sm">
-            <span>AUDICHYA TOURS FLEET</span>
-          </div>
+
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
-            Our Vehicle Fleet
+            Our Fleet
           </h1>
           <p className="mt-4 text-base sm:text-lg text-white max-w-2xl mx-auto font-semibold drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
             Maruti Dzire, Toyota Etios, Hyundai Aura, Ertiga, Kia Carens, Innova Crysta & Hycross, Force Tempo Traveller & The Force Urbania Luxury.

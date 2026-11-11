@@ -21,7 +21,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenBooking }) => {
       {/* 1. Cinematic Hero */}
       <CinematicHero
         onOpenBooking={() => onOpenBooking()}
-        onExploreFleetClick={() => navigate("/fleet")}
+        onExploreFleetClick={() => navigate("/tour-packages")}
       />
 
       {/* 2. Key Stats & Trust Metrics */}
@@ -42,7 +42,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenBooking }) => {
       {/* 5. Our Services Preview */}
       <FeaturedServices
         onSelectService={(serviceTitle) => onOpenBooking(undefined, serviceTitle)}
-        onExploreAllServices={() => navigate("/services")}
+        onExploreAllServices={() => navigate("/taxi-services")}
       />
 
       {/* 6. Why Choose Audichya Tours */}

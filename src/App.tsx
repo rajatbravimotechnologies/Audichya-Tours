@@ -10,10 +10,12 @@ import { Preloader } from "./components/ui/Preloader";
 // Page Components
 import { HomePage } from "./pages/HomePage";
 import { ServicesPage } from "./pages/ServicesPage";
+import { TaxiServicesPage } from "./pages/TaxiServicesPage";
 import { FleetPage } from "./pages/FleetPage";
 import { ExplorePage } from "./pages/ExplorePage";
-import { AirportPage } from "./pages/AirportPage";
-import { WeddingsPage } from "./pages/WeddingsPage";
+import { TourPackagesPage } from "./pages/TourPackagesPage";
+import { PackageDetailPage } from "./pages/PackageDetailPage";
+import { GalleryPage } from "./pages/GalleryPage";
 import { AboutPage } from "./pages/AboutPage";
 import { ContactPage } from "./pages/ContactPage";
 
@@ -44,10 +46,12 @@ export default function App() {
           <Routes>
             <Route path="/" element={<HomePage onOpenBooking={handleOpenModal} />} />
             <Route path="/services" element={<ServicesPage onOpenBooking={handleOpenModal} />} />
+            <Route path="/taxi-services" element={<TaxiServicesPage onOpenBooking={handleOpenModal} />} />
             <Route path="/fleet" element={<FleetPage onOpenBooking={handleOpenModal} />} />
             <Route path="/explore" element={<ExplorePage onOpenBooking={handleOpenModal} />} />
-            <Route path="/airport-transfers" element={<AirportPage onOpenBooking={handleOpenModal} />} />
-            <Route path="/wedding-transportation" element={<WeddingsPage onOpenBooking={handleOpenModal} />} />
+            <Route path="/tour-packages" element={<TourPackagesPage onOpenBooking={handleOpenModal} />} />
+            <Route path="/tour-packages/:slug" element={<PackageDetailPage onOpenBooking={handleOpenModal} />} />
+            <Route path="/gallery" element={<GalleryPage onOpenBooking={handleOpenModal} />} />
             <Route path="/about" element={<AboutPage onOpenBooking={handleOpenModal} />} />
             <Route path="/contact" element={<ContactPage />} />
           </Routes>

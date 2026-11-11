@@ -16,7 +16,7 @@ export const TrustBar: React.FC = () => {
     },
     {
       icon: MapPin,
-      value: "100+",
+      value: "150+",
       label: "Destinations Covered",
     },
     {

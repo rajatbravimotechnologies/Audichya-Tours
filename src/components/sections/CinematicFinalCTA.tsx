@@ -41,11 +41,7 @@ export const CinematicFinalCTA: React.FC<CinematicFinalCTAProps> = ({ onOpenBook
 
       {/* Foreground Conversion Content */}
       <div className="relative z-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-16">
-        {/* Kicker */}
-        <div className="inline-flex items-center justify-center gap-2 mb-4 px-4 py-1.5 rounded-full bg-[#0F2D5B]/90 backdrop-blur-md border border-[#D4AF37]/40 text-xs font-bold uppercase tracking-[0.2em] text-[#D4AF37] shadow-lg">
-          <span className="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse" />
-          <span>AUDICHYA TOURS · 24/7 TAXI & TOUR SERVICE</span>
-        </div>
+
 
         {/* Headline */}
         <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight mb-6 [text-wrap:balance] drop-shadow-2xl">
@@ -61,7 +57,7 @@ export const CinematicFinalCTA: React.FC<CinematicFinalCTAProps> = ({ onOpenBook
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-xl mx-auto mb-12">
           <button
-            onClick={onOpenBooking}
+            onClick={handleWhatsAppClick}
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider text-white bg-[#0F2D5B] hover:bg-[#D4AF37] hover:text-[#0F2D5B] active:scale-[0.98] transition-all shadow-xl shadow-[#0F2D5B]/35 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
           >
             <span>BOOK YOUR TAXI</span>

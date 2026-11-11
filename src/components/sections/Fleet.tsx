@@ -9,7 +9,7 @@ interface FleetProps {
 }
 
 export const Fleet: React.FC<FleetProps> = ({ onSelectVehicle }) => {
-  const [selectedCategory, setSelectedCategory] = useState<string>("ALL");
+  const [selectedCategory, setSelectedCategory] = useState<string>("Sedan");
   const [selectedSpotlight, setSelectedSpotlight] = useState<FleetItem | null>(null);
   const [activeImageIdx, setActiveImageIdx] = useState<number>(0);
 
@@ -20,19 +20,14 @@ export const Fleet: React.FC<FleetProps> = ({ onSelectVehicle }) => {
 
   // Filter Categories list
   const categoryFilters = [
-    { id: "ALL", label: "ALL VEHICLES" },
-    { id: "SEDAN", label: "SEDANS" },
-    { id: "PREMIUM SUV / MUV", label: "SUV / MUV" },
-    { id: "GROUP TRAVEL", label: "GROUP TRAVEL" },
-    { id: "FAMILY MUV", label: "FAMILY MUV" },
+    { id: "Sedan", label: "Sedan" },
+    { id: "Mpv", label: "Mpv" },
+    { id: "Premium suv", label: "Premium suv" },
+    { id: "Luxury cars", label: "Luxury cars" },
   ];
 
   const filteredVehicles = fleetData.filter((item) => {
-    if (selectedCategory === "ALL") return true;
-    if (selectedCategory === "GROUP TRAVEL") {
-      return item.category === "GROUP TRAVEL" || item.category === "LARGE GROUP TRANSPORT";
-    }
-    return item.category === selectedCategory;
+    return item.category.toLowerCase() === selectedCategory.toLowerCase();
   });
 
   // Close modal on Escape key press
@@ -75,10 +70,6 @@ export const Fleet: React.FC<FleetProps> = ({ onSelectVehicle }) => {
             <span>TRAVEL IN COMFORT</span>
             <span className="w-5 h-[2px] bg-[#D4AF37]" />
           </div>
-          
-          <div className="mb-2 text-[11px] font-mono font-bold text-[#D4AF37] uppercase tracking-widest">
-            OUR FLEET | AUDICHYA TOURS
-          </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0F2D5B] tracking-tight leading-tight [text-wrap:balance]">
             Find Your Perfect Ride
@@ -94,11 +85,10 @@ export const Fleet: React.FC<FleetProps> = ({ onSelectVehicle }) => {
             <button
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
-              className={`px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
-                selectedCategory === cat.id
+              className={`px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer ${selectedCategory === cat.id
                   ? "bg-[#0F2D5B] text-white shadow-md border border-[#0F2D5B]"
                   : "bg-white text-[#102A43] hover:text-[#0F2D5B] hover:bg-[#FFF9F0] border border-[#0F2D5B]/15 shadow-xs"
-              }`}
+                }`}
             >
               {cat.label}
             </button>
@@ -126,11 +116,10 @@ export const Fleet: React.FC<FleetProps> = ({ onSelectVehicle }) => {
                   <img
                     src={item.image}
                     alt={`${item.title} Cab Service in Udaipur`}
-                    className={`block w-full h-full ${
-                      item.objectFit === "contain"
+                    className={`block w-full h-full ${item.objectFit === "contain"
                         ? "object-contain p-2 bg-[#0F2D5B]"
                         : "object-cover"
-                    } transition-transform duration-500 group-hover/img:scale-105`}
+                      } transition-transform duration-500 group-hover/img:scale-105`}
                     style={{ objectPosition: item.objectPosition || "center" }}
                     loading="lazy"
                   />
@@ -296,11 +285,10 @@ export const Fleet: React.FC<FleetProps> = ({ onSelectVehicle }) => {
                           key={currentImg}
                           src={currentImg}
                           alt={selectedSpotlight.title}
-                          className={`block w-full h-full ${
-                            selectedSpotlight.objectFit === "contain"
+                          className={`block w-full h-full ${selectedSpotlight.objectFit === "contain"
                               ? "object-contain p-2 bg-[#001429]"
                               : "object-cover"
-                          } transition-all duration-300`}
+                            } transition-all duration-300`}
                           style={{ objectPosition: selectedSpotlight.objectPosition || "center" }}
                         />
 
@@ -341,11 +329,10 @@ export const Fleet: React.FC<FleetProps> = ({ onSelectVehicle }) => {
                                     e.stopPropagation();
                                     setActiveImageIdx(i);
                                   }}
-                                  className={`w-2.5 h-2.5 rounded-full transition-all cursor-pointer ${
-                                    i === activeImageIdx
+                                  className={`w-2.5 h-2.5 rounded-full transition-all cursor-pointer ${i === activeImageIdx
                                       ? "bg-[#007FF0] w-6"
                                       : "bg-white/70 hover:bg-white"
-                                  }`}
+                                    }`}
                                   aria-label={`Go to slide ${i + 1}`}
                                 />
                               ))}

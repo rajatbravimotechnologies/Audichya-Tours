@@ -1,7 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Services } from "../components/sections/Services";
 import { CinematicFinalCTA } from "../components/sections/CinematicFinalCTA";
-import { Car, Plane, Crown, MapPin, Building, ShieldCheck, ArrowRight } from "lucide-react";
+import { Car, Plane, Crown, MapPin, Building, ShieldCheck, ArrowRight, Compass } from "lucide-react";
 
 interface ServicesPageProps {
   onOpenBooking: (vehicle?: string, destination?: string) => void;
@@ -19,15 +20,32 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenBooking }) => 
         />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <div className="inline-flex items-center gap-2 mb-3 text-xs font-bold uppercase tracking-widest text-[#D4AF37] bg-[#0F2D5B]/90 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-[#D4AF37]/30 shadow-sm">
-            <span>AUDICHYA TOURS SERVICES</span>
-          </div>
+
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
             Our Taxi & Tour Services
           </h1>
           <p className="mt-4 text-base sm:text-lg text-white max-w-2xl mx-auto font-semibold drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
             Comfortable Taxi Services, Memorable Sightseeing and Personalized Rajasthan Tour Packages.
           </p>
+
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+            <Link
+              to="/taxi-services"
+              className="px-6 py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-[#007FF0] hover:bg-[#006bd1] transition-all shadow-md flex items-center gap-2"
+            >
+              <Car className="w-4 h-4" />
+              <span>Dedicated Taxi Services</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+            <Link
+              to="/tour-packages"
+              className="px-6 py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider text-[#002247] bg-white hover:bg-[#D4AF37] hover:text-white transition-all shadow-md flex items-center gap-2"
+            >
+              <Compass className="w-4 h-4 text-[#D4AF37]" />
+              <span>Curated Tour Packages</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
         </div>
       </div>
 

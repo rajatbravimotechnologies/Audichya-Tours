@@ -10,11 +10,11 @@ export const Footer: React.FC = () => {
   };
 
   const footerServices = [
-    { label: "Udaipur Local Sightseeing", href: "/services" },
-    { label: "Airport Pickup & Drop", href: "/airport-transfers" },
-    { label: "Rajasthan Heritage Tours", href: "/explore" },
-    { label: "Outstation Taxi", href: "/services" },
-    { label: "Tour Packages", href: "/explore" },
+    { label: "Udaipur Local Sightseeing", href: "/taxi-services" },
+    { label: "Airport Pickup & Drop", href: "/taxi-services" },
+    { label: "Rajasthan Heritage Tours", href: "/tour-packages" },
+    { label: "Outstation Taxi", href: "/taxi-services" },
+    { label: "Tour Packages", href: "/tour-packages" },
     { label: "Luxury Urbania & Tempo Fleet", href: "/fleet" },
   ];
 
@@ -84,19 +84,9 @@ export const Footer: React.FC = () => {
               <li className="flex items-start gap-2.5">
                 <Phone className="w-4 h-4 text-[#D4AF37] shrink-0 mt-0.5" />
                 <div>
-                  <span className="block text-[#E6F0FF]/70 text-[10px] uppercase font-mono">Direct Phone 1</span>
+                  <span className="block text-[#E6F0FF]/70 text-[10px] uppercase font-mono">Direct Phone</span>
                   <a href={`tel:${siteConfig.contact.rawPhone1}`} className="hover:text-[#D4AF37] transition-colors font-medium">
                     {siteConfig.contact.phone1}
-                  </a>
-                </div>
-              </li>
-
-              <li className="flex items-start gap-2.5">
-                <Phone className="w-4 h-4 text-[#D4AF37] shrink-0 mt-0.5" />
-                <div>
-                  <span className="block text-[#E6F0FF]/70 text-[10px] uppercase font-mono">Direct Phone 2</span>
-                  <a href={`tel:${siteConfig.contact.rawPhone2}`} className="hover:text-[#D4AF37] transition-colors font-medium">
-                    {siteConfig.contact.phone2}
                   </a>
                 </div>
               </li>

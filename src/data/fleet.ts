@@ -1,6 +1,6 @@
 export interface FleetItem {
   id: string;
-  category: 'SEDAN' | 'PREMIUM SUV / MUV' | 'GROUP TRAVEL' | 'LARGE GROUP TRANSPORT' | 'FAMILY MUV';
+  category: 'Sedan' | 'Mpv' | 'Premium suv' | 'Luxury cars' | string;
   title: string;
   subtitle: string;
   description: string;
@@ -18,7 +18,7 @@ export interface FleetItem {
 export const fleetData: FleetItem[] = [
   {
     id: "dzire",
-    category: "SEDAN",
+    category: "Sedan",
     title: "Maruti Suzuki Swift Dzire",
     subtitle: "Smart & Economical City & Outstation Cab",
     description: "The most trusted sedan for Udaipur city tours, airport transfers, and outstation trips. Compact, reliable, and comfortable for small groups.",
@@ -37,7 +37,7 @@ export const fleetData: FleetItem[] = [
   },
   {
     id: "etios",
-    category: "SEDAN",
+    category: "Sedan",
     title: "Toyota Etios",
     subtitle: "Spacious Cabin & Smooth Comfort",
     description: "A comfortable and economical choice for Udaipur airport transfers, local sightseeing, couples, and small family holiday tours.",
@@ -56,7 +56,7 @@ export const fleetData: FleetItem[] = [
   },
   {
     id: "aura",
-    category: "SEDAN",
+    category: "Sedan",
     title: "Hyundai Aura",
     subtitle: "Modern Comfort & Refined Style",
     description: "Modern, quiet, and convenient sedan tailored for city sightseeing, railway transfers, business trips, and day excursions around Udaipur.",
@@ -75,7 +75,7 @@ export const fleetData: FleetItem[] = [
   },
   {
     id: "ertiga",
-    category: "FAMILY MUV",
+    category: "Mpv",
     title: "Maruti Suzuki Ertiga",
     subtitle: "Flexible 6-Seater Family Travel",
     description: "A spacious and versatile vehicle perfect for family holidays, local sightseeing, airport runs, and outstation journeys to Kumbhalgarh & Chittorgarh.",
@@ -94,7 +94,7 @@ export const fleetData: FleetItem[] = [
   },
   {
     id: "carens",
-    category: "FAMILY MUV",
+    category: "Mpv",
     title: "Kia Carens",
     subtitle: "Premium 6–7 Seater Family Cruiser",
     description: "Modern styling, plush seating, and generous legroom make the Kia Carens a top choice for family tour packages and comfortable highway travel.",
@@ -113,7 +113,7 @@ export const fleetData: FleetItem[] = [
   },
   {
     id: "innova-crysta",
-    category: "PREMIUM SUV / MUV",
+    category: "Premium suv",
     title: "Toyota Innova Crysta",
     subtitle: "Premium Luxury & Highway Comfort",
     description: "The gold standard of luxury and comfort for Rajasthan tour packages, destination wedding guests, and long-distance outstation travel.",
@@ -132,7 +132,7 @@ export const fleetData: FleetItem[] = [
   },
   {
     id: "innova-hycross",
-    category: "PREMIUM SUV / MUV",
+    category: "Premium suv",
     title: "Toyota Innova Hycross",
     subtitle: "Next-Gen Luxury & Ultra Comfort",
     description: "Ultra-modern luxury cabin, hybrid smoothness, and supreme legroom designed for VIP transfers, wedding rentals, and corporate travel in Udaipur.",
@@ -151,7 +151,7 @@ export const fleetData: FleetItem[] = [
   },
   {
     id: "tempo-traveller",
-    category: "GROUP TRAVEL",
+    category: "Luxury cars",
     title: "Force Tempo Traveller (9, 10, 12, 13, 17, 25 Seater)",
     subtitle: "Spacious Group & Family Travel",
     description: "Travel together comfortably in our extensive Tempo Traveller fleet with configurations from 9 to 25 seats for family tours, wedding convoys, and school or corporate trips.",
@@ -170,7 +170,7 @@ export const fleetData: FleetItem[] = [
   },
   {
     id: "force-urbania",
-    category: "LARGE GROUP TRANSPORT",
+    category: "Luxury cars",
     title: "The Force Urbania Luxury (9, 10, 12, 13, 17 Seater)",
     subtitle: "Largest Force Urbania Vendor in Udaipur",
     description: "Experience world-class luxury group travel. As the largest Force Urbania vendor in Udaipur, Audichya Tours offers 9, 10, 12, 13, and 17-seater Urbania vans for royal weddings, corporate events, and VIP group tours.",

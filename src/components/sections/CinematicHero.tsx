@@ -113,27 +113,19 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({
           </button>
         </motion.div>
 
-        {/* Prominent Phone Numbers Display */}
+        {/* Prominent Phone Number Display */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.8 }}
-          className="inline-flex items-center flex-wrap gap-2 sm:gap-3 text-white font-bold text-xs sm:text-sm bg-[#0F2D5B]/85 backdrop-blur-md px-4 py-2.5 rounded-xl border border-[#D4AF37]/40 shadow-lg mb-6"
+          className="inline-flex items-center gap-2 sm:gap-3 text-white font-bold text-xs sm:text-sm bg-[#0F2D5B]/85 backdrop-blur-md px-4 py-2.5 rounded-xl border border-[#D4AF37]/40 shadow-lg mb-6"
         >
           <PhoneCall className="w-4 h-4 text-[#D4AF37] shrink-0" />
-          <span className="text-white/80 font-normal uppercase text-[10px] tracking-wider hidden xs:inline">Direct Call:</span>
           <a
             href={`tel:${siteConfig.contact.rawPhone1}`}
-            className="text-white hover:text-[#D4AF37] transition-colors"
+            className="text-white hover:text-[#D4AF37] transition-colors tracking-wide"
           >
             {siteConfig.contact.phone1}
-          </a>
-          <span className="text-[#D4AF37] font-black">|</span>
-          <a
-            href={`tel:${siteConfig.contact.rawPhone2}`}
-            className="text-white hover:text-[#D4AF37] transition-colors"
-          >
-            {siteConfig.contact.phone2}
           </a>
         </motion.div>
 

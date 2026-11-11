@@ -60,11 +60,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking, onExploreClick }) => 
               </button>
             </div>
 
-            {/* Prominent Phone Numbers */}
+            {/* Prominent Phone Number */}
             <div className="inline-flex items-center gap-3 text-xs sm:text-sm font-bold text-[#002247] bg-[#EAF5FF] px-4 py-2 rounded-xl mb-6 border border-[#007FF0]/20">
-              <a href="tel:919772771118" className="hover:text-[#007FF0]">+91 9772771118</a>
-              <span className="text-[#007FF0]">|</span>
-              <a href="tel:919001693314" className="hover:text-[#007FF0]">+91 90016 93314</a>
+              <a href="tel:919772771118" className="hover:text-[#007FF0]">+91 97727 71118</a>
             </div>
 
             {/* Small Trust Indicators */}
