@@ -13,8 +13,8 @@ interface FeatureCard {
 const features: FeatureCard[] = [
   {
     number: "01",
-    title: "PROFESSIONAL CHAUFFEURS",
-    description: "Courteous, background-verified, and uniformed chauffeurs with over 10+ years of hill & highway driving expertise.",
+    title: "ALL-ROUTE CHAUFFEURS",
+    description: "Serving since 2005 with all-route experienced, background-verified chauffeurs specializing in city routes, hill ghats, and Rajasthan highways.",
     icon: UserCheck,
     accentColor: "#0F2D5B",
   },
@@ -90,7 +90,7 @@ export const WhyChooseUs: React.FC = () => {
             WHY CHOOSE AUDICHYA TOURS
           </h2>
           <p className="mt-4 text-base sm:text-lg text-[#64748B] font-normal [text-wrap:balance]">
-            From local sightseeing and airport transfers to outstation journeys and holiday packages, we aim to make every journey comfortable, convenient and memorable.
+            Providing trusted taxi and travel services in Udaipur since 2005 with all-route experienced drivers, spotless air-conditioned fleets, and authentic Mewari hospitality.
           </p>
         </motion.div>
 

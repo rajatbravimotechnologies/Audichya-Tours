@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
+import { SEO } from "../components/ui/SEO";
+import { getTaxiServicesPageSchema } from "../config/seoSchemas";
 import {
   Car,
   Plane,
@@ -282,6 +284,17 @@ export const TaxiServicesPage: React.FC<TaxiServicesPageProps> = ({ onOpenBookin
 
   return (
     <div className="w-full bg-[#FFF9F0] min-h-screen text-[#002247] selection:bg-[#007FF0] selection:text-white">
+      <SEO
+        title="Udaipur Taxi Services | Airport, Outstation & Sightseeing Cabs"
+        description="Chauffeur-driven taxi services in Udaipur: local sightseeing, 24/7 airport transfers, one-way cabs, round trips, and corporate car rentals."
+        canonicalPath="/taxi-services"
+        schema={getTaxiServicesPageSchema()}
+        breadcrumbs={[
+          { name: "Home", url: "/" },
+          { name: "Taxi Services", url: "/taxi-services" },
+        ]}
+      />
+
       {/* =========================================================================
           1. HERO SECTION: Full-Width Cinematic Hero
       ========================================================================= */}

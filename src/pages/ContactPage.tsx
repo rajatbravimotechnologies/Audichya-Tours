@@ -3,6 +3,7 @@ import { BookingForm } from "../components/sections/BookingForm";
 import { siteConfig, buildWhatsAppBookingUrl } from "../config/site";
 import { Phone, Mail, MapPin, Clock, ShieldCheck, Sparkles, ArrowDown, CheckCircle2 } from "lucide-react";
 import { motion } from "motion/react";
+import { SEO } from "../components/ui/SEO";
 import { WhatsAppIcon } from "../components/ui/WhatsAppIcon";
 import { UdaipurPalaceLineArt } from "../components/ui/UdaipurPalaceLineArt";
 import { AravalliMountainLineArt } from "../components/ui/AravalliMountainLineArt";
@@ -18,6 +19,16 @@ export const ContactPage: React.FC = () => {
 
   return (
     <div className="w-full bg-[#FFF9F0]">
+      <SEO
+        title="Contact Audichya Tours Udaipur | 24/7 Taxi Booking & Enquiries"
+        description="Contact Audichya Tours in Udaipur. Call +91 97727 71118 or message via WhatsApp for immediate taxi booking, airport transfers, and Rajasthan tour quotes."
+        canonicalPath="/contact"
+        breadcrumbs={[
+          { name: "Home", url: "/" },
+          { name: "Contact", url: "/contact" },
+        ]}
+      />
+
       {/* =========================================================================
           HERO BANNER: Luxury Cinematic Contact & Dispatch Showcase
       ========================================================================= */}

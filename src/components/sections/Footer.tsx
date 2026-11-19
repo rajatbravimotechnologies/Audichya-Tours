@@ -12,10 +12,10 @@ export const Footer: React.FC = () => {
   const footerServices = [
     { label: "Udaipur Local Sightseeing", href: "/taxi-services" },
     { label: "Airport Pickup & Drop", href: "/taxi-services" },
-    { label: "Rajasthan Heritage Tours", href: "/tour-packages" },
-    { label: "Outstation Taxi", href: "/taxi-services" },
-    { label: "Tour Packages", href: "/tour-packages" },
-    { label: "Luxury Urbania & Tempo Fleet", href: "/fleet" },
+    { label: "Round-Trip Taxi Service", href: "/taxi-services" },
+    { label: "One-Way Intercity Taxi", href: "/taxi-services" },
+    { label: "Outstation Taxi Service", href: "/taxi-services" },
+    { label: "All India & Interstate Taxi", href: "/taxi-services" },
   ];
 
   return (

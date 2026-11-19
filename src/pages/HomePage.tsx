@@ -1,5 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { SEO } from "../components/ui/SEO";
+import { getLocalBusinessSchema, getWebSiteSchema } from "../config/seoSchemas";
 import { CinematicHero } from "../components/sections/CinematicHero";
 import { TrustBar } from "../components/sections/TrustBar";
 import { FeaturedFleet } from "../components/sections/FeaturedFleet";
@@ -18,6 +20,13 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenBooking }) => {
 
   return (
     <div className="w-full bg-[#F7FAFC]">
+      <SEO
+        title="Taxi Service in Udaipur | Private Cab Booking & Rajasthan Tours"
+        description="Book reliable taxi and cab services in Udaipur for local sightseeing, 24/7 airport transfers, and outstation trips with verified private chauffeurs."
+        canonicalPath="/"
+        schema={[getLocalBusinessSchema(), getWebSiteSchema()]}
+      />
+
       {/* 1. Cinematic Hero */}
       <CinematicHero
         onOpenBooking={() => onOpenBooking()}

@@ -1,6 +1,7 @@
 import React from "react";
 import { Sparkles, ShieldCheck, Award, Users, HeartHandshake, ArrowDown, Phone } from "lucide-react";
 import { motion } from "motion/react";
+import { SEO } from "../components/ui/SEO";
 import { About } from "../components/sections/About";
 import { WhyChooseUs } from "../components/sections/WhyChooseUs";
 import { CinematicFinalCTA } from "../components/sections/CinematicFinalCTA";
@@ -21,6 +22,16 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenBooking }) => {
 
   return (
     <div className="w-full bg-[#FFF9F0]">
+      <SEO
+        title="About Audichya Tours | Udaipur Taxi & Rajasthan Travel Specialists"
+        description="Discover the story and royal Mewar hospitality of Audichya Tours. Reliable Udaipur taxi operators, local sightseeing drivers, and customized Rajasthan travel."
+        canonicalPath="/about"
+        breadcrumbs={[
+          { name: "Home", url: "/" },
+          { name: "About Us", url: "/about" },
+        ]}
+      />
+
       {/* =========================================================================
           HERO BANNER: Luxury Cinematic Heritage Showcase
       ========================================================================= */}
@@ -58,7 +69,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenBooking }) => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mt-4 text-base sm:text-lg lg:text-xl text-[#FFF9F0]/90 max-w-3xl mx-auto font-normal leading-relaxed drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]"
           >
-            Rooted in the royal culture of Mewar, Audichya Tours crafts comfortable, reliable, and authentic journeys across Udaipur and Pan-Rajasthan with professional chauffeurs and pristine vehicles.
+            Providing trusted taxi and travel services since 2005. Rooted in the royal culture of Mewar, Audichya Tours crafts comfortable, reliable, and authentic journeys across Udaipur and Pan-Rajasthan with all-route experienced chauffeurs.
           </motion.p>
 
           {/* Trust Highlights Strip */}
@@ -70,15 +81,15 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenBooking }) => {
           >
             <div className="flex items-center gap-1.5 bg-black/35 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10">
               <Award className="w-4 h-4 text-[#D4AF37]" />
-              <span>10+ Years Mewar Travel Expertise</span>
+              <span>Serving Since 2005 (20+ Years)</span>
             </div>
             <div className="flex items-center gap-1.5 bg-black/35 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10">
               <ShieldCheck className="w-4 h-4 text-[#D4AF37]" />
-              <span>100% Verified Commercial Fleet</span>
+              <span>All-Route Experienced Drivers</span>
             </div>
             <div className="flex items-center gap-1.5 bg-black/35 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10">
               <HeartHandshake className="w-4 h-4 text-[#D4AF37]" />
-              <span>5,000+ Delighted Guests</span>
+              <span>100% Verified Commercial Fleet</span>
             </div>
           </motion.div>
 

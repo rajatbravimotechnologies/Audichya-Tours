@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { SEO } from "../components/ui/SEO";
 import { GalleryHero } from "../components/gallery/GalleryHero";
 import { GalleryFilterTabs, GalleryCategory } from "../components/gallery/GalleryFilterTabs";
 import { TestimonialCard } from "../components/gallery/TestimonialCard";
@@ -47,6 +48,16 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onOpenBooking }) => {
 
   return (
     <div className="w-full bg-[#FFF9F0] min-h-screen text-[#002247]">
+      <SEO
+        title="Customer Reviews & Travel Gallery | Audichya Tours Udaipur"
+        description="Explore real traveler experiences, guest testimonials, tour videos, and photo moments from Udaipur sightseeing and Rajasthan tour packages."
+        canonicalPath="/gallery"
+        breadcrumbs={[
+          { name: "Home", url: "/" },
+          { name: "Gallery", url: "/gallery" },
+        ]}
+      />
+
       {/* 1. Cinematic Hero Section */}
       <GalleryHero />
 

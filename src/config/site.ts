@@ -60,7 +60,7 @@ export const siteConfig: SiteConfig = {
     legalName: "AUDICHYA TOURS",
     tagline: "Live Your Travel Dreams With Audichya Tours",
     description:
-      "Audichya Tours helps travellers discover the beauty, culture and heritage of Udaipur and Rajasthan with convenient taxi services and personalized travel experiences. From local sightseeing and airport transfers to outstation journeys and holiday packages, we aim to make every journey comfortable, convenient and memorable.",
+      "Providing trusted taxi and cab services in Udaipur since 2005. Audichya Tours offers chauffeur-driven local sightseeing, 24/7 airport transfers, and customized Rajasthan tour packages with all-route experienced drivers.",
     city: "Udaipur",
     state: "Rajasthan",
     country: "India",

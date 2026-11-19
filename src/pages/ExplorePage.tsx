@@ -1,4 +1,5 @@
 import React from "react";
+import { SEO } from "../components/ui/SEO";
 import { DiscoverUdaipurStory } from "../components/sections/DiscoverUdaipurStory";
 import { ExploreUdaipur } from "../components/sections/ExploreUdaipur";
 import { CinematicFinalCTA } from "../components/sections/CinematicFinalCTA";
@@ -10,6 +11,16 @@ interface ExplorePageProps {
 export const ExplorePage: React.FC<ExplorePageProps> = ({ onOpenBooking }) => {
   return (
     <div className="w-full bg-[#FFF9F0]">
+      <SEO
+        title="Tourist Places in Udaipur | Sightseeing Destinations & Travel Guide"
+        description="Explore top tourist attractions in Udaipur and Mewar: City Palace, Lake Pichola, Saheliyon Ki Bari, Jagdish Temple, Sajjangarh, and Kumbhalgarh Fort."
+        canonicalPath="/explore"
+        breadcrumbs={[
+          { name: "Home", url: "/" },
+          { name: "Explore", url: "/explore" },
+        ]}
+      />
+
       {/* Header Banner with Clean Custom Image Background (No Overlay/Filters) */}
       <div className="relative text-white pt-28 lg:pt-36 pb-8 lg:pb-10 overflow-hidden bg-[#0F2D5B]">
         {/* Background Image - Clean with no filter */}

@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
+import { SEO } from "../components/ui/SEO";
+import { getTouristTripSchema } from "../config/seoSchemas";
 import {
   Clock,
   MapPin,
@@ -74,6 +76,25 @@ export const PackageDetailPage: React.FC<PackageDetailPageProps> = ({ onOpenBook
 
   return (
     <div className="w-full bg-[#FFF9F0] min-h-screen text-[#002247] selection:bg-[#007FF0] selection:text-white">
+      <SEO
+        title={`${tour.title} | Udaipur Taxi & Tour Package`}
+        description={tour.shortDescription || tour.overview.slice(0, 155)}
+        canonicalPath={`/tour-packages/${tour.slug}`}
+        ogType="article"
+        ogImage={tour.heroImage || tour.image}
+        schema={getTouristTripSchema({
+          title: tour.title,
+          description: tour.shortDescription || tour.overview,
+          slug: tour.slug,
+          destinations: tour.destinationsCovered,
+        })}
+        breadcrumbs={[
+          { name: "Home", url: "/" },
+          { name: "Tour Packages", url: "/tour-packages" },
+          { name: tour.title, url: `/tour-packages/${tour.slug}` },
+        ]}
+      />
+
       {/* 1. Cinematic Hero Header */}
       <section className="relative text-white pt-28 sm:pt-36 pb-20 sm:pb-28 overflow-hidden bg-[#002247]">
         <div

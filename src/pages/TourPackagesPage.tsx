@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
+import { SEO } from "../components/ui/SEO";
 import {
   Compass,
   MapPin,
@@ -100,6 +101,16 @@ export const TourPackagesPage: React.FC<TourPackagesPageProps> = ({ onOpenBookin
 
   return (
     <div className="w-full bg-[#FFF9F0] min-h-screen text-[#002247] selection:bg-[#007FF0] selection:text-white">
+      <SEO
+        title="Rajasthan Tour Packages from Udaipur | Private Sightseeing Itineraries"
+        description="Customized Rajasthan tour packages and Udaipur sightseeing trips with private chauffeur-driven vehicles and flexible day-wise itineraries."
+        canonicalPath="/tour-packages"
+        breadcrumbs={[
+          { name: "Home", url: "/" },
+          { name: "Tour Packages", url: "/tour-packages" },
+        ]}
+      />
+
       {/* =========================================================================
           1. CINEMATIC HERO SECTION
       ========================================================================= */}

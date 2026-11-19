@@ -1,6 +1,8 @@
 import React from "react";
 import { Sparkles, Car, ShieldCheck, CheckCircle2, ArrowDown, Phone } from "lucide-react";
 import { motion } from "motion/react";
+import { SEO } from "../components/ui/SEO";
+import { getFleetPageSchema } from "../config/seoSchemas";
 import { Fleet } from "../components/sections/Fleet";
 import { CinematicFinalCTA } from "../components/sections/CinematicFinalCTA";
 import { WhatsAppIcon } from "../components/ui/WhatsAppIcon";
@@ -20,6 +22,17 @@ export const FleetPage: React.FC<FleetPageProps> = ({ onOpenBooking }) => {
 
   return (
     <div className="w-full bg-[#FFF9F0]">
+      <SEO
+        title="Car Rental in Udaipur with Driver | Sedans, Innova & Urbania Fleets"
+        description="Hire chauffeur-driven cars in Udaipur: Swift Dzire, Ertiga, Toyota Innova Crysta, Innova Hycross, Force Tempo Traveller, and Luxury Urbania."
+        canonicalPath="/fleet"
+        schema={getFleetPageSchema()}
+        breadcrumbs={[
+          { name: "Home", url: "/" },
+          { name: "Fleet", url: "/fleet" },
+        ]}
+      />
+
       {/* =========================================================================
           HERO BANNER: Luxury Cinematic Fleet Showcase
       ========================================================================= */}
