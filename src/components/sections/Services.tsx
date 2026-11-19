@@ -8,6 +8,11 @@ import {
   Sparkles,
   Building2,
   Train,
+  Briefcase,
+  GraduationCap,
+  Hotel,
+  Sliders,
+  Globe,
   ArrowRight,
   CheckCircle,
 } from "lucide-react";
@@ -24,6 +29,11 @@ const iconMap = {
   Sparkles,
   Building2,
   Train,
+  Briefcase,
+  GraduationCap,
+  Hotel,
+  Sliders,
+  Globe,
 };
 
 export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {

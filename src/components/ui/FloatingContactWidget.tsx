@@ -1,5 +1,6 @@
 import React from "react";
-import { Phone, MessageCircle } from "lucide-react";
+import { Phone } from "lucide-react";
+import { WhatsAppIcon } from "./WhatsAppIcon";
 import { siteConfig, buildWhatsAppBookingUrl, sendLeadToWebhook } from "../../config/site";
 
 export const FloatingContactWidget: React.FC = () => {
@@ -26,7 +27,7 @@ export const FloatingContactWidget: React.FC = () => {
         title="Chat on WhatsApp"
         aria-label="Chat on WhatsApp"
       >
-        <MessageCircle className="w-6 h-6 fill-white stroke-none" />
+        <WhatsAppIcon className="w-6 h-6 fill-white text-white" />
         
         {/* Hover Text Badge */}
         <span className="absolute right-full mr-3 px-3 py-1.5 rounded-xl bg-slate-900 text-white text-xs font-bold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none shadow-md border border-slate-700">

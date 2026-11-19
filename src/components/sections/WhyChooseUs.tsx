@@ -1,5 +1,5 @@
 import React from "react";
-import { Sparkles, MapPin, Clock, PhoneCall, Compass, Car, Users, ShieldCheck } from "lucide-react";
+import { Sparkles, MapPin, Clock, PhoneCall, Compass, Car, Users, ShieldCheck, UserCheck, Headphones } from "lucide-react";
 import { motion } from "motion/react";
 
 interface FeatureCard {
@@ -13,58 +13,58 @@ interface FeatureCard {
 const features: FeatureCard[] = [
   {
     number: "01",
-    title: "CONVENIENT DIRECT BOOKING",
-    description: "Instant phone and WhatsApp booking with immediate confirmation. No intermediaries or complicated apps.",
-    icon: PhoneCall,
+    title: "PROFESSIONAL CHAUFFEURS",
+    description: "Courteous, background-verified, and uniformed chauffeurs with over 10+ years of hill & highway driving expertise.",
+    icon: UserCheck,
     accentColor: "#0F2D5B",
   },
   {
     number: "02",
-    title: "PERSONALIZED TRAVEL PLANNING",
-    description: "Customized Rajasthan and multi-city tour itineraries tailored around your specific pace and preferences.",
-    icon: Compass,
+    title: "24/7 SUPPORT & ASSISTANCE",
+    description: "Round-the-clock live dispatch desk and WhatsApp assistance for airport transfers, train arrivals, and emergency needs.",
+    icon: Headphones,
     accentColor: "#D4AF37",
   },
   {
     number: "03",
-    title: "LUXURY FLEET & PREMIUM CARS",
-    description: "Spotless sedans, Innova Crysta, Innova Hycross, and luxury Force Urbania vans maintained to high standards.",
-    icon: Car,
+    title: "AFFORDABLE & RELIABLE RATES",
+    description: "Honest, fixed pricing with zero surge charges and 100% transparent quotes for local sightseeing and outstation cabs.",
+    icon: ShieldCheck,
     accentColor: "#0F2D5B",
   },
   {
     number: "04",
-    title: "LOCAL SIGHTSEEING EXPERTS",
-    description: "Experienced chauffeurs with deep knowledge of Mewar heritage, scenic sunset routes, and culture.",
-    icon: MapPin,
+    title: "LUXURY & SANITIZED FLEET",
+    description: "Spotless sedans, Innova Crysta, Innova Hycross, and luxury Force Urbania vans maintained to high standards.",
+    icon: Car,
     accentColor: "#D4AF37",
   },
   {
     number: "05",
-    title: "FAMILY-FRIENDLY TRAVEL OPTIONS",
-    description: "Thoughtful child and senior friendly amenities, spacious legroom, and relaxed travel pacing for all ages.",
-    icon: Users,
+    title: "PERSONALIZED TRAVEL PLANNING",
+    description: "Customized Rajasthan and multi-city tour itineraries tailored around your specific family pace and preferences.",
+    icon: Compass,
     accentColor: "#0F2D5B",
   },
   {
     number: "06",
-    title: "COMFORTABLE VEHICLE OPTIONS",
-    description: "From Dzire and Etios to 6-seater MUVs and luxury Urbania coaches, find the exact capacity for your trip.",
-    icon: Sparkles,
+    title: "CONVENIENT DIRECT BOOKING",
+    description: "Instant phone and WhatsApp booking with immediate driver allocation. No intermediaries or hidden markups.",
+    icon: PhoneCall,
     accentColor: "#D4AF37",
   },
   {
     number: "07",
-    title: "FLEXIBLE TOUR ENQUIRIES",
-    description: "Custom pick-up times, adjustable stops, and quick transparent quotes without hidden charges.",
-    icon: Clock,
+    title: "LOCAL SIGHTSEEING EXPERTS",
+    description: "Experienced chauffeurs with deep knowledge of Mewar heritage, scenic sunset routes, and authentic cultural spots.",
+    icon: MapPin,
     accentColor: "#0F2D5B",
   },
   {
     number: "08",
-    title: "SAFE FAMILY TOUR PACKAGES",
-    description: "Verified drivers, commercial permits, 24/7 journey support desk, and safe driving across hill & highway roads.",
-    icon: ShieldCheck,
+    title: "FAMILY-FRIENDLY & SAFE",
+    description: "Commercial yellow-plate vehicles, comprehensive transit insurance, child and senior assistance, and relaxed pacing.",
+    icon: Users,
     accentColor: "#D4AF37",
   },
 ];

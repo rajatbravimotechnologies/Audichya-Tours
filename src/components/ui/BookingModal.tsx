@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { siteConfig, buildWhatsAppBookingUrl, sendLeadToWebhook } from "../../config/site";
+import { fleetData } from "../../data/fleet";
 import {
   X,
   MapPin,
@@ -17,17 +18,51 @@ interface BookingModalProps {
   preselectedDestination?: string;
 }
 
+// Helper to reliably find matching fleet vehicle title from fleetData
+export const findFleetVehicleTitle = (inputName?: string): string => {
+  if (!inputName) return fleetData[0]?.title || "Toyota Etios";
+  const clean = inputName.trim().toLowerCase();
+
+  // 1. Exact match on title or id
+  const exact = fleetData.find(
+    (item) =>
+      item.title.toLowerCase() === clean ||
+      item.id.toLowerCase() === clean
+  );
+  if (exact) return exact.title;
+
+  // 2. High-priority keyword matches
+  if (clean.includes("urbania")) return "The Force Urbania Luxury";
+  if (clean.includes("tempo") || clean.includes("traveller")) return "Force Tempo Traveller";
+  if (clean.includes("hycross")) return "Toyota Innova Hycross";
+  if (clean.includes("crysta") || clean.includes("innova")) return "Toyota Innova Crysta";
+  if (clean.includes("carens") || clean.includes("kia")) return "Kia Carens";
+  if (clean.includes("ertiga")) return "Maruti Suzuki Ertiga";
+  if (clean.includes("aura")) return "Hyundai Aura";
+  if (clean.includes("etios")) return "Toyota Etios";
+  if (clean.includes("dzire") || clean.includes("swift")) return "Maruti Suzuki Swift Dzire";
+
+  // 3. Category match fallbacks
+  if (clean.includes("sedan")) return "Maruti Suzuki Swift Dzire";
+  if (clean.includes("mpv")) return "Maruti Suzuki Ertiga";
+  if (clean.includes("suv") || clean.includes("premium")) return "Toyota Innova Crysta";
+  if (clean.includes("luxury") || clean.includes("van") || clean.includes("bus")) return "The Force Urbania Luxury";
+
+  // 4. Loose substring match
+  const loose = fleetData.find(
+    (item) => item.title.toLowerCase().includes(clean) || clean.includes(item.title.toLowerCase())
+  );
+  if (loose) return loose.title;
+
+  return fleetData[0]?.title || "Toyota Etios";
+};
+
 export const BookingModal: React.FC<BookingModalProps> = ({
   isOpen,
   onClose,
   preselectedVehicle = "Toyota Etios",
   preselectedDestination = "",
 }) => {
-  const defaultVehicleName =
-    siteConfig.bookingOptions.vehicleTypes.find(
-      (v) => v.name.toLowerCase() === preselectedVehicle.toLowerCase() || v.id === preselectedVehicle.toLowerCase()
-    )?.name || siteConfig.bookingOptions.vehicleTypes[0]?.name || "Toyota Etios";
-
   // Form Fields
   const [pickup, setPickup] = useState("Maharana Pratap Airport (UDR)");
   const [drop, setDrop] = useState(preselectedDestination || "City Palace / Lake Pichola");
@@ -42,23 +77,17 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
   const [dateTime, setDateTime] = useState(getInitialDateTime);
   const [passengers, setPassengers] = useState("2 Passengers");
-  const [vehicleType, setVehicleType] = useState(defaultVehicleName);
+  const [vehicleType, setVehicleType] = useState(() => findFleetVehicleTitle(preselectedVehicle));
   const [error, setError] = useState("");
 
-  // Update fields when modal opens
+  // Update fields when modal opens or preselected props change
   useEffect(() => {
     if (isOpen) {
       setPickup("Maharana Pratap Airport (UDR)");
-      setDrop(preselectedDestination || "City Palace / Lake Pichola");
-
-      if (preselectedVehicle) {
-        const matched = siteConfig.bookingOptions.vehicleTypes.find(
-          (v) =>
-            v.name.toLowerCase() === preselectedVehicle.toLowerCase() ||
-            v.id.toLowerCase() === preselectedVehicle.toLowerCase()
-        )?.name || preselectedVehicle;
-        setVehicleType(matched);
+      if (preselectedDestination) {
+        setDrop(preselectedDestination);
       }
+      setVehicleType(findFleetVehicleTitle(preselectedVehicle));
     }
   }, [isOpen, preselectedVehicle, preselectedDestination]);
 
@@ -153,16 +182,10 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 type="text"
                 value={pickup}
                 onChange={(e) => setPickup(e.target.value)}
-                list="modal-pickups"
                 required
-                placeholder="e.g. Airport, Railway Station, Hotel"
+                placeholder="e.g. Maharana Pratap Airport (UDR)"
                 className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#007FF0]"
               />
-              <datalist id="modal-pickups">
-                {siteConfig.bookingOptions.popularPickups.map((p) => (
-                  <option key={p} value={p} />
-                ))}
-              </datalist>
             </div>
 
             <div>
@@ -174,16 +197,10 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 type="text"
                 value={drop}
                 onChange={(e) => setDrop(e.target.value)}
-                list="modal-drops"
                 required
-                placeholder="e.g. Lake Pichola, Fatehsagar, Kumbhalgarh"
+                placeholder="e.g. City Palace / Lake Pichola"
                 className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#007FF0]"
               />
-              <datalist id="modal-drops">
-                {siteConfig.bookingOptions.popularDrops.map((d) => (
-                  <option key={d} value={d} />
-                ))}
-              </datalist>
             </div>
           </div>
 
@@ -202,41 +219,64 @@ export const BookingModal: React.FC<BookingModalProps> = ({
             />
           </div>
 
-          {/* Passengers & Vehicle */}
-          <div className="grid grid-cols-2 gap-3">
+          {/* Passengers & Vehicle (Independently selectable - not mapped) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label className="text-xs font-bold uppercase tracking-wider text-[#002247] mb-1 flex items-center gap-1.5">
-                <Users className="w-3.5 h-3.5 text-[#007FF0]" /> Passengers
+                <Users className="w-3.5 h-3.5 text-[#007FF0]" />
+                <span>Passengers</span>
               </label>
               <select
                 value={passengers}
                 onChange={(e) => setPassengers(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#007FF0]"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#007FF0] bg-white cursor-pointer font-medium text-slate-800"
               >
                 <option value="1 Passenger">1 Passenger</option>
                 <option value="2 Passengers">2 Passengers</option>
-                <option value="3-4 Passengers">3 - 4 Passengers</option>
-                <option value="5-7 Passengers">5 - 7 Passengers</option>
-                <option value="8-17 Group">8 - 17 Passengers</option>
-                <option value="18-32 Urbania">18 - 32 Passengers</option>
+                <option value="3 - 4 Passengers">3 - 4 Passengers</option>
+                <option value="5 - 6 Passengers">5 - 6 Passengers</option>
+                <option value="7 - 8 Passengers">7 - 8 Passengers</option>
+                <option value="9 - 12 Passengers">9 - 12 Passengers</option>
+                <option value="13 - 17 Passengers">13 - 17 Passengers</option>
+                <option value="More than 17 Passengers">More than 17 Passengers</option>
               </select>
             </div>
 
             <div>
-              <label className="text-xs font-bold uppercase tracking-wider text-[#002247] mb-1 flex items-center gap-1.5">
-                <Car className="w-3.5 h-3.5 text-[#007FF0]" /> Vehicle
+              <label className="text-xs font-bold uppercase tracking-wider text-[#002247] mb-1 flex items-center justify-between">
+                <span className="flex items-center gap-1.5">
+                  <Car className="w-3.5 h-3.5 text-[#007FF0]" />
+                  <span>Vehicle / Fleet</span>
+                </span>
+                <span className="text-[10px] text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                  Select Fleet
+                </span>
               </label>
-              <select
-                value={vehicleType}
-                onChange={(e) => setVehicleType(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#007FF0]"
-              >
-                {siteConfig.bookingOptions.vehicleTypes.map((v) => (
-                  <option key={v.id} value={v.name}>
-                    {v.name}
-                  </option>
-                ))}
-              </select>
+              <div className="relative">
+                <select
+                  value={vehicleType}
+                  onChange={(e) => setVehicleType(e.target.value)}
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#007FF0] bg-white cursor-pointer font-bold text-[#002247]"
+                >
+                  <optgroup label="Sedan Fleet (Up to 4 Passengers)">
+                    <option value="Maruti Suzuki Swift Dzire">Maruti Suzuki Swift Dzire</option>
+                    <option value="Toyota Etios">Toyota Etios</option>
+                    <option value="Hyundai Aura">Hyundai Aura</option>
+                  </optgroup>
+                  <optgroup label="MPV Fleet (6–7 Passengers)">
+                    <option value="Maruti Suzuki Ertiga">Maruti Suzuki Ertiga</option>
+                    <option value="Kia Carens">Kia Carens</option>
+                  </optgroup>
+                  <optgroup label="Premium SUV (6–7 Passengers)">
+                    <option value="Toyota Innova Crysta">Toyota Innova Crysta</option>
+                    <option value="Toyota Innova Hycross">Toyota Innova Hycross</option>
+                  </optgroup>
+                  <optgroup label="Luxury Group Vans & Coaches">
+                    <option value="Force Tempo Traveller">Force Tempo Traveller (9–25 Seater)</option>
+                    <option value="The Force Urbania Luxury">The Force Urbania Luxury (9–17 Seater)</option>
+                  </optgroup>
+                </select>
+              </div>
             </div>
           </div>
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { Logo } from "../ui/Logo";
 import { siteConfig } from "../../config/site";
 import {
@@ -15,7 +15,7 @@ import {
   Film,
   Info,
 } from "lucide-react";
-import { motion, useScroll } from "motion/react";
+import { motion, useScroll, AnimatePresence } from "motion/react";
 
 interface NavbarProps {
   onOpenBooking: () => void;
@@ -34,6 +34,23 @@ const navIconMap: Record<string, React.FC<{ className?: string }>> = {
 export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+
+  // Close menu on route navigation
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location.pathname]);
+
+  // Close menu if resized to desktop view
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1280) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,6 +62,20 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
 
   return (
     <>
+      {/* Dimmed backdrop when dropdown is open */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-40 bg-black/45 backdrop-blur-xs xl:hidden"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+        )}
+      </AnimatePresence>
+
       <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-3 sm:py-4 px-3 sm:px-6 lg:px-8 pointer-events-none">
         {/* Brand Royal Gold Scroll Progress Bar */}
         <motion.div
@@ -125,106 +156,107 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
             <div className="flex items-center gap-2 xl:hidden shrink-0">
               <button
                 onClick={onOpenBooking}
-                className="sm:hidden px-3.5 py-1.5 rounded-xl text-[11px] font-black uppercase tracking-wider bg-[#0F2D5B] text-white shadow-md flex items-center gap-1"
+                className="sm:hidden px-3.5 py-1.5 rounded-xl text-[11px] font-black uppercase tracking-wider bg-[#0F2D5B] text-white shadow-md flex items-center gap-1 active:scale-95 transition-transform"
               >
                 <Car className="w-3.5 h-3.5" />
                 <span>BOOK</span>
               </button>
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-2 rounded-xl text-[#102A43] hover:text-[#0F2D5B] hover:bg-[#FFF9F0] focus:outline-none focus:ring-2 focus:ring-[#D4AF37]"
+                className={`p-2.5 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#D4AF37] cursor-pointer ${
+                  isMobileMenuOpen
+                    ? "bg-[#0F2D5B] text-white rotate-90 shadow-md"
+                    : "text-[#102A43] hover:text-[#0F2D5B] hover:bg-[#FFF9F0]"
+                }`}
                 aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
                 aria-expanded={isMobileMenuOpen}
               >
-                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
             </div>
           </div>
         </div>
+
+        {/* Mobile & Tablet Dropdown: Opens Directly BELOW the Navbar Container */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -12, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -12, scale: 0.98 }}
+              transition={{ duration: 0.22, ease: "easeOut" }}
+              className="w-[calc(100%-1rem)] sm:w-[calc(100%-2rem)] max-w-[1500px] mx-auto mt-2 rounded-2xl sm:rounded-3xl bg-white/98 backdrop-blur-2xl border border-[#0F2D5B]/15 shadow-2xl shadow-[#0F2D5B]/20 overflow-hidden pointer-events-auto xl:hidden"
+            >
+              {/* Navigation Items List */}
+              <nav className="p-3 sm:p-4 grid grid-cols-1 sm:grid-cols-2 gap-1.5 max-h-[62vh] overflow-y-auto">
+                {siteConfig.navigation.map((item) => {
+                  const IconComponent = navIconMap[item.label] || Info;
+                  return (
+                    <NavLink
+                      key={item.label}
+                      to={item.href}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={({ isActive }) =>
+                        `px-3.5 py-2.5 sm:py-3 rounded-xl text-sm font-bold flex items-center justify-between transition-all duration-150 ${
+                          isActive
+                            ? "bg-[#FFF9F0] text-[#0F2D5B] shadow-xs border border-[#D4AF37]/30"
+                            : "text-[#102A43] hover:text-[#0F2D5B] hover:bg-[#FFF9F0]/60"
+                        }`
+                      }
+                    >
+                      {({ isActive }) => (
+                        <>
+                          <div className="flex items-center gap-3">
+                            <div
+                              className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${
+                                isActive ? "bg-[#D4AF37] text-white shadow-xs" : "bg-slate-100 text-[#64748B]"
+                              }`}
+                            >
+                              <IconComponent className="w-4 h-4" />
+                            </div>
+                            <span className="font-bold tracking-tight">{item.label}</span>
+                          </div>
+                          {isActive && (
+                            <span className="w-2 h-2 rounded-full bg-[#D4AF37]" />
+                          )}
+                        </>
+                      )}
+                    </NavLink>
+                  );
+                })}
+              </nav>
+
+              {/* Bottom Quick-Action Bar */}
+              <div className="p-3 sm:p-4 bg-slate-50/90 border-t border-slate-100 flex flex-col sm:flex-row gap-2.5">
+                <a
+                  href={`tel:${siteConfig.contact.rawPhone}`}
+                  className="flex-1 py-3 px-4 rounded-xl font-bold text-xs text-[#102A43] bg-white hover:bg-[#FFF9F0] transition-colors border border-slate-200/80 flex items-center justify-center gap-2.5 shadow-xs"
+                >
+                  <div className="w-7 h-7 rounded-lg bg-[#0F2D5B]/10 flex items-center justify-center text-[#0F2D5B]">
+                    <PhoneCall className="w-3.5 h-3.5" />
+                  </div>
+                  <div className="flex flex-col text-left">
+                    <span className="text-[9px] font-bold uppercase tracking-wider text-[#64748B]">24/7 HELPLINE</span>
+                    <span className="text-xs font-black text-[#0F2D5B]">{siteConfig.contact.displayPhone}</span>
+                  </div>
+                </a>
+
+                <button
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    onOpenBooking();
+                  }}
+                  className="flex-1 py-3 px-4 rounded-xl font-black text-xs uppercase tracking-wider text-white bg-[#0F2D5B] hover:bg-[#D4AF37] hover:text-[#102A43] transition-all shadow-md shadow-[#0F2D5B]/25 flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <Car className="w-4 h-4" />
+                  <span>BOOK YOUR TAXI</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
-
-      {/* Mobile Drawer Navigation */}
-      <div
-        className={`fixed inset-0 z-50 xl:hidden transition-all duration-300 ${
-          isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
-      >
-        {/* Backdrop */}
-        <div
-          className="absolute inset-0 bg-[#0F2D5B]/60 backdrop-blur-sm transition-opacity"
-          onClick={() => setIsMobileMenuOpen(false)}
-        />
-
-        {/* Drawer Panel */}
-        <div
-          className={`absolute top-0 right-0 w-4/5 max-w-sm h-full bg-[#FFFFFF] shadow-2xl p-6 flex flex-col justify-between transition-transform duration-300 ease-out transform ${
-            isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-          }`}
-        >
-          <div>
-            <div className="flex items-center justify-between pb-4 border-b border-[#0F2D5B]/10">
-              <Logo imgClassName="h-10 w-auto" />
-              <button
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="p-2 rounded-xl text-[#64748B] hover:text-[#102A43] hover:bg-[#FFF9F0]"
-                aria-label="Close menu"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            <nav className="mt-6 flex flex-col gap-1.5">
-              {siteConfig.navigation.map((item) => {
-                const IconComponent = navIconMap[item.label] || Info;
-                return (
-                  <NavLink
-                    key={item.label}
-                    to={item.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={({ isActive }) =>
-                      `px-4 py-3 rounded-xl text-sm font-bold flex items-center gap-3 transition-colors ${
-                        isActive
-                          ? "bg-[#FFF9F0] text-[#0F2D5B]"
-                          : "text-[#102A43] hover:text-[#0F2D5B] hover:bg-[#FFF9F0]/50"
-                      }`
-                    }
-                  >
-                    <IconComponent className="w-4 h-4 text-[#D4AF37]" />
-                    <span>{item.label}</span>
-                  </NavLink>
-                );
-              })}
-            </nav>
-          </div>
-
-          <div className="pt-6 border-t border-[#0F2D5B]/10 space-y-3">
-            <a
-              href={`tel:${siteConfig.contact.rawPhone}`}
-              className="w-full py-3 px-4 rounded-xl font-bold text-xs text-[#102A43] bg-[#E6F0FF] hover:bg-[#D4AF37]/20 text-center flex items-center justify-center gap-2.5 border border-[#0F2D5B]/10"
-            >
-              <div className="w-6 h-6 rounded-lg bg-[#0F2D5B]/15 flex items-center justify-center text-[#0F2D5B]">
-                <PhoneCall className="w-3.5 h-3.5" />
-              </div>
-              <div className="flex flex-col text-left">
-                <span className="text-[9px] font-bold uppercase tracking-wider text-[#64748B]">CALL US NOW</span>
-                <span className="text-xs font-black text-[#0F2D5B]">{siteConfig.contact.displayPhone}</span>
-              </div>
-            </a>
-
-            <button
-              onClick={() => {
-                setIsMobileMenuOpen(false);
-                onOpenBooking();
-              }}
-              className="w-full py-3.5 rounded-xl font-black text-xs uppercase tracking-wider text-white bg-[#0F2D5B] hover:bg-[#D4AF37] hover:text-[#102A43] text-center shadow-md shadow-[#0F2D5B]/25 flex items-center justify-center gap-2 cursor-pointer transition-colors"
-            >
-              <Car className="w-4 h-4" />
-              <span>BOOK YOUR TAXI</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
-      </div>
     </>
   );
 };

@@ -13,7 +13,7 @@ import {
   GalleryVideo,
   GalleryReel,
 } from "../data/gallery";
-import { MessageSquareQuote, Film, Sparkles, ArrowRight } from "lucide-react";
+import { MessageSquareQuote, Film, Sparkles, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
 interface GalleryPageProps {
@@ -23,6 +23,16 @@ interface GalleryPageProps {
 export const GalleryPage: React.FC<GalleryPageProps> = ({ onOpenBooking }) => {
   const [activeCategory, setActiveCategory] = useState<GalleryCategory>("all");
   const [activeVideo, setActiveVideo] = useState<GalleryVideo | GalleryReel | null>(null);
+  const [isTestimonialPaused, setIsTestimonialPaused] = useState(false);
+  const [testimonialDirection, setTestimonialDirection] = useState<"forward" | "reverse">("forward");
+
+  // Quadruple testimonials so the marquee loops seamlessly without gaps
+  const marqueeTestimonials = [
+    ...galleryTestimonials,
+    ...galleryTestimonials,
+    ...galleryTestimonials,
+    ...galleryTestimonials,
+  ];
 
   const counts = {
     all: galleryTestimonials.length + travelVideos.length + reelsAndShorts.length,
@@ -66,7 +76,7 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onOpenBooking }) => {
             >
               {/* SECTION 1: Client Testimonials */}
               <div className="text-left">
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10 pb-4 border-b border-[#002247]/10">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-4 border-b border-[#002247]/10">
                   <div>
                     <div className="inline-flex items-center gap-2 mb-2 text-xs font-bold uppercase tracking-widest text-[#C2A03E]">
                       <MessageSquareQuote className="w-4 h-4" />
@@ -79,19 +89,76 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onOpenBooking }) => {
                       Read genuine customer reviews, stories and feedback from travellers exploring Udaipur and Rajasthan with Audichya Tours.
                     </p>
                   </div>
-                  <button
-                    onClick={() => setActiveCategory("testimonials")}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#007FF0] hover:text-[#002247] transition-colors cursor-pointer shrink-0"
-                  >
-                    <span>View All Testimonials ({galleryTestimonials.length})</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
+
+                  <div className="flex items-center gap-3">
+                    {/* Direction Buttons */}
+                    <div className="flex items-center gap-1.5">
+                      <button
+                        onClick={() => setTestimonialDirection("reverse")}
+                        className={`w-9 h-9 rounded-full shadow-sm border border-[#002247]/15 flex items-center justify-center transition-all cursor-pointer active:scale-95 ${
+                          testimonialDirection === "reverse"
+                            ? "bg-[#002247] text-white"
+                            : "bg-white text-[#002247] hover:bg-[#002247] hover:text-white"
+                        }`}
+                        title="Glide Right"
+                        aria-label="Glide Right"
+                      >
+                        <ChevronLeft className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={() => setTestimonialDirection("forward")}
+                        className={`w-9 h-9 rounded-full shadow-sm border border-[#002247]/15 flex items-center justify-center transition-all cursor-pointer active:scale-95 ${
+                          testimonialDirection === "forward"
+                            ? "bg-[#002247] text-white"
+                            : "bg-white text-[#002247] hover:bg-[#002247] hover:text-white"
+                        }`}
+                        title="Glide Left"
+                        aria-label="Glide Left"
+                      >
+                        <ChevronRight className="w-4 h-4" />
+                      </button>
+                    </div>
+
+                    <button
+                      onClick={() => setActiveCategory("testimonials")}
+                      className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#007FF0] hover:text-[#002247] transition-colors cursor-pointer shrink-0 ml-1"
+                    >
+                      <span>View All Testimonials ({galleryTestimonials.length})</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {galleryTestimonials.slice(0, 3).map((testimonial) => (
-                    <TestimonialCard key={testimonial.id} testimonial={testimonial} />
-                  ))}
+                {/* Continuous Infinite Moving Marquee Slider (No box wrapper) */}
+                <div className="relative w-full overflow-hidden py-2">
+                  {/* Left & Right Smooth Gradient Fade Masks */}
+                  <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-8 sm:w-16 md:w-24 bg-gradient-to-r from-[#FFF9F0] via-[#FFF9F0]/85 to-transparent z-10" />
+                  <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 sm:w-16 md:w-24 bg-gradient-to-l from-[#FFF9F0] via-[#FFF9F0]/85 to-transparent z-10" />
+
+                  {/* Infinite Moving Track */}
+                  <div
+                    className="w-full overflow-hidden"
+                    onMouseEnter={() => setIsTestimonialPaused(true)}
+                    onMouseLeave={() => setIsTestimonialPaused(false)}
+                    onTouchStart={() => setIsTestimonialPaused(true)}
+                    onTouchEnd={() => setIsTestimonialPaused(false)}
+                  >
+                    <div
+                      className={`flex gap-6 w-max py-2 ${
+                        testimonialDirection === "forward"
+                          ? "animate-fleet-marquee-forward"
+                          : "animate-fleet-marquee-reverse"
+                      } ${isTestimonialPaused ? "pause-fleet-marquee" : ""}`}
+                    >
+                      {marqueeTestimonials.map((testimonial, idx) => (
+                        <TestimonialCard
+                          key={`${testimonial.id}-${idx}`}
+                          testimonial={testimonial}
+                          className="w-[320px] sm:w-[360px] md:w-[390px] shrink-0 min-h-[280px]"
+                        />
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
 

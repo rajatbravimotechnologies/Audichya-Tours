@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
-import { Clock, MapPin, Check, ArrowRight, MessageCircle } from "lucide-react";
+import { MapPin, Check, ArrowRight, MessageCircle } from "lucide-react";
 import { TourPackage } from "../../data/tourPackages";
 
 interface PackageCardProps {
@@ -28,12 +28,6 @@ export const PackageCard: React.FC<PackageCardProps> = ({ tourPackage, onEnquire
         />
 
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-
-        {/* Duration Badge */}
-        <div className="absolute top-4 left-4 px-3 py-1.5 rounded-full bg-[#002247]/85 backdrop-blur-md text-white text-[11px] font-bold uppercase tracking-wider border border-[#C2A03E]/40 flex items-center gap-1.5">
-          <Clock className="w-3.5 h-3.5 text-[#C2A03E]" />
-          <span>{tourPackage.duration}</span>
-        </div>
 
         {/* Category Badge */}
         <div className="absolute bottom-4 left-4 right-4 flex items-center gap-1 text-[11px] text-white/90 font-medium">

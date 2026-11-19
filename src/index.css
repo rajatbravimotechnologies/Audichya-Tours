@@ -23,6 +23,13 @@
     outline: 2px solid #D4AF37;
     outline-offset: 2px;
   }
+
+  /* Remove any datalist or browser select arrow buttons from text inputs */
+  input[type="text"]::-webkit-calendar-picker-indicator {
+    display: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
 }
 
 /* Reduced motion preference */
@@ -35,4 +42,64 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Continuous Infinite Fleet Marquee Slider */
+@keyframes fleet-marquee-forward {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes fleet-marquee-reverse {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-fleet-marquee-forward {
+  display: flex;
+  width: max-content;
+  animation: fleet-marquee-forward 38s linear infinite;
+  will-change: transform;
+}
+
+.animate-fleet-marquee-reverse {
+  display: flex;
+  width: max-content;
+  animation: fleet-marquee-reverse 38s linear infinite;
+  will-change: transform;
+}
+
+.pause-fleet-marquee,
+.animate-fleet-marquee-forward:hover,
+.animate-fleet-marquee-reverse:hover {
+  animation-play-state: paused !important;
+}
+
+/* Continuous Infinite Destinations Marquee Slider */
+.animate-dest-marquee-forward {
+  display: flex;
+  width: max-content;
+  animation: fleet-marquee-forward 45s linear infinite;
+  will-change: transform;
+}
+
+.animate-dest-marquee-reverse {
+  display: flex;
+  width: max-content;
+  animation: fleet-marquee-reverse 45s linear infinite;
+  will-change: transform;
+}
+
+.pause-dest-marquee,
+.animate-dest-marquee-forward:hover,
+.animate-dest-marquee-reverse:hover {
+  animation-play-state: paused !important;
 }

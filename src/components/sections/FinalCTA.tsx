@@ -33,7 +33,7 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({ onOpenBooking }) => {
 
         {/* Headline */}
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-6 text-white [text-wrap:balance]">
-          Live Your Travel Dreams Rajasthan
+          Live Your Travel Dreams With Audichya Tours
         </h2>
 
         {/* Supporting Text */}

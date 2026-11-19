@@ -5,9 +5,10 @@ import { motion } from "motion/react";
 
 interface TestimonialCardProps {
   testimonial: GalleryTestimonial;
+  className?: string;
 }
 
-export const TestimonialCard: React.FC<TestimonialCardProps> = ({ testimonial }) => {
+export const TestimonialCard: React.FC<TestimonialCardProps> = ({ testimonial, className = "" }) => {
   // Generate fallback initials if no avatar
   const initials = testimonial.name
     .split(" ")
@@ -22,7 +23,7 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = ({ testimonial })
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.4 }}
-      className="group relative bg-white rounded-3xl p-6 sm:p-7 border border-[#002247]/10 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden text-left"
+      className={`group relative bg-white rounded-3xl p-6 sm:p-7 border border-[#002247]/10 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden text-left ${className}`}
     >
       {/* Top Gold Subtle Gradient Accent */}
       <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-[#C2A03E]/40 to-transparent group-hover:via-[#C2A03E] transition-all duration-300" />

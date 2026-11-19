@@ -1,14 +1,12 @@
 import React, { useState } from "react";
-import { Send, CheckCircle2, AlertCircle, Sparkles, Calendar, Users, MapPin, Phone, User, Clock, FileText } from "lucide-react";
+import { Send, CheckCircle2, AlertCircle, Sparkles, Calendar, MapPin, Phone, User, FileText } from "lucide-react";
 import { buildWhatsAppBookingUrl, sendLeadToWebhook, siteConfig } from "../../config/site";
 
 export const CustomTourEnquiryForm: React.FC = () => {
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [startDate, setStartDate] = useState(() => new Date().toISOString().split("T")[0]);
-  const [numTravellers, setNumTravellers] = useState("2 Travellers");
   const [preferredDestinations, setPreferredDestinations] = useState("Udaipur + Kumbhalgarh");
-  const [travelDays, setTravelDays] = useState("3 Days / 2 Nights");
   const [requirements, setRequirements] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState("");
@@ -23,14 +21,13 @@ export const CustomTourEnquiryForm: React.FC = () => {
 
     setError("");
 
-    const customNotes = `Custom Tour Plan Request:\n- Travellers: ${numTravellers}\n- Duration: ${travelDays}\n- Preferred Destinations: ${preferredDestinations}\n${requirements ? `- Specific Notes: ${requirements}` : ""}`;
+    const customNotes = `Custom Tour Plan Request:\n- Preferred Destinations: ${preferredDestinations}\n${requirements ? `- Specific Notes: ${requirements}` : ""}`;
 
     sendLeadToWebhook({
       serviceType: "Custom Rajasthan Tour Plan",
       pickup: "Rajasthan Tour Consultation",
       drop: preferredDestinations,
       date: startDate,
-      passengers: numTravellers,
       customNotes: `Client Name: ${fullName} | Phone: ${phone}\n${customNotes}`,
     });
 
@@ -39,8 +36,7 @@ export const CustomTourEnquiryForm: React.FC = () => {
       pickup: "Hotel / Arrival Point",
       drop: preferredDestinations,
       date: startDate,
-      passengers: numTravellers,
-      customNotes: `Namaste Audichya Tours, my name is ${fullName} (${phone}).\nI would like to request a customized tour plan:\n- Duration: ${travelDays}\n- Destinations: ${preferredDestinations}\n${requirements ? `- Notes: ${requirements}` : ""}`,
+      customNotes: `Namaste Audichya Tours, my name is ${fullName} (${phone}).\nI would like to request a customized tour plan:\n- Start Date: ${startDate}\n- Destinations: ${preferredDestinations}\n${requirements ? `- Notes: ${requirements}` : ""}`,
     });
 
     setIsSubmitted(true);
@@ -63,7 +59,7 @@ export const CustomTourEnquiryForm: React.FC = () => {
             Design Your Custom Itinerary
           </h2>
           <p className="mt-2 text-xs sm:text-sm text-slate-600 max-w-xl mx-auto">
-            Tell us your travel dates, preferred destinations, and group size. Our local Rajasthan experts will craft an itinerary tailored to your schedule.
+            Tell us your travel dates and preferred destinations. Our local Rajasthan experts will craft an itinerary tailored to your schedule.
           </p>
         </div>
 
@@ -125,7 +121,7 @@ export const CustomTourEnquiryForm: React.FC = () => {
               </div>
             </div>
 
-            {/* Row 2: Start Date & Travellers */}
+            {/* Row 2: Travel Start Date & Preferred Destinations */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="text-xs font-bold uppercase tracking-wider text-[#002247] mb-1.5 flex items-center gap-1.5">
@@ -143,29 +139,6 @@ export const CustomTourEnquiryForm: React.FC = () => {
 
               <div>
                 <label className="text-xs font-bold uppercase tracking-wider text-[#002247] mb-1.5 flex items-center gap-1.5">
-                  <Users className="w-3.5 h-3.5 text-[#007FF0]" />
-                  <span>Number of Travellers</span>
-                </label>
-                <select
-                  value={numTravellers}
-                  onChange={(e) => setNumTravellers(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#007FF0] bg-[#FFF9F0]/50"
-                >
-                  <option value="1 Traveller (Solo)">1 Traveller (Solo)</option>
-                  <option value="2 Travellers (Couple)">2 Travellers (Couple)</option>
-                  <option value="3-4 Travellers (Family)">3-4 Travellers (Family)</option>
-                  <option value="5-7 Travellers (SUV Group)">5-7 Travellers (SUV Group)</option>
-                  <option value="8-12 Group (Tempo Traveller)">8-12 Group (Tempo Traveller)</option>
-                  <option value="13-17 VIP Group (Urbania)">13-17 VIP Group (Force Urbania)</option>
-                  <option value="18+ Large Group / Wedding">18+ Large Group</option>
-                </select>
-              </div>
-            </div>
-
-            {/* Row 3: Destinations & Number of Days */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="text-xs font-bold uppercase tracking-wider text-[#002247] mb-1.5 flex items-center gap-1.5">
                   <MapPin className="w-3.5 h-3.5 text-[#C2A03E]" />
                   <span>Preferred Destinations</span>
                 </label>
@@ -173,33 +146,13 @@ export const CustomTourEnquiryForm: React.FC = () => {
                   type="text"
                   value={preferredDestinations}
                   onChange={(e) => setPreferredDestinations(e.target.value)}
-                  placeholder="e.g. Udaipur, Kumbhalgarh, Mount Abu"
+                  placeholder="e.g. Udaipur, Kumbhalgarh, Mount Abu, Jawai, Pushkar"
                   className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#007FF0] bg-[#FFF9F0]/50"
                 />
               </div>
-
-              <div>
-                <label className="text-xs font-bold uppercase tracking-wider text-[#002247] mb-1.5 flex items-center gap-1.5">
-                  <Clock className="w-3.5 h-3.5 text-[#C2A03E]" />
-                  <span>Number of Travel Days</span>
-                </label>
-                <select
-                  value={travelDays}
-                  onChange={(e) => setTravelDays(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#007FF0] bg-[#FFF9F0]/50"
-                >
-                  <option value="1 Day Tour">1 Day Tour</option>
-                  <option value="2 Days / 1 Night">2 Days / 1 Night</option>
-                  <option value="3 Days / 2 Nights">3 Days / 2 Nights</option>
-                  <option value="4 Days / 3 Nights">4 Days / 3 Nights</option>
-                  <option value="5 Days / 4 Nights">5 Days / 4 Nights</option>
-                  <option value="6 Days / 5 Nights">6 Days / 5 Nights</option>
-                  <option value="7+ Days Grand Circuit">7+ Days Grand Circuit</option>
-                </select>
-              </div>
             </div>
 
-            {/* Row 4: Additional Requirements */}
+            {/* Row 3: Additional Requirements */}
             <div>
               <label className="text-xs font-bold uppercase tracking-wider text-[#002247] mb-1.5 flex items-center gap-1.5">
                 <FileText className="w-3.5 h-3.5 text-[#007FF0]" />

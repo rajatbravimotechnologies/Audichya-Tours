@@ -3,13 +3,16 @@ import { fleetData, FleetItem } from "../../data/fleet";
 import { Users, Briefcase, Wind, ArrowRight, Check, X, Info, Sparkles, Filter, PhoneCall, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { buildWhatsAppBookingUrl, siteConfig, sendLeadToWebhook } from "../../config/site";
+import { UdaipurPalaceLineArt } from "../ui/UdaipurPalaceLineArt";
+import { AravalliMountainLineArt } from "../ui/AravalliMountainLineArt";
+import { GoldDetailsOverlay } from "../ui/GoldDetailsOverlay";
 
 interface FleetProps {
   onSelectVehicle: (vehicleTitleOrCategory: string) => void;
 }
 
 export const Fleet: React.FC<FleetProps> = ({ onSelectVehicle }) => {
-  const [selectedCategory, setSelectedCategory] = useState<string>("Sedan");
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [selectedSpotlight, setSelectedSpotlight] = useState<FleetItem | null>(null);
   const [activeImageIdx, setActiveImageIdx] = useState<number>(0);
 
@@ -18,17 +21,20 @@ export const Fleet: React.FC<FleetProps> = ({ onSelectVehicle }) => {
     setActiveImageIdx(0);
   }, [selectedSpotlight]);
 
-  // Filter Categories list
+  // Filter Categories list with All Fleets
   const categoryFilters = [
+    { id: "all", label: "All Fleets" },
     { id: "Sedan", label: "Sedan" },
-    { id: "Mpv", label: "Mpv" },
-    { id: "Premium suv", label: "Premium suv" },
-    { id: "Luxury cars", label: "Luxury cars" },
+    { id: "Mpv", label: "MPV" },
+    { id: "Premium suv", label: "Premium SUV" },
+    { id: "Luxury cars", label: "Luxury Vans & Tempo" },
   ];
 
-  const filteredVehicles = fleetData.filter((item) => {
-    return item.category.toLowerCase() === selectedCategory.toLowerCase();
-  });
+  const filteredVehicles = selectedCategory === "all"
+    ? fleetData
+    : fleetData.filter((item) => {
+        return item.category.toLowerCase() === selectedCategory.toLowerCase();
+      });
 
   // Close modal on Escape key press
   useEffect(() => {
@@ -56,6 +62,20 @@ export const Fleet: React.FC<FleetProps> = ({ onSelectVehicle }) => {
 
   return (
     <section id="fleet" className="py-20 lg:py-28 bg-[#FFF9F0] border-t border-[#0F2D5B]/10 relative overflow-hidden">
+      {/* 4-LAYER BACKGROUND DECORATION SYSTEM */}
+      {/* Layer 1 — Udaipur Palace Line Art */}
+      <div className="absolute top-0 right-0 lg:right-0 z-0 pointer-events-none opacity-85">
+        <UdaipurPalaceLineArt opacity={0.9} className="w-[500px] sm:w-[700px] md:w-[950px] lg:w-[1150px] h-auto object-contain" />
+      </div>
+
+      {/* Layer 2 — Aravalli Mountain Line Art */}
+      <div className="absolute top-0 -left-6 md:left-0 z-0 pointer-events-none hidden sm:block opacity-75">
+        <AravalliMountainLineArt opacity={0.75} color="#D4AF37" className="w-[420px] md:w-[620px] lg:w-[780px] h-auto" />
+      </div>
+
+      {/* Layer 3 — Subtle Gold Micro Details */}
+      <GoldDetailsOverlay />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header with Motion Reveal */}
         <motion.div
@@ -80,22 +100,23 @@ export const Fleet: React.FC<FleetProps> = ({ onSelectVehicle }) => {
         </motion.div>
 
         {/* Category Filters Bar */}
-        <div className="flex flex-wrap items-center justify-center gap-2.5 mb-14 px-2">
+        <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 mb-14 px-2">
           {categoryFilters.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
-              className={`px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer ${selectedCategory === cat.id
-                  ? "bg-[#0F2D5B] text-white shadow-md border border-[#0F2D5B]"
-                  : "bg-white text-[#102A43] hover:text-[#0F2D5B] hover:bg-[#FFF9F0] border border-[#0F2D5B]/15 shadow-xs"
-                }`}
+              className={`px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer shadow-xs ${
+                selectedCategory === cat.id
+                  ? "bg-[#002247] text-white shadow-md border border-[#002247]"
+                  : "bg-white text-[#102A43] hover:text-[#007FF0] hover:bg-[#FFF9F0] border border-[#002247]/15"
+              }`}
             >
               {cat.label}
             </button>
           ))}
         </div>
 
-        {/* 7 Vehicles Grid Layout (3-Column Desktop Grid) */}
+        {/* Vehicles Grid Layout (3-Column Desktop Grid) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
           {filteredVehicles.map((item, idx) => (
             <motion.div

@@ -204,8 +204,8 @@ export const ExploreUdaipur: React.FC<ExploreUdaipurProps> = ({ onSelectDestinat
                     <div className="p-5 text-left">
                       <div className="flex items-center justify-between text-xs text-[#64748B] mb-1">
                         <span className="font-hindi text-[#102A43] font-bold text-xs">{dest.hindiName}</span>
-                        <span className="flex items-center gap-1 font-mono text-[11px]">
-                          <Clock className="w-3 h-3 text-[#D4AF37]" /> {dest.idealDuration}
+                        <span className="px-2 py-0.5 rounded-full bg-[#FFF9F0] border border-[#0F2D5B]/10 text-[10px] font-bold text-[#0F2D5B]">
+                          {dest.type}
                         </span>
                       </div>
 

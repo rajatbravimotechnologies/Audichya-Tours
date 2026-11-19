@@ -33,11 +33,11 @@ export const About: React.FC = () => {
           <div className="lg:col-span-6 text-left">
             <div className="inline-flex items-center gap-2 mb-3 text-xs font-bold uppercase tracking-widest text-[#D4AF37]">
               <span className="w-5 h-[2px] bg-[#D4AF37]" />
-              <span>About Us</span>
+              <span>OUR STORY & PHILOSOPHY</span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0F2D5B] tracking-tight leading-tight mb-6 [text-wrap:balance]">
-              About Audichya Tours
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#002247] tracking-tight leading-tight mb-6 font-serif [text-wrap:balance]">
+              Born in Udaipur, Crafted for Unforgettable Journeys
             </h2>
 
             <div className="space-y-4 text-base sm:text-lg text-[#64748B] font-normal leading-relaxed">

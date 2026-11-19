@@ -89,7 +89,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenBooking }) => 
               </div>
               <h3 className="text-xl font-bold text-[#0F2D5B]">Full-Day Sightseeing</h3>
               <p className="text-xs text-[#64748B] leading-relaxed">
-                Flexible 8hr / 80km packages covering City Palace, Lake Pichola, Fatehsagar, Sajjangarh Sunset Palace, and Jagdish Temple.
+                Comprehensive sightseeing covering City Palace, Lake Pichola, Fatehsagar, Sajjangarh Sunset Palace, and Jagdish Temple.
               </p>
               <button
                 onClick={() => onOpenBooking(undefined, "Udaipur Full Day Sightseeing")}

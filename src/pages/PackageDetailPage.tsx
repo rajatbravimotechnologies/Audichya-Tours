@@ -33,7 +33,9 @@ export const PackageDetailPage: React.FC<PackageDetailPageProps> = ({ onOpenBook
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [slug]);
 
-  const tour = tourPackagesData.find((p) => p.slug === slug);
+  const tour = tourPackagesData.find(
+    (p) => p.slug === slug || (slug === "udaipur-one-day-tour" && p.slug === "udaipur-tour")
+  );
 
   if (!tour) {
     return (

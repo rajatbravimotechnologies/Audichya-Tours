@@ -23,12 +23,12 @@ import { FloatingContactWidget } from "./components/ui/FloatingContactWidget";
 
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalVehicle, setModalVehicle] = useState("Sedan");
+  const [modalVehicle, setModalVehicle] = useState("Toyota Etios");
   const [modalDestination, setModalDestination] = useState("");
 
   const handleOpenModal = (vehicle?: string, destination?: string) => {
-    if (vehicle) setModalVehicle(vehicle);
-    if (destination) setModalDestination(destination);
+    setModalVehicle(vehicle || "Toyota Etios");
+    setModalDestination(destination || "");
     setIsModalOpen(true);
   };
 

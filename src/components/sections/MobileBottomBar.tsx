@@ -1,6 +1,7 @@
 import React from "react";
 import { siteConfig, buildWhatsAppBookingUrl } from "../../config/site";
-import { Phone, MessageCircle, Calendar } from "lucide-react";
+import { Phone, Calendar } from "lucide-react";
+import { WhatsAppIcon } from "../ui/WhatsAppIcon";
 
 interface MobileBottomBarProps {
   onOpenBooking: () => void;
@@ -31,7 +32,7 @@ export const MobileBottomBar: React.FC<MobileBottomBarProps> = ({ onOpenBooking 
           onClick={handleWhatsApp}
           className="flex flex-col items-center justify-center py-2 px-1 rounded-xl bg-[#25D366]/15 hover:bg-[#25D366]/25 text-[#128C7E] transition-colors active:scale-95 text-center cursor-pointer border border-[#25D366]/20"
         >
-          <MessageCircle className="w-4 h-4 text-[#25D366] mb-0.5" />
+          <WhatsAppIcon className="w-4 h-4 text-[#25D366] mb-0.5" />
           <span className="text-[10px] font-bold uppercase tracking-wider text-[#128C7E]">WHATSAPP</span>
         </button>
 

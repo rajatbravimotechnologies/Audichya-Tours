@@ -6,7 +6,7 @@ export const TrustBar: React.FC = () => {
   const stats = [
     {
       icon: Users,
-      value: "5,000+",
+      value: "8,673+",
       label: "Happy Travelers",
     },
     {
@@ -21,7 +21,7 @@ export const TrustBar: React.FC = () => {
     },
     {
       icon: Star,
-      value: "4.9/5",
+      value: "4.6/5",
       label: "Customer Rating",
     },
   ];

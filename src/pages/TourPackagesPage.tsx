@@ -16,23 +16,29 @@ import {
   Building,
   HeartHandshake,
 } from "lucide-react";
+import { WhatsAppIcon } from "../components/ui/WhatsAppIcon";
+import { buildWhatsAppBookingUrl } from "../config/site";
 import { tourPackagesData, destinationShowcase } from "../data/tourPackages";
 import { PackageCard } from "../components/packages/PackageCard";
 import { CustomTourEnquiryForm } from "../components/packages/CustomTourEnquiryForm";
 import { CinematicFinalCTA } from "../components/sections/CinematicFinalCTA";
+import { UdaipurPalaceLineArt } from "../components/ui/UdaipurPalaceLineArt";
+import { AravalliMountainLineArt } from "../components/ui/AravalliMountainLineArt";
+import { GoldDetailsOverlay } from "../components/ui/GoldDetailsOverlay";
 
 interface TourPackagesPageProps {
   onOpenBooking: (vehicle?: string, destination?: string) => void;
 }
 
 export const TourPackagesPage: React.FC<TourPackagesPageProps> = ({ onOpenBooking }) => {
-  const [selectedCategory, setSelectedCategory] = useState<"all" | "udaipur" | "rajasthan" | "multi-city">("all");
+  const [selectedCategory, setSelectedCategory] = useState<"all" | "udaipur" | "rajasthan" | "multi-city" | "outstation">("all");
 
   const categories = [
     { id: "all", label: "All Packages" },
-    { id: "udaipur", label: "A. Udaipur Tour Packages" },
-    { id: "rajasthan", label: "B. Rajasthan Tour Packages" },
-    { id: "multi-city", label: "C. Multi-City Tours" },
+    { id: "udaipur", label: "Udaipur Tour Packages" },
+    { id: "rajasthan", label: "Rajasthan Tour Packages" },
+    { id: "multi-city", label: "Multi-City Tours" },
+    { id: "outstation", label: "Outstation Tours" },
   ];
 
   const filteredPackages = tourPackagesData.filter((pkg) => {
@@ -48,6 +54,14 @@ export const TourPackagesPage: React.FC<TourPackagesPageProps> = ({ onOpenBookin
   const handleScrollToCustom = () => {
     const el = document.getElementById("custom-itinerary-section");
     if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleWhatsApp = () => {
+    const url = buildWhatsAppBookingUrl({
+      serviceType: "Tour Packages Inquiry",
+      customNotes: "Namaste Audichya Tours, I am exploring your Rajasthan & Outstation Tour Packages and would like to get a personalized quote and itinerary advice.",
+    });
+    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   // Why Travel With Us 6 Trust Pillars
@@ -89,8 +103,8 @@ export const TourPackagesPage: React.FC<TourPackagesPageProps> = ({ onOpenBookin
       {/* =========================================================================
           1. CINEMATIC HERO SECTION
       ========================================================================= */}
-      <section className="relative text-white pt-32 lg:pt-40 pb-20 lg:pb-32 overflow-hidden bg-[#002247]">
-        {/* Background Image */}
+      <section className="relative text-white pt-28 sm:pt-36 lg:pt-44 pb-16 sm:pb-24 lg:pb-28 overflow-hidden bg-slate-950">
+        {/* Background Image: Original Vibrant Colors */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-105 transition-transform duration-1000"
           style={{
@@ -98,65 +112,98 @@ export const TourPackagesPage: React.FC<TourPackagesPageProps> = ({ onOpenBookin
           }}
         />
 
-        {/* Dark Vignette Overlay for Text Readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#002247]/90 via-[#002247]/80 to-[#002247]/95" />
+        {/* Soft, Natural Vignette Overlay for Clear Contrast Without Muddy Darkness */}
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/60 via-transparent to-slate-950/60" />
 
-        {/* Ambient Gold Halo */}
-        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[34rem] h-[34rem] bg-[#C2A03E]/20 rounded-full blur-3xl pointer-events-none" />
+        {/* Ambient Gold Radial Flare */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[38rem] h-[22rem] bg-[#C2A03E]/15 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-[#C2A03E]/40 mb-5"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-[#C2A03E]" />
-            <span className="text-[11px] font-bold uppercase tracking-widest text-[#FFF9F0]">
-              AUDICHYA TOURS · CURATED RAJASTHAN HOLIDAYS
-            </span>
-          </motion.div>
-
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 flex flex-col items-center">
+          {/* Main Hero Headline with Royal Gold Accent */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-white drop-shadow-md font-serif max-w-4xl mx-auto"
+            className="text-3xl sm:text-5xl lg:text-6xl xl:text-6xl font-black tracking-tight leading-[1.12] text-white font-serif max-w-4xl"
           >
-            Discover Rajasthan, One Journey at a Time
+            <span className="block [text-shadow:_0_2px_14px_rgba(0,0,0,0.95),_0_0_24px_rgba(0,0,0,0.85)]">
+              Discover Rajasthan,
+            </span>
+            <span className="text-[#D4AF37] block mt-2 [text-shadow:_0_2px_14px_rgba(0,0,0,0.95),_0_0_24px_rgba(0,0,0,0.85)] font-black">
+              One Journey at a Time.
+            </span>
           </motion.h1>
 
+          {/* Supporting Copy */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-5 text-base sm:text-lg lg:text-xl text-[#F7F4ED]/90 max-w-2xl mx-auto font-normal leading-relaxed drop-shadow-sm"
+            className="mt-5 text-sm sm:text-base lg:text-lg text-slate-100 max-w-2xl font-medium leading-relaxed [text-shadow:_0_1px_8px_rgba(0,0,0,0.9)]"
           >
-            Explore royal palaces, beautiful lakes, golden deserts and unforgettable destinations with thoughtfully planned Rajasthan tour packages.
+            Explore majestic royal palaces, tranquil lakes, golden desert sand dunes, and sacred pilgrimage shrines with custom itineraries & verified private chauffeurs.
           </motion.p>
 
-          {/* CTA Buttons */}
+          {/* 3 Call-to-Action Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"
+            className="mt-8 flex flex-wrap items-center justify-center gap-3.5 w-full sm:w-auto"
           >
+            {/* Primary CTA: Explore Tour Packages */}
             <button
               onClick={handleScrollToCategories}
-              className="w-full sm:w-auto px-8 py-4 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider text-white bg-[#007FF0] hover:bg-[#006bd1] active:scale-[0.98] transition-all shadow-xl shadow-[#007FF0]/30 flex items-center justify-center gap-2 cursor-pointer"
+              className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-xs sm:text-sm font-extrabold uppercase tracking-wider text-white bg-[#0F2D5B] hover:bg-[#D4AF37] hover:text-[#102A43] active:scale-[0.98] transition-all duration-200 shadow-xl shadow-[#0F2D5B]/50 cursor-pointer border border-[#D4AF37]/40"
             >
-              <Compass className="w-4 h-4" />
-              <span>EXPLORE TOUR PACKAGES</span>
+              <Compass className="w-4 h-4 text-[#D4AF37] group-hover:text-[#102A43] transition-colors" />
+              <span>EXPLORE PACKAGES</span>
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </button>
 
+            {/* Secondary CTA: Plan Your Trip */}
             <button
               onClick={handleScrollToCustom}
-              className="w-full sm:w-auto px-8 py-4 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider text-[#002247] bg-white hover:bg-[#C2A03E] hover:text-white transition-all shadow-lg flex items-center justify-center gap-2 cursor-pointer"
+              className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider text-[#002247] bg-white hover:bg-[#FFF9F0] active:scale-[0.98] transition-all duration-200 shadow-xl border border-white/90 backdrop-blur-md cursor-pointer"
             >
               <Calendar className="w-4 h-4 text-[#C2A03E]" />
-              <span>PLAN YOUR TRIP</span>
+              <span>CUSTOM ITINERARY</span>
             </button>
+
+            {/* Tertiary CTA: WhatsApp Button */}
+            <button
+              onClick={handleWhatsApp}
+              className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider text-white bg-[#25D366] hover:bg-[#1EBE5D] active:scale-[0.98] transition-all duration-200 shadow-xl shadow-[#25D366]/30 cursor-pointer"
+            >
+              <WhatsAppIcon className="w-4 h-4 fill-white" />
+              <span>WHATSAPP EXPERT</span>
+            </button>
+          </motion.div>
+
+          {/* Bottom Trust Indicators Strip */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mt-10 sm:mt-12 pt-6 border-t border-white/20 w-full max-w-3xl flex flex-wrap items-center justify-center gap-6 sm:gap-8 text-xs sm:text-sm text-white/90 font-medium"
+          >
+            <span className="flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-[#D4AF37]" />
+              <span>100% Private Tours</span>
+            </span>
+            <span className="flex items-center gap-2">
+              <Award className="w-4 h-4 text-[#D4AF37]" />
+              <span>Verified Chauffeurs</span>
+            </span>
+            <span className="flex items-center gap-2">
+              <Compass className="w-4 h-4 text-[#D4AF37]" />
+              <span>Tailored Sightseeing</span>
+            </span>
+            <span className="flex items-center gap-2">
+              <Headphones className="w-4 h-4 text-[#D4AF37]" />
+              <span>24/7 Dispatch Desk</span>
+            </span>
           </motion.div>
         </div>
       </section>
@@ -164,56 +211,71 @@ export const TourPackagesPage: React.FC<TourPackagesPageProps> = ({ onOpenBookin
       {/* =========================================================================
           2. TOUR PACKAGE CATEGORIES & CARDS
       ========================================================================= */}
-      <section id="tour-categories" className="py-20 lg:py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 mb-3 text-xs font-bold uppercase tracking-widest text-[#C2A03E]">
-            <span className="w-5 h-[2px] bg-[#C2A03E]" />
-            <span>CURATED TRAVEL PACKAGES</span>
-            <span className="w-5 h-[2px] bg-[#C2A03E]" />
+      <section id="tour-categories" className="py-20 lg:py-28 bg-[#FFF9F0] border-t border-[#0F2D5B]/10 relative overflow-hidden">
+        {/* Prominent Background Line Artwork */}
+        {/* Layer 1 — Udaipur Palace Line Art */}
+        <div className="absolute top-0 right-0 lg:right-0 z-0 pointer-events-none opacity-85">
+          <UdaipurPalaceLineArt opacity={0.9} className="w-[500px] sm:w-[700px] md:w-[950px] lg:w-[1150px] h-auto object-contain" />
+        </div>
+
+        {/* Layer 2 — Aravalli Mountain Line Art */}
+        <div className="absolute top-0 -left-6 md:left-0 z-0 pointer-events-none hidden sm:block opacity-75">
+          <AravalliMountainLineArt opacity={0.75} color="#D4AF37" className="w-[420px] md:w-[620px] lg:w-[780px] h-auto" />
+        </div>
+
+        {/* Layer 3 — Subtle Gold Micro Details */}
+        <GoldDetailsOverlay />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <div className="inline-flex items-center gap-2 mb-3 text-xs font-bold uppercase tracking-widest text-[#D4AF37]">
+              <span className="w-5 h-[2px] bg-[#D4AF37]" />
+              <span>CURATED TRAVEL PACKAGES</span>
+              <span className="w-5 h-[2px] bg-[#D4AF37]" />
+            </div>
+
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#002247] tracking-tight leading-tight font-serif">
+              Choose Your Rajasthan Tour Experience
+            </h2>
+            <p className="mt-4 text-base sm:text-lg text-slate-600 font-normal">
+              Whether you want a day of romantic lake exploration or an epic multi-day desert expedition, explore our thoughtfully planned tour itineraries.
+            </p>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#002247] tracking-tight leading-tight font-serif">
-            Choose Your Rajasthan Tour Experience
-          </h2>
-          <p className="mt-4 text-base sm:text-lg text-slate-600 font-normal">
-            Whether you want a day of romantic lake exploration or an epic multi-day desert expedition, explore our thoughtfully planned tour itineraries.
-          </p>
-        </div>
-
-        {/* Category Filters Bar */}
-        <div className="flex flex-wrap items-center justify-center gap-2.5 mb-14 px-2">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setSelectedCategory(cat.id as typeof selectedCategory)}
-              className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
-                selectedCategory === cat.id
+          {/* Category Filters Bar */}
+          <div className="flex flex-wrap items-center justify-center gap-2.5 mb-14 px-2">
+            {categories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setSelectedCategory(cat.id as typeof selectedCategory)}
+                className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer ${selectedCategory === cat.id
                   ? "bg-[#002247] text-white shadow-md border border-[#002247]"
                   : "bg-white text-slate-700 hover:text-[#002247] hover:bg-[#FFF9F0] border border-[#002247]/15 shadow-xs"
-              }`}
+                  }`}
+              >
+                {cat.label}
+              </button>
+            ))}
+
+            {/* Direct link to Customized Section */}
+            <button
+              onClick={handleScrollToCustom}
+              className="px-4 sm:px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-[#D4AF37]/15 to-[#007FF0]/15 text-[#002247] border border-[#D4AF37]/40 hover:bg-[#D4AF37] hover:text-[#102A43] transition-all cursor-pointer shadow-xs"
             >
-              {cat.label}
+              Customized Tour Packages ✨
             </button>
-          ))}
+          </div>
 
-          {/* Direct link to Customized Section */}
-          <button
-            onClick={handleScrollToCustom}
-            className="px-4 sm:px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-[#C2A03E]/15 to-[#007FF0]/15 text-[#002247] border border-[#C2A03E]/40 hover:bg-[#C2A03E] hover:text-white transition-all cursor-pointer"
-          >
-            D. Customized Tour Packages ✨
-          </button>
-        </div>
-
-        {/* Packages Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredPackages.map((tour) => (
-            <PackageCard
-              key={tour.slug}
-              tourPackage={tour}
-              onEnquire={(pkgTitle) => onOpenBooking(undefined, pkgTitle)}
-            />
-          ))}
+          {/* Packages Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredPackages.map((tour) => (
+              <PackageCard
+                key={tour.slug}
+                tourPackage={tour}
+                onEnquire={(pkgTitle) => onOpenBooking(undefined, pkgTitle)}
+              />
+            ))}
+          </div>
         </div>
       </section>
 

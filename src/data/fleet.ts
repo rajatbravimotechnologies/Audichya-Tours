@@ -152,7 +152,7 @@ export const fleetData: FleetItem[] = [
   {
     id: "tempo-traveller",
     category: "Luxury cars",
-    title: "Force Tempo Traveller (9, 10, 12, 13, 17, 25 Seater)",
+    title: "Force Tempo Traveller",
     subtitle: "Spacious Group & Family Travel",
     description: "Travel together comfortably in our extensive Tempo Traveller fleet with configurations from 9 to 25 seats for family tours, wedding convoys, and school or corporate trips.",
     passengers: "9, 10, 12, 13, 17 to 25 Seater Options",
@@ -171,7 +171,7 @@ export const fleetData: FleetItem[] = [
   {
     id: "force-urbania",
     category: "Luxury cars",
-    title: "The Force Urbania Luxury (9, 10, 12, 13, 17 Seater)",
+    title: "The Force Urbania Luxury",
     subtitle: "Largest Force Urbania Vendor in Udaipur",
     description: "Experience world-class luxury group travel. As the largest Force Urbania vendor in Udaipur, Audichya Tours offers 9, 10, 12, 13, and 17-seater Urbania vans for royal weddings, corporate events, and VIP group tours.",
     passengers: "9, 10, 12, 13 & 17 Seater Configurations",

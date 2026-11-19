@@ -21,17 +21,24 @@ import {
   UserCheck,
   Headphones,
   MapPin,
+  GraduationCap,
+  Hotel,
+  Sliders,
+  Globe,
 } from "lucide-react";
 import { fleetData } from "../data/fleet";
 import { siteConfig } from "../config/site";
 import { CinematicFinalCTA } from "../components/sections/CinematicFinalCTA";
+import { UdaipurPalaceLineArt } from "../components/ui/UdaipurPalaceLineArt";
+import { AravalliMountainLineArt } from "../components/ui/AravalliMountainLineArt";
+import { GoldDetailsOverlay } from "../components/ui/GoldDetailsOverlay";
 
 interface TaxiServicesPageProps {
   onOpenBooking: (vehicle?: string, destination?: string) => void;
 }
 
 export const TaxiServicesPage: React.FC<TaxiServicesPageProps> = ({ onOpenBooking }) => {
-  // 7 Core Transportation Services
+  // 12 Core Transportation Services (Local, Intercity, Corporate & Pan-India)
   const taxiServices = [
     {
       id: "local-sightseeing",
@@ -48,8 +55,8 @@ export const TaxiServicesPage: React.FC<TaxiServicesPageProps> = ({ onOpenBookin
       id: "airport-transfers",
       title: "Airport Pickup & Drop",
       description:
-        "Convenient airport transportation with pickup and drop services.",
-      image: "/images/dzire.webp",
+        "Convenient 24/7 airport transportation with flight tracking, terminal meet & greet, and zero wait-time arrivals.",
+      image: "/images/Airport-transfers-background.webp",
       icon: Plane,
       badge: "24/7 Available",
       defaultDestination: "Maharana Pratap Airport (UDR)",
@@ -59,7 +66,7 @@ export const TaxiServicesPage: React.FC<TaxiServicesPageProps> = ({ onOpenBookin
       id: "railway-transfers",
       title: "Railway Station Transfers",
       description:
-        "Comfortable pickup and drop from Udaipur railway stations.",
+        "Punctual pickup and drop from Udaipur City (UDZ) and Rana Pratap Nagar railway stations with platform luggage assist.",
       image: "/images/etios.webp",
       icon: Train,
       badge: "Punctual Meet & Greet",
@@ -67,10 +74,21 @@ export const TaxiServicesPage: React.FC<TaxiServicesPageProps> = ({ onOpenBookin
       defaultVehicle: "Maruti Suzuki Swift Dzire",
     },
     {
+      id: "hotel-transfers",
+      title: "Hotel & Heritage Resort Transfers",
+      description:
+        "Seamless transfers between airport, railway platforms, and premier luxury lake resorts, palace hotels, and boutique stays across Udaipur.",
+      image: "/images/about-background-page.webp",
+      icon: Hotel,
+      badge: "Doorstep & Luggage Assist",
+      defaultDestination: "Hotel / Palace Resort Transfer",
+      defaultVehicle: "Sedan",
+    },
+    {
       id: "outstation-taxi",
       title: "Outstation Taxi",
       description:
-        "Comfortable intercity taxi services to destinations across Rajasthan and nearby states.",
+        "Comfortable intercity taxi services to Kumbhalgarh, Ranakpur, Mount Abu, Chittorgarh, Nathdwara, and nearby states.",
       image: "/images/Kumbhalgarh Fort.webp",
       icon: Compass,
       badge: "Intercity Highway",
@@ -81,7 +99,7 @@ export const TaxiServicesPage: React.FC<TaxiServicesPageProps> = ({ onOpenBookin
       id: "one-way-taxi",
       title: "One-Way Taxi",
       description:
-        "Convenient single-direction travel without requiring a return booking.",
+        "Economical single-direction outstation drops to Ahmedabad, Jaipur, Jodhpur, Ajmer, and Delhi with no return charge.",
       image: "/images/innova-crysta_1.webp",
       icon: ArrowRight,
       badge: "Single-Direction Drop",
@@ -92,7 +110,7 @@ export const TaxiServicesPage: React.FC<TaxiServicesPageProps> = ({ onOpenBookin
       id: "round-trip-taxi",
       title: "Round-Trip Taxi",
       description:
-        "Plan your return journey with a dedicated vehicle and driver.",
+        "Plan your return journey with a dedicated vehicle and driver at your disposal throughout your holiday or pilgrimage excursion.",
       image: "/images/innova-crysta_2.webp",
       icon: RotateCcw,
       badge: "Return Excursion",
@@ -100,15 +118,59 @@ export const TaxiServicesPage: React.FC<TaxiServicesPageProps> = ({ onOpenBookin
       defaultVehicle: "Toyota Innova Crysta",
     },
     {
+      id: "corporate-event",
+      title: "Corporate Event & MICE Transportation",
+      description:
+        "Executive fleet and VIP tempo convoys for corporate conferences, summits, business delegations, and corporate retreats with GST billing.",
+      image: "/images/Urbania-2.webp",
+      icon: Briefcase,
+      badge: "Executive & MICE Fleet",
+      defaultDestination: "Corporate Conference / Resort Venue",
+      defaultVehicle: "The Force Urbania Luxury",
+    },
+    {
+      id: "educational-tours",
+      title: "Educational & Student Study Tours",
+      description:
+        "Safe, verified, and spacious transport for school excursions, university heritage trails, architectural field studies, and research trips.",
+      image: "/images/Chittorgarh Fort.webp",
+      icon: GraduationCap,
+      badge: "School & College Groups",
+      defaultDestination: "Educational Heritage Circuit",
+      defaultVehicle: "Force Tempo Traveller",
+    },
+    {
       id: "wedding-event-transport",
       title: "Wedding & Event Transportation",
       description:
-        "Reliable transportation for wedding guests, family functions and special events.",
-      image: "/images/Urbania-1.webp",
+        "Complete hospitality transit management for palace wedding guests, sangeet functions, and royal wedding guest convoys.",
+      image: "/images/wedding-transport-background.webp",
       icon: Sparkles,
       badge: "Luxury Group Fleet",
       defaultDestination: "Wedding Palace Venue / Resort",
       defaultVehicle: "The Force Urbania Luxury",
+    },
+    {
+      id: "customise-taxi-services",
+      title: "Customised Taxi & Hourly Rentals",
+      description:
+        "Tailor your travel on your terms with flexible schedules, custom multi-stop routes, scenic detours, and personal private chauffeurs.",
+      image: "/images/Badi Lake (Bahubali Hills).webp",
+      icon: Sliders,
+      badge: "Bespoke Schedule & Route",
+      defaultDestination: "Customized Itinerary & Route",
+      defaultVehicle: "Sedan / Premium SUV",
+    },
+    {
+      id: "all-india-taxi-services",
+      title: "All India & Interstate Taxi Service",
+      description:
+        "Long-distance interstate highway taxi service connecting Udaipur with Gujarat, Maharashtra, MP, Delhi NCR, and pilgrimage circuits across India.",
+      image: "/images/fleet-hero-cinematic.webp",
+      icon: Globe,
+      badge: "Nationwide Permit & Highway",
+      defaultDestination: "All India Interstate Journey",
+      defaultVehicle: "Toyota Innova Crysta / Hycross",
     },
   ];
 
@@ -144,43 +206,70 @@ export const TaxiServicesPage: React.FC<TaxiServicesPageProps> = ({ onOpenBookin
     },
   ];
 
-  // 6 Why Choose Us Features
+  // 9 Why Choose Us Core Advantage Features (SEO & Trust-Focused)
   const whyChooseFeatures = [
     {
-      title: "Comfortable Vehicles",
+      title: "Professional & Verified Chauffeurs",
       description:
-        "Immaculately maintained, sanitized cars with high-performance air-conditioning and spacious luggage room.",
-      icon: Car,
-    },
-    {
-      title: "Experienced Drivers",
-      description:
-        "Polite, background-verified chauffeurs with deep knowledge of local routes, forts, and hill highways.",
+        "Courteous, background-verified, and uniformed chauffeurs with over 10+ years of hill and highway expertise, fluent guidance, and deep knowledge of Mewar heritage.",
       icon: UserCheck,
+      badge: "Verified Chauffeur Standard",
     },
     {
-      title: "Flexible Travel Options",
+      title: "24/7 Support & On-Trip Service",
       description:
-        "Tailor your stops, departure times, and routes with flexible one-way, round-trip, and hourly rentals.",
-      icon: Compass,
-    },
-    {
-      title: "Reliable Pickup & Drop",
-      description:
-        "Zero cancellations and guaranteed on-time arrivals with live flight and train schedule tracking.",
-      icon: Clock,
-    },
-    {
-      title: "Personalized Assistance",
-      description:
-        "Direct local support via WhatsApp and phone to adjust itineraries and accommodate special travel needs.",
+        "Round-the-clock dedicated customer care and live WhatsApp support for midnight airport pickups, flight delays, emergency assistance, and route coordination.",
       icon: Headphones,
+      badge: "24/7 Live Assistance Desk",
     },
     {
-      title: "Easy Booking",
+      title: "Affordable & Reliable Rates",
       description:
-        "Hassle-free direct booking with transparent pricing, zero hidden charges, and immediate response.",
+        "Guaranteed honest and competitive rates with zero surge pricing, no hidden costs, and upfront transparent quotations for city cabs, airport rides, and outstation trips.",
+      icon: ShieldCheck,
+      badge: "Fair & Transparent Pricing",
+    },
+    {
+      title: "Comfortable & Sanitized Fleet",
+      description:
+        "Immaculately maintained, spotless vehicles equipped with high-efficiency multi-zone air conditioning, generous legroom, clean luggage compartments, and smooth suspension.",
+      icon: Car,
+      badge: "100% Sanitized & Chilled AC",
+    },
+    {
+      title: "Punctual Pickup & Drop Guarantee",
+      description:
+        "Guaranteed on-time arrivals with live flight and train schedule tracking for zero-wait pickups at Maharana Pratap Airport (UDR) and Udaipur City Railway Station.",
+      icon: Clock,
+      badge: "Zero Delay Guarantee",
+    },
+    {
+      title: "Flexible Custom Itineraries",
+      description:
+        "Complete freedom to craft your travel routes, customize photo stops, adjust schedules, and explore offbeat Rajasthan destinations at your own family pace.",
+      icon: Compass,
+      badge: "100% Custom Travel Freedom",
+    },
+    {
+      title: "Easy & Instant Direct Booking",
+      description:
+        "Hassle-free direct booking via WhatsApp or phone with immediate driver and vehicle assignment. No third-party middlemen or booking commission markups.",
       icon: CalendarCheck,
+      badge: "Direct Operator Booking",
+    },
+    {
+      title: "All-India Commercial Permits",
+      description:
+        "Every vehicle carries authorized yellow commercial plates, comprehensive passenger transit insurance, and valid interstate permits for seamless travel across India.",
+      icon: Globe,
+      badge: "Nationwide Tourist Permit",
+    },
+    {
+      title: "Personalized Mewari Hospitality",
+      description:
+        "Experience heartfelt Rajasthani hospitality with dedicated luggage assistance, senior citizen and child care, and authentic local dining and sightseeing recommendations.",
+      icon: Sparkles,
+      badge: "Authentic Local Care",
     },
   ];
 
@@ -295,92 +384,105 @@ export const TaxiServicesPage: React.FC<TaxiServicesPageProps> = ({ onOpenBookin
       </section>
 
       {/* =========================================================================
-          2. SERVICES SECTION: 7 Premium Service Cards
+          2. SERVICES SECTION: 12 Premium Transportation Services
       ========================================================================= */}
-      <section id="services-section" className="py-20 lg:py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 mb-3 text-xs font-bold uppercase tracking-widest text-[#C2A03E]">
-            <span className="w-5 h-[2px] bg-[#C2A03E]" />
-            <span>COMPREHENSIVE FLEET & ROUTE SERVICES</span>
-            <span className="w-5 h-[2px] bg-[#C2A03E]" />
-          </div>
-
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#002247] tracking-tight leading-tight font-serif">
-            Transportation for Every Journey
-          </h2>
-          <p className="mt-4 text-base sm:text-lg text-slate-600 font-normal">
-            From city sightseeing and 24/7 airport transfers to intercity one-way drops and royal wedding convoys, enjoy transparent and comfortable travel.
-          </p>
+      <section id="services-section" className="py-20 lg:py-28 bg-[#FFF9F0] border-t border-[#0F2D5B]/10 relative overflow-hidden">
+        {/* Prominent Background Line Artwork */}
+        {/* Layer 1 — Udaipur Palace Line Art */}
+        <div className="absolute top-0 right-0 lg:right-0 z-0 pointer-events-none opacity-85">
+          <UdaipurPalaceLineArt opacity={0.9} className="w-[500px] sm:w-[700px] md:w-[950px] lg:w-[1150px] h-auto object-contain" />
         </div>
 
-        {/* 7 Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {taxiServices.map((service, idx) => {
-            const Icon = service.icon;
-            const isFeatured = idx === 0 || idx === 6;
+        {/* Layer 2 — Aravalli Mountain Line Art */}
+        <div className="absolute top-0 -left-6 md:left-0 z-0 pointer-events-none hidden sm:block opacity-75">
+          <AravalliMountainLineArt opacity={0.75} color="#D4AF37" className="w-[420px] md:w-[620px] lg:w-[780px] h-auto" />
+        </div>
 
-            return (
-              <motion.div
-                key={service.id}
-                initial={{ opacity: 0, y: 25 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: idx * 0.08 }}
-                className={`group bg-white rounded-3xl overflow-hidden border border-[#002247]/10 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col justify-between text-left ${
-                  isFeatured ? "md:col-span-2 lg:col-span-1" : ""
-                }`}
-              >
-                {/* Image Header */}
-                <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-900">
-                  <img
-                    src={service.image}
-                    alt={service.title}
-                    loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+        {/* Layer 3 — Subtle Gold Micro Details */}
+        <GoldDetailsOverlay />
 
-                  {/* Badge */}
-                  <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-[#002247]/85 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider border border-[#C2A03E]/40 flex items-center gap-1.5">
-                    <Icon className="w-3 h-3 text-[#C2A03E]" />
-                    <span>{service.badge}</span>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <div className="inline-flex items-center gap-2 mb-3 text-xs font-bold uppercase tracking-widest text-[#D4AF37]">
+              <span className="w-5 h-[2px] bg-[#D4AF37]" />
+              <span>COMPREHENSIVE FLEET & ROUTE SERVICES</span>
+              <span className="w-5 h-[2px] bg-[#D4AF37]" />
+            </div>
+
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#002247] tracking-tight leading-tight font-serif">
+              Transportation for Every Journey
+            </h2>
+            <p className="mt-4 text-base sm:text-lg text-slate-600 font-normal">
+              From city sightseeing and 24/7 airport transfers to luxury hotel pickups, corporate events, educational excursions, custom rentals, and all-India journeys, enjoy transparent and comfortable travel.
+            </p>
+          </div>
+
+          {/* 12 Services Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {taxiServices.map((service, idx) => {
+              const Icon = service.icon;
+
+              return (
+                <motion.div
+                  key={service.id}
+                  initial={{ opacity: 0, y: 25 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: (idx % 3) * 0.08 }}
+                  className="group bg-white rounded-3xl overflow-hidden border border-[#002247]/10 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col justify-between text-left"
+                >
+                  {/* Image Header */}
+                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-900">
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      loading="lazy"
+                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+                    {/* Badge */}
+                    <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-[#002247]/85 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider border border-[#C2A03E]/40 flex items-center gap-1.5">
+                      <Icon className="w-3 h-3 text-[#C2A03E]" />
+                      <span>{service.badge}</span>
+                    </div>
                   </div>
-                </div>
 
-                {/* Content */}
-                <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between">
-                  <div>
-                    <div className="w-10 h-10 rounded-xl bg-[#FFF9F0] text-[#002247] border border-[#C2A03E]/20 flex items-center justify-center mb-4 group-hover:bg-[#C2A03E] group-hover:text-white transition-colors duration-300">
-                      <Icon className="w-5 h-5 text-[#C2A03E] group-hover:text-white transition-colors duration-300" />
+                  {/* Content */}
+                  <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between">
+                    <div>
+                      <div className="w-10 h-10 rounded-xl bg-[#FFF9F0] text-[#002247] border border-[#C2A03E]/20 flex items-center justify-center mb-4 group-hover:bg-[#C2A03E] group-hover:text-white transition-colors duration-300">
+                        <Icon className="w-5 h-5 text-[#C2A03E] group-hover:text-white transition-colors duration-300" />
+                      </div>
+
+                      <h3 className="text-xl font-bold text-[#002247] group-hover:text-[#007FF0] transition-colors font-serif leading-snug">
+                        {service.title}
+                      </h3>
+
+                      <p className="mt-2.5 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                        {service.description}
+                      </p>
                     </div>
 
-                    <h3 className="text-xl font-bold text-[#002247] group-hover:text-[#007FF0] transition-colors font-serif leading-snug">
-                      {service.title}
-                    </h3>
+                    {/* Action CTA Button */}
+                    <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                      <button
+                        onClick={() => onOpenBooking(service.defaultVehicle, service.defaultDestination)}
+                        className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#007FF0] hover:text-[#002247] group-hover:translate-x-1 transition-all cursor-pointer"
+                      >
+                        <span>Book Now</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </button>
 
-                    <p className="mt-2.5 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                      {service.description}
-                    </p>
+                      <span className="text-[11px] font-mono text-slate-400 font-semibold">
+                        Instant Quote
+                      </span>
+                    </div>
                   </div>
-
-                  {/* Action CTA Button */}
-                  <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
-                    <button
-                      onClick={() => onOpenBooking(service.defaultVehicle, service.defaultDestination)}
-                      className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#007FF0] hover:text-[#002247] group-hover:translate-x-1 transition-all cursor-pointer"
-                    >
-                      <span>Book Now</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </button>
-
-                    <span className="text-[11px] font-mono text-slate-400 font-semibold">
-                      Instant Quote
-                    </span>
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
@@ -472,7 +574,7 @@ export const TaxiServicesPage: React.FC<TaxiServicesPageProps> = ({ onOpenBookin
           </p>
         </div>
 
-        {/* 6 Features Grid */}
+        {/* 9 Features Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {whyChooseFeatures.map((feature, idx) => {
             const Icon = feature.icon;
@@ -482,7 +584,7 @@ export const TaxiServicesPage: React.FC<TaxiServicesPageProps> = ({ onOpenBookin
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: idx * 0.08 }}
+                transition={{ duration: 0.4, delay: (idx % 3) * 0.08 }}
                 className="bg-white rounded-3xl p-6 sm:p-7 border border-[#002247]/10 shadow-sm hover:shadow-xl transition-all duration-300 text-left flex flex-col justify-between"
               >
                 <div>
@@ -498,8 +600,8 @@ export const TaxiServicesPage: React.FC<TaxiServicesPageProps> = ({ onOpenBookin
                 </div>
 
                 <div className="mt-4 pt-3 border-t border-slate-100 flex items-center gap-1.5 text-[#007FF0] text-[11px] font-bold">
-                  <CheckCircle2 className="w-3.5 h-3.5" />
-                  <span>Guaranteed Service Standard</span>
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#007FF0]" />
+                  <span>{feature.badge}</span>
                 </div>
               </motion.div>
             );
@@ -597,7 +699,7 @@ export const TaxiServicesPage: React.FC<TaxiServicesPageProps> = ({ onOpenBookin
                     className="mt-6 w-full py-3 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-[#007FF0] hover:bg-[#006bd1] transition-all shadow-sm flex items-center justify-center gap-1.5 cursor-pointer"
                   >
                     <Car className="w-3.5 h-3.5" />
-                    <span>Book {vehicle.title.split(" ")[0]}</span>
+                    <span>Book Now</span>
                   </button>
                 </div>
               </motion.div>

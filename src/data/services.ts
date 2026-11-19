@@ -3,7 +3,7 @@ export interface ServiceItem {
   title: string;
   tagline: string;
   description: string;
-  iconName: 'MapPin' | 'Plane' | 'Camera' | 'Compass' | 'Sparkles' | 'Building2' | 'Train';
+  iconName: 'MapPin' | 'Plane' | 'Camera' | 'Compass' | 'Sparkles' | 'Building2' | 'Train' | 'Briefcase' | 'GraduationCap' | 'Hotel' | 'Sliders' | 'Globe';
   highlights: string[];
 }
 
@@ -31,6 +31,46 @@ export const servicesData: ServiceItem[] = [
     description: "Convenient train pickup and drop-off taxi service across Udaipur railway platforms with luggage assist.",
     iconName: "Train",
     highlights: ["Train schedule monitoring", "Platform exit assistance", "Reliable 24/7 transfers"]
+  },
+  {
+    id: "hotel-transfers",
+    title: "HOTEL & RESORT TRANSFERS",
+    tagline: "Doorstep Arrival & Luggage Assist",
+    description: "Seamless point-to-point transfers between airport, railway platforms, and premier lake resorts, heritage palace hotels, and boutique stays across Udaipur.",
+    iconName: "Hotel",
+    highlights: ["Doorstep pickup & luggage handling", "Direct palace & lake resort drops", "Fleet of sedans, SUVs & luxury vans"]
+  },
+  {
+    id: "corporate-events",
+    title: "CORPORATE EVENT & MICE TRANSPORT",
+    tagline: "Executive Fleets & Delegate Shuttles",
+    description: "Executive sedans and luxury tempo convoys for corporate conferences, business delegations, summit transfers, and MICE events with GST billing.",
+    iconName: "Briefcase",
+    highlights: ["Uniformed executive chauffeurs", "Corporate invoicing & GST billing", "Multi-vehicle convoy coordination"]
+  },
+  {
+    id: "educational-tours",
+    title: "EDUCATIONAL & STUDENT STUDY TOURS",
+    tagline: "School & College Excursions",
+    description: "Safe, GPS-monitored, and spacious group transportation for school excursions, university heritage trails, architectural field visits, and college research tours.",
+    iconName: "GraduationCap",
+    highlights: ["High-capacity Tempo Travellers & Urbanias", "Verified safety-first highway captains", "Budget-friendly institutional packages"]
+  },
+  {
+    id: "customise-taxi-services",
+    title: "CUSTOMISE TAXI & HOURLY RENTALS",
+    tagline: "Bespoke Schedule & Routes",
+    description: "Design your travel route on your terms with flexible schedules, custom multi-stop itineraries, scenic detours, and dedicated private chauffeurs.",
+    iconName: "Sliders",
+    highlights: ["Flexible hourly & full-day travel", "Zero route restrictions", "Dedicated chauffeur at your disposal"]
+  },
+  {
+    id: "all-india-taxi-services",
+    title: "ALL INDIA & INTERSTATE TAXI",
+    tagline: "Nationwide Highway Journeys",
+    description: "Long-distance interstate taxi service connecting Udaipur with Gujarat, Maharashtra, MP, Delhi NCR, and pilgrimage circuits across India.",
+    iconName: "Globe",
+    highlights: ["All-India national tourist permits", "Experienced interstate highway chauffeurs", "24/7 journey support & breakdown assist"]
   },
   {
     id: "one-way-taxi",
@@ -65,35 +105,11 @@ export const servicesData: ServiceItem[] = [
     highlights: ["Iconic forts & royal palaces", "Tailored cultural itineraries", "Comfortable heritage travel"]
   },
   {
-    id: "udaipur-local-tour",
-    title: "UDAIPUR LOCAL TOUR",
-    tagline: "City Heart & Hidden Gems",
-    description: "Point-to-point local taxi tours covering old city bazaars, ghats, cultural venues, and sunset spots.",
-    iconName: "MapPin",
-    highlights: ["Old city navigation experts", "Flexible hourly rental options", "Hassle-free parking & transit"]
-  },
-  {
     id: "family-holiday-tours",
     title: "FAMILY HOLIDAY TOURS",
     tagline: "Safe & Memorable Vacation Packages",
     description: "Family-friendly travel with spacious vehicles, comfortable pacing, and child- and senior-safe itineraries.",
     iconName: "Building2",
     highlights: ["Spacious MUVs & Tempo Travellers", "Relaxed family itinerary pace", "Experienced courteous chauffeurs"]
-  },
-  {
-    id: "customized-tour-packages",
-    title: "CUSTOMIZED TOUR PACKAGES",
-    tagline: "Crafted Around Your Travel Dreams",
-    description: "Personalized Rajasthan tour packages designed around your exact dates, interests, and preferences.",
-    iconName: "Sparkles",
-    highlights: ["100% flexible itineraries", "Bespoke hotel & vehicle combos", "Direct booking assistance"]
-  },
-  {
-    id: "all-india-tour-packages",
-    title: "ALL INDIA TOUR PACKAGES",
-    tagline: "Nationwide & Multi-State Journeys",
-    description: "Comprehensive multi-state journeys across Gujarat, Delhi, Agra, MP, and destinations throughout India.",
-    iconName: "Compass",
-    highlights: ["Long-distance verified fleet", "Interstate permits & tolls sorted", "24/7 journey support desk"]
   }
 ];

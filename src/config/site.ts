@@ -58,7 +58,7 @@ export const siteConfig: SiteConfig = {
   brand: {
     name: "AUDICHYA TOURS",
     legalName: "AUDICHYA TOURS",
-    tagline: "Live Your Travel Dreams Rajasthan.",
+    tagline: "Live Your Travel Dreams With Audichya Tours",
     description:
       "Audichya Tours helps travellers discover the beauty, culture and heritage of Udaipur and Rajasthan with convenient taxi services and personalized travel experiences. From local sightseeing and airport transfers to outstation journeys and holiday packages, we aim to make every journey comfortable, convenient and memorable.",
     city: "Udaipur",
@@ -114,6 +114,10 @@ export const siteConfig: SiteConfig = {
       "All India & Multi State Tours",
       "Jodhpur- Jaisalmer Tour",
       "Maharana Pratap Airport (UDR)",
+      "Hotel & Heritage Resort Transfer",
+      "Corporate Event & MICE Venue",
+      "Educational Study Tour Circuit",
+      "Customised Hourly / Day Rental",
       "Custom Destination / Outstation",
     ],
     vehicleTypes: fleetData.map((item) => ({
@@ -158,7 +162,7 @@ export function buildWhatsAppBookingUrl(params?: {
   } = params || {};
 
   const textLines: string[] = [
-    `*Namaste AUDICHYA TOURS!*`,
+    `*खम्मा घणी सा! AUDICHYA TOURS*`,
     `I would like to inquire about ${serviceType ? `*${serviceType}*` : "booking a taxi"}:`,
   ];
 

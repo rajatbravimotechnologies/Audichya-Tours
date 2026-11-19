@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { siteConfig, buildWhatsAppBookingUrl, sendLeadToWebhook } from "../../config/site";
+import { findFleetVehicleTitle } from "../ui/BookingModal";
 import {
   MapPin,
   Calendar,
@@ -16,26 +17,25 @@ interface BookingFormProps {
   id?: string;
   defaultVehicle?: string;
   defaultDestination?: string;
+  isCardOnly?: boolean;
 }
 
 export const BookingForm: React.FC<BookingFormProps> = ({
   id = "booking-section",
   defaultVehicle = "Toyota Etios",
   defaultDestination = "",
+  isCardOnly = false,
 }) => {
-  const defaultVehicleName = siteConfig.bookingOptions.vehicleTypes.find(
-    (v) => v.name.toLowerCase() === defaultVehicle.toLowerCase() || v.id === defaultVehicle.toLowerCase()
-  )?.name || siteConfig.bookingOptions.vehicleTypes[0]?.name || "Toyota Etios";
-
   const [pickup, setPickup] = useState("Maharana Pratap Airport (UDR)");
   const [drop, setDrop] = useState(defaultDestination || "City Palace / Old City Area");
+
   const [date, setDate] = useState(() => {
     const today = new Date();
     return today.toISOString().split("T")[0];
   });
   const [time, setTime] = useState("10:00");
   const [passengers, setPassengers] = useState("2 Passengers");
-  const [vehicleType, setVehicleType] = useState(defaultVehicleName);
+  const [vehicleType, setVehicleType] = useState(() => findFleetVehicleTitle(defaultVehicle));
   const [quoteRequested, setQuoteRequested] = useState(false);
   const [formError, setFormError] = useState("");
 
@@ -79,6 +79,229 @@ export const BookingForm: React.FC<BookingFormProps> = ({
     setQuoteRequested(true);
   };
 
+  const renderCardContent = () => (
+    <div className="w-full h-full bg-white rounded-3xl p-6 sm:p-8 lg:p-9 border border-[#002247]/10 shadow-xl relative overflow-hidden flex flex-col justify-between">
+      {/* Subtle Top Brand Accent Bar */}
+      <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-[#002247] via-[#D4AF37] to-[#002247]" />
+
+      {/* Card Header */}
+      <div className="flex items-center justify-between pb-4 border-b border-[#002247]/10 mb-6">
+        <div>
+          <h3 className="text-xl font-bold text-[#002247] font-serif">
+            Instant Reservation Form
+          </h3>
+          <p className="text-xs text-[#64748B] mt-0.5">
+            Select your itinerary & receive instant WhatsApp confirmation
+          </p>
+        </div>
+        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold text-[#002247] bg-[#FFF9F0] border border-[#D4AF37]/40 shrink-0">
+          <span className="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse" />
+          <span>Live Dispatch</span>
+        </span>
+      </div>
+
+      {formError && (
+        <div className="mb-6 p-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-sm flex items-center gap-2">
+          <AlertCircle className="w-5 h-5 text-amber-600 shrink-0" />
+          <span>{formError}</span>
+        </div>
+      )}
+
+      <form onSubmit={handleWhatsAppBooking} className="space-y-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+          {/* Pickup Location */}
+          <div className="flex flex-col">
+            <label className="text-xs font-bold uppercase tracking-wider text-[#102A43] mb-2 flex items-center gap-1.5">
+              <MapPin className="w-3.5 h-3.5 text-[#D4AF37]" />
+              <span>Pickup Location</span>
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                value={pickup}
+                onChange={(e) => setPickup(e.target.value)}
+                placeholder="e.g. Maharana Pratap Airport (UDR)"
+                required
+                className="w-full px-4 py-3 bg-[#FFF9F0]/60 rounded-xl border border-[#0F2D5B]/10 text-sm font-medium text-[#102A43] placeholder:text-[#64748B] focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent transition-all shadow-xs"
+              />
+            </div>
+          </div>
+
+          {/* Drop Location */}
+          <div className="flex flex-col">
+            <label className="text-xs font-bold uppercase tracking-wider text-[#102A43] mb-2 flex items-center gap-1.5">
+              <MapPin className="w-3.5 h-3.5 text-[#D4AF37]" />
+              <span>Drop Location</span>
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                value={drop}
+                onChange={(e) => setDrop(e.target.value)}
+                placeholder="e.g. City Palace / Lake Pichola"
+                required
+                className="w-full px-4 py-3 bg-[#FFF9F0]/60 rounded-xl border border-[#0F2D5B]/10 text-sm font-medium text-[#102A43] placeholder:text-[#64748B] focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent transition-all shadow-xs"
+              />
+            </div>
+          </div>
+
+          {/* Travel Date */}
+          <div className="flex flex-col">
+            <label className="text-xs font-bold uppercase tracking-wider text-[#102A43] mb-2 flex items-center gap-1.5">
+              <Calendar className="w-3.5 h-3.5 text-[#D4AF37]" />
+              <span>Travel Date</span>
+            </label>
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              required
+              className="w-full px-4 py-3 bg-[#FFF9F0]/60 rounded-xl border border-[#0F2D5B]/10 text-sm font-medium text-[#102A43] focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent transition-all shadow-xs"
+            />
+          </div>
+
+          {/* Travel Time */}
+          <div className="flex flex-col">
+            <label className="text-xs font-bold uppercase tracking-wider text-[#102A43] mb-2 flex items-center gap-1.5">
+              <Clock className="w-3.5 h-3.5 text-[#D4AF37]" />
+              <span>Travel Time</span>
+            </label>
+            <input
+              type="time"
+              value={time}
+              onChange={(e) => setTime(e.target.value)}
+              required
+              className="w-full px-4 py-3 bg-[#FFF9F0]/60 rounded-xl border border-[#0F2D5B]/10 text-sm font-medium text-[#102A43] focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent transition-all shadow-xs"
+            />
+          </div>
+
+          {/* Passengers (Independent, not mapped to vehicle) */}
+          <div className="flex flex-col">
+            <label className="text-xs font-bold uppercase tracking-wider text-[#102A43] mb-2 flex items-center gap-1.5">
+              <Users className="w-3.5 h-3.5 text-[#D4AF37]" />
+              <span>Passengers</span>
+            </label>
+            <select
+              value={passengers}
+              onChange={(e) => setPassengers(e.target.value)}
+              className="w-full px-4 py-3 bg-[#FFF9F0]/60 rounded-xl border border-[#0F2D5B]/10 text-sm font-medium text-[#102A43] focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent transition-all shadow-xs cursor-pointer"
+            >
+              <option value="1 Passenger">1 Passenger</option>
+              <option value="2 Passengers">2 Passengers</option>
+              <option value="3 - 4 Passengers">3 - 4 Passengers</option>
+              <option value="5 - 6 Passengers">5 - 6 Passengers</option>
+              <option value="7 - 8 Passengers">7 - 8 Passengers</option>
+              <option value="9 - 12 Passengers">9 - 12 Passengers</option>
+              <option value="13 - 17 Passengers">13 - 17 Passengers</option>
+              <option value="More than 17 Passengers">More than 17 Passengers</option>
+            </select>
+          </div>
+
+          {/* Vehicle Type (Selectable from all 9 fleet vehicles) */}
+          <div className="flex flex-col">
+            <label className="text-xs font-bold uppercase tracking-wider text-[#102A43] mb-2 flex items-center justify-between">
+              <span className="flex items-center gap-1.5">
+                <Car className="w-3.5 h-3.5 text-[#D4AF37]" />
+                <span>Vehicle / Fleet</span>
+              </span>
+              <span className="text-[10px] text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                Choose Fleet
+              </span>
+            </label>
+            <select
+              value={vehicleType}
+              onChange={(e) => setVehicleType(e.target.value)}
+              className="w-full px-4 py-3 bg-[#FFF9F0]/60 rounded-xl border border-[#0F2D5B]/10 text-sm font-bold text-[#102A43] focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent transition-all shadow-xs cursor-pointer"
+            >
+              <optgroup label="Sedan Fleet (Up to 4 Passengers)">
+                <option value="Maruti Suzuki Swift Dzire">Maruti Suzuki Swift Dzire</option>
+                <option value="Toyota Etios">Toyota Etios</option>
+                <option value="Hyundai Aura">Hyundai Aura</option>
+              </optgroup>
+              <optgroup label="MPV Fleet (6–7 Passengers)">
+                <option value="Maruti Suzuki Ertiga">Maruti Suzuki Ertiga</option>
+                <option value="Kia Carens">Kia Carens</option>
+              </optgroup>
+              <optgroup label="Premium SUV (6–7 Passengers)">
+                <option value="Toyota Innova Crysta">Toyota Innova Crysta</option>
+                <option value="Toyota Innova Hycross">Toyota Innova Hycross</option>
+              </optgroup>
+              <optgroup label="Luxury Group Vans & Coaches">
+                <option value="Force Tempo Traveller">Force Tempo Traveller (9–25 Seater)</option>
+                <option value="The Force Urbania Luxury">The Force Urbania Luxury (9–17 Seater)</option>
+              </optgroup>
+            </select>
+          </div>
+        </div>
+
+        {/* Quote Drawer / Feedback Modal */}
+        {quoteRequested && (
+          <div className="p-5 rounded-2xl bg-[#E6F0FF] border border-[#0F2D5B]/10 transition-all">
+            <div className="flex items-start justify-between gap-4">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2 text-xs font-bold uppercase text-[#0F2D5B]">
+                  <CheckCircle2 className="w-4 h-4 text-[#D4AF37]" />
+                  <span>Route Verified · Instant Dispatch Available</span>
+                </div>
+                <p className="text-sm text-[#102A43]">
+                  Journey: <span className="font-semibold">{pickup}</span> ⟶ <span className="font-semibold">{drop}</span>
+                </p>
+                <p className="text-xs text-[#64748B]">
+                  Vehicle: <span className="font-semibold text-[#102A43]">{vehicleType}</span> ({passengers}) on{" "}
+                  <span className="font-semibold text-[#102A43]">{date}</span> at{" "}
+                  <span className="font-semibold text-[#102A43]">{time}</span>.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setQuoteRequested(false)}
+                className="text-xs font-semibold text-[#64748B] hover:text-[#0F2D5B]"
+              >
+                Dismiss
+              </button>
+            </div>
+            <div className="mt-4 pt-4 border-t border-[#0F2D5B]/10 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <span className="text-xs text-[#64748B]">
+                Click below to transmit this itinerary directly to our 24/7 WhatsApp dispatch desk for the exact fixed fare.
+              </span>
+              <button
+                type="submit"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-[#25D366] hover:bg-[#20ba59] transition-all shadow-md shrink-0 cursor-pointer"
+              >
+                <MessageCircle className="w-4 h-4" />
+                <span>Confirm via WhatsApp</span>
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Action Buttons */}
+        <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-3.5">
+          <button
+            type="button"
+            onClick={handleGetQuote}
+            className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider text-[#0F2D5B] bg-[#E6F0FF] hover:bg-[#D4AF37] hover:text-[#102A43] border border-[#0F2D5B]/10 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
+          >
+            <Calculator className="w-4 h-4 text-[#D4AF37]" />
+            <span>GET A QUOTE</span>
+          </button>
+
+          <button
+            type="submit"
+            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-xs font-extrabold uppercase tracking-wider text-white bg-[#0F2D5B] hover:bg-[#D4AF37] hover:text-[#102A43] active:scale-[0.98] transition-all duration-150 shadow-md shadow-[#0F2D5B]/20 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
+          >
+            <MessageCircle className="w-4 h-4 text-[#25D366]" />
+            <span>BOOK ON WHATSAPP</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+
+  if (isCardOnly) {
+    return renderCardContent();
+  }
+
   return (
     <section id={id} className="relative py-16 lg:py-24 bg-[#FFF9F0] border-y border-[#0F2D5B]/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -98,197 +321,8 @@ export const BookingForm: React.FC<BookingFormProps> = ({
         </div>
 
         {/* Premium Booking Card */}
-        <div className="max-w-5xl mx-auto bg-white rounded-3xl p-6 sm:p-10 border border-[#0F2D5B]/10 shadow-xl relative overflow-hidden">
-          {/* Subtle Top Brand Accent Bar */}
-          <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-[#0F2D5B] via-[#D4AF37] to-[#0F2D5B]" />
-
-          {formError && (
-            <div className="mb-6 p-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-sm flex items-center gap-2">
-              <AlertCircle className="w-5 h-5 text-amber-600 shrink-0" />
-              <span>{formError}</span>
-            </div>
-          )}
-
-          <form onSubmit={handleWhatsAppBooking} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-              {/* Pickup Location */}
-              <div className="flex flex-col">
-                <label className="text-xs font-bold uppercase tracking-wider text-[#102A43] mb-2 flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-[#D4AF37]" />
-                  <span>Pickup Location</span>
-                </label>
-                <div className="relative">
-                  <input
-                    type="text"
-                    value={pickup}
-                    onChange={(e) => setPickup(e.target.value)}
-                    list="pickup-options"
-                    placeholder="e.g. Maharana Pratap Airport (UDR)"
-                    required
-                    className="w-full px-4 py-3 bg-[#FFF9F0]/60 rounded-xl border border-[#0F2D5B]/10 text-sm font-medium text-[#102A43] placeholder:text-[#64748B] focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent transition-all shadow-xs"
-                  />
-                  <datalist id="pickup-options">
-                    {siteConfig.bookingOptions.popularPickups.map((loc) => (
-                      <option key={loc} value={loc} />
-                    ))}
-                  </datalist>
-                </div>
-              </div>
-
-              {/* Drop Location */}
-              <div className="flex flex-col">
-                <label className="text-xs font-bold uppercase tracking-wider text-[#102A43] mb-2 flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-[#D4AF37]" />
-                  <span>Drop Location</span>
-                </label>
-                <div className="relative">
-                  <input
-                    type="text"
-                    value={drop}
-                    onChange={(e) => setDrop(e.target.value)}
-                    list="drop-options"
-                    placeholder="e.g. City Palace / Lake Pichola"
-                    required
-                    className="w-full px-4 py-3 bg-[#FFF9F0]/60 rounded-xl border border-[#0F2D5B]/10 text-sm font-medium text-[#102A43] placeholder:text-[#64748B] focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent transition-all shadow-xs"
-                  />
-                  <datalist id="drop-options">
-                    {siteConfig.bookingOptions.popularDrops.map((loc) => (
-                      <option key={loc} value={loc} />
-                    ))}
-                  </datalist>
-                </div>
-              </div>
-
-              {/* Travel Date */}
-              <div className="flex flex-col">
-                <label className="text-xs font-bold uppercase tracking-wider text-[#102A43] mb-2 flex items-center gap-1.5">
-                  <Calendar className="w-3.5 h-3.5 text-[#D4AF37]" />
-                  <span>Travel Date</span>
-                </label>
-                <input
-                  type="date"
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
-                  required
-                  className="w-full px-4 py-3 bg-[#FFF9F0]/60 rounded-xl border border-[#0F2D5B]/10 text-sm font-medium text-[#102A43] focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent transition-all shadow-xs"
-                />
-              </div>
-
-              {/* Travel Time */}
-              <div className="flex flex-col">
-                <label className="text-xs font-bold uppercase tracking-wider text-[#102A43] mb-2 flex items-center gap-1.5">
-                  <Clock className="w-3.5 h-3.5 text-[#D4AF37]" />
-                  <span>Travel Time</span>
-                </label>
-                <input
-                  type="time"
-                  value={time}
-                  onChange={(e) => setTime(e.target.value)}
-                  required
-                  className="w-full px-4 py-3 bg-[#FFF9F0]/60 rounded-xl border border-[#0F2D5B]/10 text-sm font-medium text-[#102A43] focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent transition-all shadow-xs"
-                />
-              </div>
-
-              {/* Passengers */}
-              <div className="flex flex-col">
-                <label className="text-xs font-bold uppercase tracking-wider text-[#102A43] mb-2 flex items-center gap-1.5">
-                  <Users className="w-3.5 h-3.5 text-[#D4AF37]" />
-                  <span>Passengers</span>
-                </label>
-                <select
-                  value={passengers}
-                  onChange={(e) => setPassengers(e.target.value)}
-                  className="w-full px-4 py-3 bg-[#FFF9F0]/60 rounded-xl border border-[#0F2D5B]/10 text-sm font-medium text-[#102A43] focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent transition-all shadow-xs"
-                >
-                  <option value="1 Passenger">1 Passenger</option>
-                  <option value="2 Passengers">2 Passengers</option>
-                  <option value="3-4 Passengers">3 - 4 Passengers</option>
-                  <option value="5-7 Passengers">5 - 7 Passengers (SUV)</option>
-                  <option value="8+ Group">8+ Wedding / Group</option>
-                </select>
-              </div>
-
-              {/* Vehicle Type */}
-              <div className="flex flex-col">
-                <label className="text-xs font-bold uppercase tracking-wider text-[#102A43] mb-2 flex items-center gap-1.5">
-                  <Car className="w-3.5 h-3.5 text-[#D4AF37]" />
-                  <span>Vehicle Type</span>
-                </label>
-                <select
-                  value={vehicleType}
-                  onChange={(e) => setVehicleType(e.target.value)}
-                  className="w-full px-4 py-3 bg-[#FFF9F0]/60 rounded-xl border border-[#0F2D5B]/10 text-sm font-medium text-[#102A43] focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent transition-all shadow-xs"
-                >
-                  {siteConfig.bookingOptions.vehicleTypes.map((v) => (
-                    <option key={v.id} value={v.name}>
-                      {v.name} ({v.capacity})
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            {/* Quote Drawer / Feedback Modal */}
-            {quoteRequested && (
-              <div className="p-6 rounded-2xl bg-[#E6F0FF] border border-[#0F2D5B]/10 transition-all">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2 text-xs font-bold uppercase text-[#0F2D5B]">
-                      <CheckCircle2 className="w-4 h-4 text-[#D4AF37]" />
-                      <span>Route Verified · Instant Dispatch Available</span>
-                    </div>
-                    <p className="text-sm text-[#102A43]">
-                      Journey: <span className="font-semibold">{pickup}</span> ⟶ <span className="font-semibold">{drop}</span>
-                    </p>
-                    <p className="text-xs text-[#64748B]">
-                      Vehicle: <span className="font-semibold text-[#102A43]">{vehicleType}</span> ({passengers}) on{" "}
-                      <span className="font-semibold text-[#102A43]">{date}</span> at{" "}
-                      <span className="font-semibold text-[#102A43]">{time}</span>.
-                    </p>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => setQuoteRequested(false)}
-                    className="text-xs font-semibold text-[#64748B] hover:text-[#0F2D5B]"
-                  >
-                    Dismiss
-                  </button>
-                </div>
-                <div className="mt-4 pt-4 border-t border-[#0F2D5B]/10 flex flex-col sm:flex-row items-center justify-between gap-3">
-                  <span className="text-xs text-[#64748B]">
-                    Click below to transmit this itinerary directly to our 24/7 WhatsApp dispatch desk for the exact fixed fare.
-                  </span>
-                  <button
-                    type="submit"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-[#25D366] hover:bg-[#20ba59] transition-all shadow-md shrink-0 cursor-pointer"
-                  >
-                    <MessageCircle className="w-4 h-4" />
-                    <span>Confirm via WhatsApp</span>
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* Action Buttons */}
-            <div className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-4">
-              <button
-                type="button"
-                onClick={handleGetQuote}
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider text-[#0F2D5B] bg-[#E6F0FF] hover:bg-[#D4AF37] hover:text-[#102A43] border border-[#0F2D5B]/10 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
-              >
-                <Calculator className="w-4 h-4 text-[#D4AF37]" />
-                <span>GET A QUOTE</span>
-              </button>
-
-              <button
-                type="submit"
-                className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-[#0F2D5B] hover:bg-[#D4AF37] hover:text-[#102A43] active:scale-[0.98] transition-all duration-150 shadow-md shadow-[#0F2D5B]/20 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
-              >
-                <MessageCircle className="w-4 h-4" />
-                <span>BOOK ON WHATSAPP</span>
-              </button>
-            </div>
-          </form>
+        <div className="max-w-5xl mx-auto">
+          {renderCardContent()}
         </div>
       </div>
     </section>
