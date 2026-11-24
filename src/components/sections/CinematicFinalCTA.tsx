@@ -129,21 +129,26 @@ export const CinematicFinalCTA: React.FC<CinematicFinalCTAProps> = ({ onOpenBook
 
       {/* Foreground Conversion Content */}
       <div className="relative z-30 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-16">
-        {/* Live Destination Location Pill Badge (Updates on every slide) */}
+        {/* Cinema Ambient Soft Shadow (Local to text, NOT on background image) */}
+        <div className="relative inline-block mb-6">
+          <div className="absolute inset-0 -inset-x-12 -inset-y-6 bg-black/65 blur-3xl -z-10 rounded-full pointer-events-none" />
 
-
-        {/* Headline */}
-        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight mb-6 [text-wrap:balance] drop-shadow-2xl">
-          Live Your Travel Dreams <br />
-          <span className="text-[#D4AF37]">With Audichya Tours.</span>
-        </h2>
-
+          {/* Headline with High-Definition Cinema Text Shadows */}
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight [text-wrap:balance]">
+            <span className="text-white block [text-shadow:_0_0_30px_#000,_0_0_12px_#000,_0_2px_4px_#000,_0_4px_18px_#000]">
+              Live Your Travel Dreams
+            </span>
+            <span className="text-[#FFD700] block mt-1.5 [text-shadow:_0_0_30px_#000,_0_0_12px_#000,_0_2px_4px_#000,_0_4px_18px_#000] font-black">
+              With Audichya Tours.
+            </span>
+          </h2>
+        </div>
 
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-xl mx-auto mb-8">
           <button
             onClick={onOpenBooking}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider text-white bg-[#0F2D5B] hover:bg-[#D4AF37] hover:text-[#0F2D5B] active:scale-[0.98] transition-all shadow-xl shadow-[#0F2D5B]/35 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider text-white bg-[#0F2D5B] hover:bg-[#D4AF37] hover:text-[#0F2D5B] active:scale-[0.98] transition-all shadow-2xl shadow-black/50 cursor-pointer border border-[#D4AF37]/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
           >
             <span>BOOK YOUR TAXI</span>
             <ArrowRight className="w-4 h-4" />
@@ -151,7 +156,7 @@ export const CinematicFinalCTA: React.FC<CinematicFinalCTAProps> = ({ onOpenBook
 
           <button
             onClick={handleExploreFleet}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider text-white bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/25 active:scale-[0.98] transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl text-xs sm:text-sm font-extrabold uppercase tracking-wider text-[#0F2D5B] bg-white hover:bg-[#FFF9F0] active:scale-[0.98] transition-all shadow-2xl border-2 border-white cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
           >
             <Compass className="w-4 h-4 text-[#D4AF37]" />
             <span>EXPLORE TOUR PACKAGES</span>
@@ -159,7 +164,7 @@ export const CinematicFinalCTA: React.FC<CinematicFinalCTAProps> = ({ onOpenBook
 
           <button
             onClick={handleWhatsAppClick}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider text-white bg-[#25D366] hover:bg-[#20ba59] active:scale-[0.98] transition-all shadow-md cursor-pointer"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider text-white bg-[#25D366] hover:bg-[#20ba59] active:scale-[0.98] transition-all shadow-2xl shadow-black/40 cursor-pointer"
           >
             <MessageCircle className="w-4 h-4" />
             <span>WhatsApp</span>
@@ -171,21 +176,21 @@ export const CinematicFinalCTA: React.FC<CinematicFinalCTAProps> = ({ onOpenBook
           {/* Left Arrow */}
           <button
             onClick={handlePrevSlide}
-            className="w-7 h-7 rounded-full bg-black/60 hover:bg-[#0F2D5B] text-white/90 hover:text-white border border-white/20 flex items-center justify-center transition-colors cursor-pointer"
+            className="w-8 h-8 rounded-full bg-black/75 hover:bg-[#0F2D5B] text-white border border-white/30 shadow-xl flex items-center justify-center transition-colors cursor-pointer"
             aria-label="Previous background place"
           >
-            <ChevronLeft className="w-3.5 h-3.5" />
+            <ChevronLeft className="w-4 h-4" />
           </button>
 
           {/* Slide Dots */}
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-1.5 bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20 shadow-lg">
             {ctaPackagePlaces.map((_, dotIdx) => (
               <button
                 key={dotIdx}
                 onClick={() => setCurrentSlideIndex(dotIdx)}
                 className={`transition-all duration-300 cursor-pointer ${dotIdx === currentSlideIndex
-                  ? "w-6 h-2 rounded-full bg-[#D4AF37] shadow-sm"
-                  : "w-2 h-2 rounded-full bg-white/40 hover:bg-white/70"
+                  ? "w-6 h-2 rounded-full bg-[#FFD700] shadow-sm"
+                  : "w-2 h-2 rounded-full bg-white/50 hover:bg-white"
                   }`}
                 aria-label={`Slide to destination ${dotIdx + 1}`}
               />
@@ -195,22 +200,22 @@ export const CinematicFinalCTA: React.FC<CinematicFinalCTAProps> = ({ onOpenBook
           {/* Right Arrow */}
           <button
             onClick={handleNextSlide}
-            className="w-7 h-7 rounded-full bg-black/60 hover:bg-[#0F2D5B] text-white/90 hover:text-white border border-white/20 flex items-center justify-center transition-colors cursor-pointer"
+            className="w-8 h-8 rounded-full bg-black/75 hover:bg-[#0F2D5B] text-white border border-white/30 shadow-xl flex items-center justify-center transition-colors cursor-pointer"
             aria-label="Next background place"
           >
-            <ChevronRight className="w-3.5 h-3.5" />
+            <ChevronRight className="w-4 h-4" />
           </button>
         </div>
 
         {/* Quiet Trust Markers */}
-        <div className="pt-8 border-t border-white/15 flex flex-wrap items-center justify-center gap-8 text-xs text-slate-300">
-          <span className="flex items-center gap-2 font-mono">
+        <div className="pt-6 border-t border-white/20 flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs font-bold">
+          <span className="flex items-center gap-2 text-white bg-black/65 backdrop-blur-md px-4 py-2 rounded-full border border-white/25 shadow-xl">
             <Shield className="w-4 h-4 text-[#007FF0]" /> Licensed & Insured Fleet
           </span>
-          <span className="flex items-center gap-2 font-mono">
-            <Compass className="w-4 h-4 text-[#C2A03E]" /> Local Chauffeur Expertise
+          <span className="flex items-center gap-2 text-white bg-black/65 backdrop-blur-md px-4 py-2 rounded-full border border-white/25 shadow-xl">
+            <Compass className="w-4 h-4 text-[#FFD700]" /> Local Chauffeur Expertise
           </span>
-          <span className="flex items-center gap-2 font-mono">
+          <span className="flex items-center gap-2 text-white bg-black/65 backdrop-blur-md px-4 py-2 rounded-full border border-white/25 shadow-xl">
             <Phone className="w-4 h-4 text-[#007FF0]" /> 24/7 Dispatch Desk
           </span>
         </div>

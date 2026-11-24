@@ -34,6 +34,7 @@
 
 /* Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
+
   *,
   ::before,
   ::after {
@@ -49,6 +50,7 @@
   0% {
     transform: translate3d(0, 0, 0);
   }
+
   100% {
     transform: translate3d(-50%, 0, 0);
   }
@@ -58,6 +60,7 @@
   0% {
     transform: translate3d(-50%, 0, 0);
   }
+
   100% {
     transform: translate3d(0, 0, 0);
   }
@@ -87,14 +90,14 @@
 .animate-dest-marquee-forward {
   display: flex;
   width: max-content;
-  animation: fleet-marquee-forward 45s linear infinite;
+  animation: fleet-marquee-forward 100s linear infinite;
   will-change: transform;
 }
 
 .animate-dest-marquee-reverse {
   display: flex;
   width: max-content;
-  animation: fleet-marquee-reverse 45s linear infinite;
+  animation: fleet-marquee-reverse 100s linear infinite;
   will-change: transform;
 }
 
