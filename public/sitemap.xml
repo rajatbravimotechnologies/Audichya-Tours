@@ -1,237 +1,406 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd http://www.google.com/schemas/sitemap-image/1.1 http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd">
   <url>
-    <loc>https://audichyatours.com/</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Taxi Service in Udaipur | Private Cab Booking & Rajasthan Tours</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/taxi-services</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/taxi-services</loc>
+    <lastmod>2026-11-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Taxi & Cab Services in Udaipur | Airport Transfers, Local Sightseeing & Outstation</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://audichyatours.in/tour-packages</loc>
+    <lastmod>2026-11-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Udaipur & Rajasthan Tour Packages | Curated Private Cab Itineraries</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://audichyatours.in/fleet</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Our Taxi Fleet in Udaipur | Sedan, Innova Crysta, Fortuner & Tempo Traveller</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/tour-packages</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/services</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Comprehensive Travel Services in Udaipur | Audichya Tours</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/fleet</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/explore</loc>
+    <lastmod>2026-11-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Explore Udaipur Attractions & Sightseeing Places</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://audichyatours.in/about</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>About Audichya Tours | Trusted Taxi Service in Udaipur Since 2005</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/about</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/contact</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Contact Audichya Tours | 24/7 Taxi Booking & Phone Support</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/contact</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/gallery</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Udaipur Taxi Tour Photo & Video Gallery</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/gallery</loc>
-    <lastmod>2026-11-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://audichyatours.com/explore</loc>
-    <lastmod>2026-11-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://audichyatours.com/tour-packages/udaipur-tour</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/tour-packages/udaipur-tour</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Udaipur Tour | Audichya Tours Udaipur</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/tour-packages/udaipur-eklingji-nathdwara-statue-of-belief-tour</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/tour-packages/udaipur-eklingji-nathdwara-statue-of-belief-tour</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Udaipur Eklingji Nathdwara Statue Of Belief Tour | Audichya Tours Udaipur</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/tour-packages/udaipur-kumbhalgarh-haldighati-tour</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/tour-packages/udaipur-kumbhalgarh-haldighati-tour</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Udaipur Kumbhalgarh Haldighati Tour | Audichya Tours Udaipur</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/tour-packages/udaipur-ranakpur-tour</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/tour-packages/udaipur-ranakpur-tour</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Udaipur Ranakpur Tour | Audichya Tours Udaipur</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/tour-packages/udaipur-jaisamand-lake-tour</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/tour-packages/udaipur-jaisamand-lake-tour</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Udaipur Jaisamand Lake Tour | Audichya Tours Udaipur</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/tour-packages/udaipur-chittorgarh-sanwariya-seth-tour</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/tour-packages/udaipur-chittorgarh-sanwariya-seth-tour</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Udaipur Chittorgarh Sanwariya Seth Tour | Audichya Tours Udaipur</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/tour-packages/udaipur-jodhpur-tour</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/tour-packages/udaipur-jodhpur-tour</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Udaipur Jodhpur Tour | Audichya Tours Udaipur</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/tour-packages/udaipur-jaipur-tour</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/tour-packages/udaipur-jaipur-tour</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Udaipur Jaipur Tour | Audichya Tours Udaipur</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/tour-packages/udaipur-jaipur-jaisalmer-tour</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/tour-packages/udaipur-jaipur-jaisalmer-tour</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Udaipur Jaipur Jaisalmer Tour | Audichya Tours Udaipur</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/tour-packages/udaipur-jaipur-jodhpur-jaisalmer-tour</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/tour-packages/udaipur-jaipur-jodhpur-jaisalmer-tour</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Udaipur Jaipur Jodhpur Jaisalmer Tour | Audichya Tours Udaipur</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/tour-packages/udaipur-mount-abu-tour</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/tour-packages/udaipur-mount-abu-tour</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Udaipur Mount Abu Tour | Audichya Tours Udaipur</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/tour-packages/udaipur-jawai-leopard-safari-tour</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/tour-packages/udaipur-jawai-leopard-safari-tour</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Udaipur Jawai Leopard Safari Tour | Audichya Tours Udaipur</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/tour-packages/udaipur-pushkar-tour</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/tour-packages/udaipur-pushkar-tour</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Udaipur Pushkar Tour | Audichya Tours Udaipur</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/tour-packages/udaipur-bikaner-tour</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/tour-packages/udaipur-bikaner-tour</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Udaipur Bikaner Tour | Audichya Tours Udaipur</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/tour-packages/jodhpur-jaisalmer-tour</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/tour-packages/jodhpur-jaisalmer-tour</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Jodhpur Jaisalmer Tour | Audichya Tours Udaipur</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/tour-packages/jaipur-jodhpur-jaisalmer-tour</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/tour-packages/jaipur-jodhpur-jaisalmer-tour</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Jaipur Jodhpur Jaisalmer Tour | Audichya Tours Udaipur</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/tour-packages/all-india-religious-pilgrimage-tour</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/tour-packages/all-india-religious-pilgrimage-tour</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>All India Religious Pilgrimage Tour | Audichya Tours Udaipur</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/tour-packages/royal-rajasthan-grand-tour</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/tour-packages/royal-rajasthan-grand-tour</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Royal Rajasthan Grand Tour | Audichya Tours Udaipur</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/tour-packages/udaipur-to-jaisalmer-desert-journey</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/tour-packages/udaipur-to-jaisalmer-desert-journey</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Udaipur To Jaisalmer Desert Journey | Audichya Tours Udaipur</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/tour-packages/gujarat-tour-package</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/tour-packages/gujarat-tour-package</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Gujarat Tour Package | Audichya Tours Udaipur</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/tour-packages/maharashtra-tour-package</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/tour-packages/maharashtra-tour-package</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Maharashtra Tour Package | Audichya Tours Udaipur</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/tour-packages/madhya-pradesh-tour-package</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/tour-packages/madhya-pradesh-tour-package</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Madhya Pradesh Tour Package | Audichya Tours Udaipur</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/tour-packages/uttar-pradesh-tour-package</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/tour-packages/uttar-pradesh-tour-package</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Uttar Pradesh Tour Package | Audichya Tours Udaipur</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/tour-packages/kerala-tour-package</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/tour-packages/kerala-tour-package</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Kerala Tour Package | Audichya Tours Udaipur</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/tour-packages/south-india-tour-package</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/tour-packages/south-india-tour-package</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>South India Tour Package | Audichya Tours Udaipur</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/tour-packages/delhi-tour-package</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/tour-packages/delhi-tour-package</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Delhi Tour Package | Audichya Tours Udaipur</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/tour-packages/uttarakhand-tour-package</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/tour-packages/uttarakhand-tour-package</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Uttarakhand Tour Package | Audichya Tours Udaipur</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/tour-packages/jammu-kashmir-tour-package</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/tour-packages/jammu-kashmir-tour-package</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Jammu Kashmir Tour Package | Audichya Tours Udaipur</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/tour-packages/punjab-tour-package</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/tour-packages/punjab-tour-package</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Punjab Tour Package | Audichya Tours Udaipur</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/tour-packages/leh-ladakh-tour-package</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/tour-packages/leh-ladakh-tour-package</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Leh Ladakh Tour Package | Audichya Tours Udaipur</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://audichyatours.com/tour-packages/diu-daman-tour-package</loc>
-    <lastmod>2026-11-20</lastmod>
+    <loc>https://audichyatours.in/tour-packages/diu-daman-tour-package</loc>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://audichyatours.in/images/home-hero-taxi-luxury.jpg</image:loc>
+      <image:title>Diu Daman Tour Package | Audichya Tours Udaipur</image:title>
+    </image:image>
   </url>
 </urlset>

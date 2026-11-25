@@ -1,6 +1,6 @@
 import { siteConfig } from "./site";
 
-const BASE_URL = "https://audichyatours.com";
+const BASE_URL = "https://audichyatours.in";
 
 /**
  * Standard Organization & LocalBusiness schema for Audichya Tours

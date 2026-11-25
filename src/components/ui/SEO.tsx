@@ -16,7 +16,7 @@ export interface SEOProps {
   breadcrumbs?: BreadcrumbItem[];
 }
 
-const BASE_URL = "https://audichyatours.com";
+const BASE_URL = "https://audichyatours.in";
 
 export const SEO: React.FC<SEOProps> = ({
   title,

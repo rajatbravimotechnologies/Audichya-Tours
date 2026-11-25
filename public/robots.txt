@@ -1,5 +1,110 @@
-# https://audichyatours.com/robots.txt
+# ==============================================================================
+# AUDICHYA TOURS & TRAVELS - ROBOTS.TXT
+# Website: https://audichyatours.in/
+# Description: Official robots.txt for Search Engines, Answer Engines & AI Crawlers
+# Optimization: SEO (Google/Bing), AEO (Answer Engines), GEO (Generative Engines)
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. Default Rules for All Web Crawlers & Search Engines (Google, Bing, Yahoo, etc.)
+# ------------------------------------------------------------------------------
 User-agent: *
 Allow: /
+Allow: /taxi-services
+Allow: /tour-packages
+Allow: /tour-packages/*
+Allow: /fleet
+Allow: /services
+Allow: /explore
+Allow: /about
+Allow: /contact
+Allow: /gallery
+Allow: /images/
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /sitemap.xml
 
-Sitemap: https://audichyatours.com/sitemap.xml
+# Block sensitive directories and non-public files
+Disallow: /api/private/
+Disallow: /*.jsonl$
+Disallow: /*.env$
+Disallow: /*.map$
+
+# ------------------------------------------------------------------------------
+# 2. Generative AI & Answer Engine Optimization (GEO & AEO Crawlers)
+# Explicitly welcome and allow AI assistants to index our verified taxi and tour data
+# ------------------------------------------------------------------------------
+# OpenAI (ChatGPT, SearchGPT, GPT-4o, GPT-5)
+User-agent: GPTBot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+User-agent: ChatGPT-User
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+# Google Gemini & AI Overviews
+User-agent: Google-Extended
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+User-agent: GoogleOther
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+# Perplexity AI (Conversational Answer Engine)
+User-agent: PerplexityBot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+# Anthropic (Claude 3.5 Sonnet, Claude 3 Opus)
+User-agent: ClaudeBot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+User-agent: anthropic-ai
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+# Apple Intelligence
+User-agent: Applebot-Extended
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+# Meta AI & Facebook
+User-agent: Meta-ExternalAgent
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+User-agent: FacebookBot
+Allow: /
+
+# Microsoft Bing & Copilot
+User-agent: Bingbot
+Allow: /
+
+# Cohere AI
+User-agent: cohere-ai
+Allow: /
+
+# Amazon AI & Alexa
+User-agent: Amazonbot
+Allow: /
+
+# ------------------------------------------------------------------------------
+# 3. Canonical Sitemap & LLM Knowledge Endpoints
+# ------------------------------------------------------------------------------
+Sitemap: https://audichyatours.in/sitemap.xml
+
+# LLM Ground Truth Context (for RAG, LLM citations & AI recommendations):
+# https://audichyatours.in/llms.txt
+# https://audichyatours.in/llms-full.txt
