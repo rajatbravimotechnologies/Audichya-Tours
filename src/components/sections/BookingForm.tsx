@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { siteConfig, buildWhatsAppBookingUrl, sendLeadToWebhook } from "../../config/site";
-import { findFleetVehicleTitle } from "../ui/BookingModal";
+import { findFleetVehicleTitle, mapPassengersToVehicle } from "../ui/BookingModal";
 import {
   MapPin,
   Calendar,
   Clock,
   Users,
   Car,
+  User,
+  Phone,
   MessageCircle,
   Calculator,
   CheckCircle2,
@@ -22,12 +24,14 @@ interface BookingFormProps {
 
 export const BookingForm: React.FC<BookingFormProps> = ({
   id = "booking-section",
-  defaultVehicle = "Toyota Etios",
+  defaultVehicle = "",
   defaultDestination = "",
   isCardOnly = false,
 }) => {
-  const [pickup, setPickup] = useState("Maharana Pratap Airport (UDR)");
-  const [drop, setDrop] = useState(defaultDestination || "City Palace / Old City Area");
+  const [customerName, setCustomerName] = useState("");
+  const [customerPhone, setCustomerPhone] = useState("");
+  const [pickup, setPickup] = useState("");
+  const [drop, setDrop] = useState(defaultDestination || "");
 
   const [date, setDate] = useState(() => {
     const today = new Date();
@@ -35,12 +39,26 @@ export const BookingForm: React.FC<BookingFormProps> = ({
   });
   const [time, setTime] = useState("10:00");
   const [passengers, setPassengers] = useState("2 Passengers");
-  const [vehicleType, setVehicleType] = useState(() => findFleetVehicleTitle(defaultVehicle));
+  const [vehicleType, setVehicleType] = useState(() => {
+    if (defaultVehicle) return findFleetVehicleTitle(defaultVehicle);
+    return mapPassengersToVehicle("2 Passengers");
+  });
   const [quoteRequested, setQuoteRequested] = useState(false);
   const [formError, setFormError] = useState("");
 
+  const handlePassengerChange = (newPassengers: string) => {
+    setPassengers(newPassengers);
+    if (!defaultVehicle) {
+      setVehicleType(mapPassengersToVehicle(newPassengers));
+    }
+  };
+
   const handleWhatsAppBooking = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!customerName.trim() || !customerPhone.trim()) {
+      setFormError("Please enter your name and contact phone number so our team can connect with you.");
+      return;
+    }
     if (!pickup.trim() || !drop.trim()) {
       setFormError("Please enter both pickup and drop destinations.");
       return;
@@ -48,7 +66,9 @@ export const BookingForm: React.FC<BookingFormProps> = ({
     setFormError("");
 
     sendLeadToWebhook({
-      serviceType: "Cab Booking",
+      serviceType: defaultVehicle ? `Fleet Booking (${vehicleType})` : "Cab Booking",
+      name: customerName,
+      phone: customerPhone,
       pickup,
       drop,
       date,
@@ -58,6 +78,8 @@ export const BookingForm: React.FC<BookingFormProps> = ({
     });
 
     const url = buildWhatsAppBookingUrl({
+      name: customerName,
+      phone: customerPhone,
       pickup,
       drop,
       date,
@@ -71,6 +93,10 @@ export const BookingForm: React.FC<BookingFormProps> = ({
 
   const handleGetQuote = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!customerName.trim() || !customerPhone.trim()) {
+      setFormError("Please enter your name and contact phone number to get a personalized quote.");
+      return;
+    }
     if (!pickup.trim() || !drop.trim()) {
       setFormError("Please enter both pickup and drop destinations.");
       return;
@@ -109,6 +135,42 @@ export const BookingForm: React.FC<BookingFormProps> = ({
 
       <form onSubmit={handleWhatsAppBooking} className="space-y-5">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+          {/* Customer Name */}
+          <div className="flex flex-col">
+            <label className="text-xs font-bold uppercase tracking-wider text-[#102A43] mb-2 flex items-center gap-1.5">
+              <User className="w-3.5 h-3.5 text-[#D4AF37]" />
+              <span>Your Name</span>
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                value={customerName}
+                onChange={(e) => setCustomerName(e.target.value)}
+                placeholder="e.g. Rahul Sharma"
+                required
+                className="w-full px-4 py-3 bg-[#FFF9F0]/60 rounded-xl border border-[#0F2D5B]/10 text-sm font-medium text-[#102A43] placeholder:text-[#64748B] focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent transition-all shadow-xs"
+              />
+            </div>
+          </div>
+
+          {/* Customer Phone / WhatsApp */}
+          <div className="flex flex-col">
+            <label className="text-xs font-bold uppercase tracking-wider text-[#102A43] mb-2 flex items-center gap-1.5">
+              <Phone className="w-3.5 h-3.5 text-[#D4AF37]" />
+              <span>Mobile / WhatsApp No.</span>
+            </label>
+            <div className="relative">
+              <input
+                type="tel"
+                value={customerPhone}
+                onChange={(e) => setCustomerPhone(e.target.value)}
+                placeholder="e.g. +91 98765 43210"
+                required
+                className="w-full px-4 py-3 bg-[#FFF9F0]/60 rounded-xl border border-[#0F2D5B]/10 text-sm font-medium text-[#102A43] placeholder:text-[#64748B] focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent transition-all shadow-xs"
+              />
+            </div>
+          </div>
+
           {/* Pickup Location */}
           <div className="flex flex-col">
             <label className="text-xs font-bold uppercase tracking-wider text-[#102A43] mb-2 flex items-center gap-1.5">
@@ -175,7 +237,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({
             />
           </div>
 
-          {/* Passengers (Independent, not mapped to vehicle) */}
+          {/* Passengers */}
           <div className="flex flex-col">
             <label className="text-xs font-bold uppercase tracking-wider text-[#102A43] mb-2 flex items-center gap-1.5">
               <Users className="w-3.5 h-3.5 text-[#D4AF37]" />
@@ -183,53 +245,42 @@ export const BookingForm: React.FC<BookingFormProps> = ({
             </label>
             <select
               value={passengers}
-              onChange={(e) => setPassengers(e.target.value)}
+              onChange={(e) => handlePassengerChange(e.target.value)}
               className="w-full px-4 py-3 bg-[#FFF9F0]/60 rounded-xl border border-[#0F2D5B]/10 text-sm font-medium text-[#102A43] focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent transition-all shadow-xs cursor-pointer"
             >
               <option value="1 Passenger">1 Passenger</option>
               <option value="2 Passengers">2 Passengers</option>
               <option value="3 - 4 Passengers">3 - 4 Passengers</option>
-              <option value="5 - 6 Passengers">5 - 6 Passengers</option>
-              <option value="7 - 8 Passengers">7 - 8 Passengers</option>
-              <option value="9 - 12 Passengers">9 - 12 Passengers</option>
-              <option value="13 - 17 Passengers">13 - 17 Passengers</option>
-              <option value="More than 17 Passengers">More than 17 Passengers</option>
+              <option value="5 - 8 Passengers">5 - 8 Passengers</option>
+              <option value="More than 8">More than 8 Passengers</option>
             </select>
           </div>
 
-          {/* Vehicle Type (Selectable from all 9 fleet vehicles) */}
+          {/* Vehicle Type */}
           <div className="flex flex-col">
             <label className="text-xs font-bold uppercase tracking-wider text-[#102A43] mb-2 flex items-center justify-between">
               <span className="flex items-center gap-1.5">
                 <Car className="w-3.5 h-3.5 text-[#D4AF37]" />
                 <span>Vehicle / Fleet</span>
               </span>
-              <span className="text-[10px] text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                Choose Fleet
-              </span>
+              {defaultVehicle ? (
+                <span className="text-[10px] text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                  Fleet Selected
+                </span>
+              ) : (
+                <span className="text-[10px] text-blue-700 font-bold bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
+                  Auto-Selected
+                </span>
+              )}
             </label>
             <select
               value={vehicleType}
               onChange={(e) => setVehicleType(e.target.value)}
               className="w-full px-4 py-3 bg-[#FFF9F0]/60 rounded-xl border border-[#0F2D5B]/10 text-sm font-bold text-[#102A43] focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent transition-all shadow-xs cursor-pointer"
             >
-              <optgroup label="Sedan Fleet (Up to 4 Passengers)">
-                <option value="Maruti Suzuki Swift Dzire">Maruti Suzuki Swift Dzire</option>
-                <option value="Toyota Etios">Toyota Etios</option>
-                <option value="Hyundai Aura">Hyundai Aura</option>
-              </optgroup>
-              <optgroup label="MPV Fleet (6–7 Passengers)">
-                <option value="Maruti Suzuki Ertiga">Maruti Suzuki Ertiga</option>
-                <option value="Kia Carens">Kia Carens</option>
-              </optgroup>
-              <optgroup label="Premium SUV (6–7 Passengers)">
-                <option value="Toyota Innova Crysta">Toyota Innova Crysta</option>
-                <option value="Toyota Innova Hycross">Toyota Innova Hycross</option>
-              </optgroup>
-              <optgroup label="Luxury Group Vans & Coaches">
-                <option value="Force Tempo Traveller">Force Tempo Traveller (9–25 Seater)</option>
-                <option value="The Force Urbania Luxury">The Force Urbania Luxury (9–17 Seater)</option>
-              </optgroup>
+              <option value="Sedan">Sedan</option>
+              <option value="MPV">MPV</option>
+              <option value="Mini Van">Mini Van</option>
             </select>
           </div>
         </div>
@@ -243,6 +294,9 @@ export const BookingForm: React.FC<BookingFormProps> = ({
                   <CheckCircle2 className="w-4 h-4 text-[#D4AF37]" />
                   <span>Route Verified · Instant Dispatch Available</span>
                 </div>
+                <p className="text-sm text-[#102A43]">
+                  Guest: <span className="font-semibold">{customerName}</span> ({customerPhone})
+                </p>
                 <p className="text-sm text-[#102A43]">
                   Journey: <span className="font-semibold">{pickup}</span> ⟶ <span className="font-semibold">{drop}</span>
                 </p>

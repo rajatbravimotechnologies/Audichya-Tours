@@ -23,11 +23,13 @@ import { FloatingContactWidget } from "./components/ui/FloatingContactWidget";
 
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalVehicle, setModalVehicle] = useState("Toyota Etios");
+  const [modalVehicle, setModalVehicle] = useState("");
   const [modalDestination, setModalDestination] = useState("");
+  const [isSpecificFleetSelection, setIsSpecificFleetSelection] = useState(false);
 
   const handleOpenModal = (vehicle?: string, destination?: string) => {
-    setModalVehicle(vehicle || "Toyota Etios");
+    setIsSpecificFleetSelection(Boolean(vehicle));
+    setModalVehicle(vehicle || "");
     setModalDestination(destination || "");
     setIsModalOpen(true);
   };
@@ -69,6 +71,7 @@ export default function App() {
           onClose={() => setIsModalOpen(false)}
           preselectedVehicle={modalVehicle}
           preselectedDestination={modalDestination}
+          isSpecificFleetSelection={isSpecificFleetSelection}
         />
       </div>
     </BrowserRouter>

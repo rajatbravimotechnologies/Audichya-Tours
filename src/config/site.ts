@@ -135,6 +135,8 @@ export const siteConfig: SiteConfig = {
  * Builds a standardized WhatsApp click-to-chat URL with pre-filled travel details.
  */
 export function buildWhatsAppBookingUrl(params?: {
+  name?: string;
+  phone?: string;
   serviceType?: string;
   pickup?: string;
   drop?: string;
@@ -148,6 +150,8 @@ export function buildWhatsAppBookingUrl(params?: {
   customNotes?: string;
 }): string {
   const {
+    name,
+    phone,
     serviceType,
     pickup,
     drop,
@@ -165,6 +169,12 @@ export function buildWhatsAppBookingUrl(params?: {
     `*खम्मा घणी सा! AUDICHYA TOURS*`,
     `I would like to inquire about ${serviceType ? `*${serviceType}*` : "booking a taxi"}:`,
   ];
+
+  if (name || phone) {
+    textLines.push(``);
+    if (name) textLines.push(`👤 *Guest Name:* ${name}`);
+    if (phone) textLines.push(`📱 *Contact Number:* ${phone}`);
+  }
 
   if (pickup || drop) {
     textLines.push(``);

@@ -62,7 +62,7 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onOpenBooking }) => {
       <GalleryHero />
 
       {/* 2. Category Filter Navigation Bar */}
-      <section className="py-8 bg-[#FFF9F0] border-b border-[#002247]/10 sticky top-16 sm:top-20 z-30 backdrop-blur-md bg-[#FFF9F0]/95 shadow-xs">
+      <section className="py-6 sm:py-8 bg-[#FFF9F0] border-b border-[#002247]/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <GalleryFilterTabs
             activeCategory={activeCategory}

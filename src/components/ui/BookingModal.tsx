@@ -3,6 +3,8 @@ import { siteConfig, buildWhatsAppBookingUrl, sendLeadToWebhook } from "../../co
 import { fleetData } from "../../data/fleet";
 import {
   X,
+  User,
+  Phone,
   MapPin,
   Calendar,
   Users,
@@ -16,7 +18,20 @@ interface BookingModalProps {
   onClose: () => void;
   preselectedVehicle?: string;
   preselectedDestination?: string;
+  isSpecificFleetSelection?: boolean;
 }
+
+// Auto-mapping rule as requested:
+// 1 Passenger -> Sedan
+// 2 Passengers -> Sedan
+// 3 - 4 Passengers -> Sedan
+// 5 - 8 Passengers -> MPV
+// More than 8 -> Mini Van
+export const mapPassengersToVehicle = (pCount: string): string => {
+  if (pCount.includes("5 - 8")) return "MPV";
+  if (pCount.includes("More than 8")) return "Mini Van";
+  return "Sedan";
+};
 
 // Helper to reliably find matching fleet vehicle title from fleetData
 export const findFleetVehicleTitle = (inputName?: string): string => {
@@ -60,12 +75,17 @@ export const findFleetVehicleTitle = (inputName?: string): string => {
 export const BookingModal: React.FC<BookingModalProps> = ({
   isOpen,
   onClose,
-  preselectedVehicle = "Toyota Etios",
+  preselectedVehicle = "",
   preselectedDestination = "",
+  isSpecificFleetSelection = false,
 }) => {
-  // Form Fields
-  const [pickup, setPickup] = useState("Maharana Pratap Airport (UDR)");
-  const [drop, setDrop] = useState(preselectedDestination || "City Palace / Lake Pichola");
+  // Contact details
+  const [customerName, setCustomerName] = useState("");
+  const [customerPhone, setCustomerPhone] = useState("");
+
+  // Journey details
+  const [pickup, setPickup] = useState("");
+  const [drop, setDrop] = useState(preselectedDestination || "");
 
   const getInitialDateTime = () => {
     const now = new Date();
@@ -77,24 +97,46 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
   const [dateTime, setDateTime] = useState(getInitialDateTime);
   const [passengers, setPassengers] = useState("2 Passengers");
-  const [vehicleType, setVehicleType] = useState(() => findFleetVehicleTitle(preselectedVehicle));
+  const [vehicleType, setVehicleType] = useState(() => {
+    if (isSpecificFleetSelection && preselectedVehicle) {
+      return findFleetVehicleTitle(preselectedVehicle);
+    }
+    return mapPassengersToVehicle("2 Passengers");
+  });
   const [error, setError] = useState("");
 
   // Update fields when modal opens or preselected props change
   useEffect(() => {
     if (isOpen) {
-      setPickup("Maharana Pratap Airport (UDR)");
-      if (preselectedDestination) {
-        setDrop(preselectedDestination);
+      // Keep pickup empty by default so customer enters their location
+      setPickup("");
+      // Set drop destination if provided (e.g. tour packages or taxi service destinations) or keep blank
+      setDrop(preselectedDestination || "");
+      if (isSpecificFleetSelection && preselectedVehicle) {
+        setVehicleType(findFleetVehicleTitle(preselectedVehicle));
+      } else {
+        setVehicleType(mapPassengersToVehicle(passengers));
       }
-      setVehicleType(findFleetVehicleTitle(preselectedVehicle));
     }
-  }, [isOpen, preselectedVehicle, preselectedDestination]);
+  }, [isOpen, preselectedVehicle, preselectedDestination, isSpecificFleetSelection]);
 
   if (!isOpen) return null;
 
+  // Handle passenger change with auto-selection of vehicle
+  const handlePassengerChange = (newPassengers: string) => {
+    setPassengers(newPassengers);
+    // If not locked to a specific car from /fleet, automatically set the vehicle based on passenger count
+    if (!isSpecificFleetSelection) {
+      setVehicleType(mapPassengersToVehicle(newPassengers));
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!customerName.trim() || !customerPhone.trim()) {
+      setError("Please provide your name and contact phone number so our team can reach you.");
+      return;
+    }
     if (!pickup.trim() || !drop.trim()) {
       setError("Please fill out both pickup and drop locations.");
       return;
@@ -109,10 +151,15 @@ export const BookingModal: React.FC<BookingModalProps> = ({
       timeStr = parts[1] || "";
     }
 
-    const serviceName = "General Cab Booking";
+    const serviceName = isSpecificFleetSelection
+      ? `Fleet Booking (${vehicleType})`
+      : "General Cab Booking";
 
+    // 1. Send lead asynchronously to Google Sheet + Email (audichyapiyush1401@gmail.com)
     sendLeadToWebhook({
       serviceType: serviceName,
+      name: customerName,
+      phone: customerPhone,
       pickup,
       drop,
       date: dateStr,
@@ -121,8 +168,11 @@ export const BookingModal: React.FC<BookingModalProps> = ({
       vehicleType,
     });
 
+    // 2. Open WhatsApp with complete details including Name & Phone
     const url = buildWhatsAppBookingUrl({
       serviceType: serviceName,
+      name: customerName,
+      phone: customerPhone,
       pickup,
       drop,
       date: dateStr,
@@ -171,6 +221,39 @@ export const BookingModal: React.FC<BookingModalProps> = ({
         )}
 
         <form onSubmit={handleSubmit} className="mt-4 space-y-4 text-left">
+          {/* Customer Name & Mobile Number */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label className="text-xs font-bold uppercase tracking-wider text-[#002247] mb-1 flex items-center gap-1.5">
+                <User className="w-3.5 h-3.5 text-[#007FF0]" />
+                <span>Your Name</span>
+              </label>
+              <input
+                type="text"
+                value={customerName}
+                onChange={(e) => setCustomerName(e.target.value)}
+                required
+                placeholder="e.g. Rahul Sharma"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#007FF0] bg-white text-slate-800 placeholder:text-slate-400"
+              />
+            </div>
+
+            <div>
+              <label className="text-xs font-bold uppercase tracking-wider text-[#002247] mb-1 flex items-center gap-1.5">
+                <Phone className="w-3.5 h-3.5 text-[#25D366]" />
+                <span>Mobile / WhatsApp No.</span>
+              </label>
+              <input
+                type="tel"
+                value={customerPhone}
+                onChange={(e) => setCustomerPhone(e.target.value)}
+                required
+                placeholder="e.g. +91 98765 43210"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#007FF0] bg-white text-slate-800 placeholder:text-slate-400"
+              />
+            </div>
+          </div>
+
           {/* Pickup & Drop Inputs */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
@@ -219,7 +302,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
             />
           </div>
 
-          {/* Passengers & Vehicle (Independently selectable - not mapped) */}
+          {/* Passengers & Auto-Mapped Vehicle */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label className="text-xs font-bold uppercase tracking-wider text-[#002247] mb-1 flex items-center gap-1.5">
@@ -228,17 +311,14 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               </label>
               <select
                 value={passengers}
-                onChange={(e) => setPassengers(e.target.value)}
+                onChange={(e) => handlePassengerChange(e.target.value)}
                 className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#007FF0] bg-white cursor-pointer font-medium text-slate-800"
               >
                 <option value="1 Passenger">1 Passenger</option>
                 <option value="2 Passengers">2 Passengers</option>
                 <option value="3 - 4 Passengers">3 - 4 Passengers</option>
-                <option value="5 - 6 Passengers">5 - 6 Passengers</option>
-                <option value="7 - 8 Passengers">7 - 8 Passengers</option>
-                <option value="9 - 12 Passengers">9 - 12 Passengers</option>
-                <option value="13 - 17 Passengers">13 - 17 Passengers</option>
-                <option value="More than 17 Passengers">More than 17 Passengers</option>
+                <option value="5 - 8 Passengers">5 - 8 Passengers</option>
+                <option value="More than 8">More than 8</option>
               </select>
             </div>
 
@@ -248,34 +328,55 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                   <Car className="w-3.5 h-3.5 text-[#007FF0]" />
                   <span>Vehicle / Fleet</span>
                 </span>
-                <span className="text-[10px] text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                  Select Fleet
-                </span>
+                {isSpecificFleetSelection ? (
+                  <span className="text-[10px] text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                    Fleet Selection
+                  </span>
+                ) : (
+                  <span className="text-[10px] text-blue-700 font-bold bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
+                    Auto-Selected
+                  </span>
+                )}
               </label>
               <div className="relative">
-                <select
-                  value={vehicleType}
-                  onChange={(e) => setVehicleType(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#007FF0] bg-white cursor-pointer font-bold text-[#002247]"
-                >
-                  <optgroup label="Sedan Fleet (Up to 4 Passengers)">
-                    <option value="Maruti Suzuki Swift Dzire">Maruti Suzuki Swift Dzire</option>
-                    <option value="Toyota Etios">Toyota Etios</option>
-                    <option value="Hyundai Aura">Hyundai Aura</option>
-                  </optgroup>
-                  <optgroup label="MPV Fleet (6–7 Passengers)">
-                    <option value="Maruti Suzuki Ertiga">Maruti Suzuki Ertiga</option>
-                    <option value="Kia Carens">Kia Carens</option>
-                  </optgroup>
-                  <optgroup label="Premium SUV (6–7 Passengers)">
-                    <option value="Toyota Innova Crysta">Toyota Innova Crysta</option>
-                    <option value="Toyota Innova Hycross">Toyota Innova Hycross</option>
-                  </optgroup>
-                  <optgroup label="Luxury Group Vans & Coaches">
-                    <option value="Force Tempo Traveller">Force Tempo Traveller (9–25 Seater)</option>
-                    <option value="The Force Urbania Luxury">The Force Urbania Luxury (9–17 Seater)</option>
-                  </optgroup>
-                </select>
+                {isSpecificFleetSelection ? (
+                  /* Specific Fleet Selection (Triggered from /fleet page) */
+                  <select
+                    value={vehicleType}
+                    onChange={(e) => setVehicleType(e.target.value)}
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#007FF0] bg-white cursor-pointer font-bold text-[#002247]"
+                  >
+                    <optgroup label="Sedan Fleet (Up to 4 Passengers)">
+                      <option value="Maruti Suzuki Swift Dzire">Maruti Suzuki Swift Dzire</option>
+                      <option value="Toyota Etios">Toyota Etios</option>
+                      <option value="Hyundai Aura">Hyundai Aura</option>
+                    </optgroup>
+                    <optgroup label="MPV Fleet (6–7 Passengers)">
+                      <option value="Maruti Suzuki Ertiga">Maruti Suzuki Ertiga</option>
+                      <option value="Kia Carens">Kia Carens</option>
+                    </optgroup>
+                    <optgroup label="Premium SUV (6–7 Passengers)">
+                      <option value="Toyota Innova Crysta">Toyota Innova Crysta</option>
+                      <option value="Toyota Innova Hycross">Toyota Innova Hycross</option>
+                      <option value="Toyota Fortuner">Toyota Fortuner</option>
+                    </optgroup>
+                    <optgroup label="Luxury Group Vans & Coaches">
+                      <option value="The Force Urbania Luxury">The Force Urbania Luxury (9–17 Seater)</option>
+                      <option value="Force Tempo Traveller">Force Tempo Traveller (9–25 Seater)</option>
+                    </optgroup>
+                  </select>
+                ) : (
+                  /* General Form Auto-Mapped Vehicle Selection */
+                  <select
+                    value={vehicleType}
+                    onChange={(e) => setVehicleType(e.target.value)}
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#007FF0] bg-white cursor-pointer font-bold text-[#002247]"
+                  >
+                    <option value="Sedan">Sedan</option>
+                    <option value="MPV">MPV</option>
+                    <option value="Mini Van">Mini Van</option>
+                  </select>
+                )}
               </div>
             </div>
           </div>
