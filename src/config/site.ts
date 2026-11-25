@@ -72,7 +72,7 @@ export const siteConfig: SiteConfig = {
     rawPhone: "919772771118",
     whatsappNumber: "919772771118",
     whatsappDisplay: "+91 97727 71118",
-    email: "Audichyatours@gmail.com",
+    email: "audichyapiyush1401@gmail.com",
     address: "50, Jai Shree Vihar, Udaipur, Rajasthan, India, 313001",
     workingHours: "24/7 Taxi Services & Tour Assistance",
   },
@@ -206,9 +206,13 @@ export function buildWhatsAppBookingUrl(params?: {
 
 /**
  * Sends booking lead details asynchronously to Google Sheets Apps Script Webhook.
+ * It writes the lead to an Excel/Google Sheet and sends an email notification to audichyapiyush1401@gmail.com.
  */
 export async function sendLeadToWebhook(params: {
   serviceType?: string;
+  name?: string;
+  phone?: string;
+  email?: string;
   pickup?: string;
   drop?: string;
   date?: string;
@@ -220,17 +224,18 @@ export async function sendLeadToWebhook(params: {
 }): Promise<void> {
   const webhookUrl =
     (import.meta.env.VITE_APP_SCRIPT_URL as string) ||
-    "https://script.google.com/macros/s/AKfycby9DtaihMgH3S3OIvdRW0R_fyElDvW89RWJEogz3qZr-RdROGpAbEvVHtWtuLDeVnJytA/exec";
+    "https://script.google.com/macros/s/AKfycbx7_47Cp1Tdpvz75zELr6eBj0dGlh5qeTqSTtkblZZF6uAIZiwJzmnLvW4nriHVINgO/exec";
 
   if (!webhookUrl) return;
 
   try {
     const payload = {
       ...params,
+      recipientEmail: "audichyapiyush1401@gmail.com",
       submittedAt: new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }),
     };
 
-    // Use keepalive: true so opening WhatsApp in another tab doesn't cancel this background request
+    // Use keepalive: true so opening WhatsApp or navigating doesn't cancel this background request
     await fetch(webhookUrl, {
       method: "POST",
       mode: "no-cors",
@@ -243,4 +248,38 @@ export async function sendLeadToWebhook(params: {
   } catch (error) {
     console.error("Background lead logging notice:", error);
   }
+}
+
+/**
+ * Convenience helper to track lead into Excel/Sheets + Email, then immediately open WhatsApp
+ */
+export function trackAndOpenWhatsApp(params: {
+  serviceType?: string;
+  name?: string;
+  phone?: string;
+  email?: string;
+  pickup?: string;
+  drop?: string;
+  date?: string;
+  time?: string;
+  passengers?: string;
+  vehicleType?: string;
+  flightOrTrainNo?: string;
+  customNotes?: string;
+}) {
+  sendLeadToWebhook(params);
+
+  const url = buildWhatsAppBookingUrl({
+    serviceType: params.serviceType,
+    pickupLocation: params.pickup,
+    dropLocation: params.drop,
+    travelDate: params.date,
+    travelTime: params.time,
+    passengerCount: params.passengers,
+    vehicleType: params.vehicleType,
+    flightOrTrainNo: params.flightOrTrainNo,
+    customNotes: params.customNotes,
+  });
+
+  window.open(url, "_blank", "noopener,noreferrer");
 }

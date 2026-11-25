@@ -25,6 +25,8 @@ export const CustomTourEnquiryForm: React.FC = () => {
 
     sendLeadToWebhook({
       serviceType: "Custom Rajasthan Tour Plan",
+      name: fullName,
+      phone: phone,
       pickup: "Rajasthan Tour Consultation",
       drop: preferredDestinations,
       date: startDate,

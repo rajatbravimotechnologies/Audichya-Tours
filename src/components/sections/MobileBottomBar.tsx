@@ -1,5 +1,5 @@
 import React from "react";
-import { siteConfig, buildWhatsAppBookingUrl } from "../../config/site";
+import { siteConfig, trackAndOpenWhatsApp } from "../../config/site";
 import { Phone, Calendar } from "lucide-react";
 import { WhatsAppIcon } from "../ui/WhatsAppIcon";
 
@@ -9,10 +9,10 @@ interface MobileBottomBarProps {
 
 export const MobileBottomBar: React.FC<MobileBottomBarProps> = ({ onOpenBooking }) => {
   const handleWhatsApp = () => {
-    const url = buildWhatsAppBookingUrl({
+    trackAndOpenWhatsApp({
+      serviceType: "Mobile Bottom Bar - WhatsApp Quick Booking",
       customNotes: "Quick booking request from mobile website.",
     });
-    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   return (

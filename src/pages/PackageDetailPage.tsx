@@ -18,7 +18,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { tourPackagesData } from "../data/tourPackages";
-import { siteConfig, buildWhatsAppBookingUrl } from "../config/site";
+import { siteConfig, buildWhatsAppBookingUrl, trackAndOpenWhatsApp } from "../config/site";
 import { fleetData } from "../data/fleet";
 import { CinematicFinalCTA } from "../components/sections/CinematicFinalCTA";
 
@@ -66,12 +66,11 @@ export const PackageDetailPage: React.FC<PackageDetailPageProps> = ({ onOpenBook
   );
 
   const handleWhatsAppEnquiry = () => {
-    const url = buildWhatsAppBookingUrl({
-      serviceType: tour.title,
+    trackAndOpenWhatsApp({
+      serviceType: `Tour Package: ${tour.title}`,
       drop: tour.destinationsCovered.join(", "),
       customNotes: `Namaste Audichya Tours, I am interested in inquiring about the "${tour.title}" (${tour.duration}). Please share customized itinerary details and vehicle options.`,
     });
-    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   return (

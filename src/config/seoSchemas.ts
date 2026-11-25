@@ -14,7 +14,7 @@ export const getLocalBusinessSchema = () => ({
   "logo": `${BASE_URL}/logo.png`,
   "image": `${BASE_URL}/images/Udaipur Sunset by the Lake.png`,
   "telephone": "+91-9772771118",
-  "email": "Audichyatours@gmail.com",
+  "email": "audichyapiyush1401@gmail.com",
   "priceRange": "$$",
   "currenciesAccepted": "INR",
   "paymentAccepted": "Cash, UPI, Bank Transfer",

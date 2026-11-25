@@ -2,7 +2,7 @@ import React from "react";
 import { ArrowRight, Compass, ChevronDown } from "lucide-react";
 import { WhatsAppIcon } from "../ui/WhatsAppIcon";
 import { motion, useScroll, useTransform } from "motion/react";
-import { buildWhatsAppBookingUrl } from "../../config/site";
+import { buildWhatsAppBookingUrl, trackAndOpenWhatsApp } from "../../config/site";
 
 interface CinematicHeroProps {
   onOpenBooking: () => void;
@@ -14,12 +14,12 @@ export const CinematicHero: React.FC<CinematicHeroProps> = ({
   onExploreFleetClick,
 }) => {
   const handleWhatsApp = () => {
-    const url = buildWhatsAppBookingUrl({
-      serviceType: "General Rajasthan Tour Inquiry",
-      pickupLocation: "Udaipur",
-      dropLocation: "Rajasthan Tour",
+    trackAndOpenWhatsApp({
+      serviceType: "Hero Section - General Rajasthan Tour Inquiry",
+      pickup: "Udaipur",
+      drop: "Rajasthan Tour",
+      customNotes: "Inquiry initiated from Hero Section CTA",
     });
-    window.open(url, "_blank");
   };
 
   // Smooth scroll progress binding for transition

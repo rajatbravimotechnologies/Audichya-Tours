@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { siteConfig, buildWhatsAppBookingUrl } from "../../config/site";
+import { siteConfig, buildWhatsAppBookingUrl, trackAndOpenWhatsApp } from "../../config/site";
 import { ArrowRight, MessageCircle, Phone, Shield, Compass, MapPin, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface CinematicFinalCTAProps {
@@ -91,10 +91,12 @@ export const CinematicFinalCTA: React.FC<CinematicFinalCTAProps> = ({ onOpenBook
   };
 
   const handleWhatsAppClick = () => {
-    const url = buildWhatsAppBookingUrl({
+    trackAndOpenWhatsApp({
+      serviceType: "Final CTA - General Inquiry",
+      pickup: "Udaipur",
+      drop: currentPlace?.title || "Rajasthan Tour",
       customNotes: "Hello! I am ready to book my Udaipur taxi journey.",
     });
-    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   const handleExploreFleet = () => {
